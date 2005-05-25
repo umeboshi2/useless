@@ -4,8 +4,8 @@ from xml.dom.ext import PrettyPrint
 from xml.dom.minidom import parse as parse_file
 from xml.dom.minidom import parseString as parse_string
 
-from paella.base import Error, debug
-from paella.base.util import strfile
+from useless.base import Error, debug
+from useless.base.util import strfile
 
 
 #class Element(_Element):
@@ -150,9 +150,9 @@ class ParserHelper(object):
             
         
 if __name__ == '__main__':
-    from paella.base.config import Configuration
-    from paella.db.lowlevel import QuickConn
-    from paella.db.midlevel import TableDict
+    from useless.base.config import Configuration
+    from useless.db.lowlevel import QuickConn
+    from useless.db.midlevel import TableDict
     conn = QuickConn(g)
     e = TableDict(conn, 'woody_variables')
     

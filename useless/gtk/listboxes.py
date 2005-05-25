@@ -5,7 +5,7 @@ from gtk import DEST_DEFAULT_HIGHLIGHT
 from gtk import DEST_DEFAULT_DROP
 from gtk.gdk import ACTION_COPY, ACTION_MOVE
 
-from paella.base.objects import DbRowDescription, DbBaseRow
+from useless.base.objects import DbRowDescription, DbBaseRow
 
 
 def listbox_rightclick_select(*args):

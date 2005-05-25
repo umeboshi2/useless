@@ -6,7 +6,7 @@ from md5 import md5
 
 import pycurl
 
-from paella.base import debug, Error
+from useless.base import debug, Error
 
 from defaults import BLOCK_SIZE
 

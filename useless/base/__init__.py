@@ -22,7 +22,8 @@ def Log(name, path, format=''):
 def SysLog(name):
     return _Log(name)
 
-syslog = SysLog('paella-system')
+if os.environ.has_key('DEBUG'):
+    syslog = SysLog('rename this to something else')
 
 
 def debug(*something):
