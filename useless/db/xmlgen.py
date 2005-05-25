@@ -34,6 +34,6 @@ def backup_database(conn, path):
 
 
 if __name__ == '__main__':
-    from paella.db.lowlevel import LocalConnection
-    conn = LocalConnection('repos_db')
-    s = StatementCursor(conn)
+    #from paella.db.lowlevel import LocalConnection
+    #conn = LocalConnection('repos_db')
+    #s = StatementCursor(conn)

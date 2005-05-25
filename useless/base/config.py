@@ -1,7 +1,7 @@
 from ConfigParser import SafeConfigParser, NoSectionError
 import os, os.path
 
-from paella.base import Error
+from base import Error
 
 
 
@@ -11,12 +11,8 @@ def list_rcfiles(rcfilename):
     return rcfiles
 
 
-rcfilename = 'paellarc'
-rcfiles = list_rcfiles(rcfilename)
-
-
 class Configure(SafeConfigParser):
-    def __init__(self, files=rcfiles):
+    def __init__(self, files=[]):
         SafeConfigParser.__init__(self)
         self.read(files)
 

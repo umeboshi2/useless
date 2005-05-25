@@ -99,11 +99,5 @@ def get_relations(cursor):
 
 
 if __name__ == '__main__':
-    from paella.profile.base import PaellaConnection
-    from paella.db.midlevel import StatementCursor
-    conn = PaellaConnection()
-    s = StatementCursor(conn)
+    pass
 
-    def get_tables():
-        s.execute(get_relations_dt())
-        return s.fetchall()

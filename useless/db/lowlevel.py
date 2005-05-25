@@ -6,10 +6,10 @@ from pyPgSQL.libpq import IntegrityError, OperationalError
 from sqlite.main import Connection as Connection_lite
 from sqlite.main import Cursor as Cursor_lite
 
-from paella.base import Error, debug
-from paella.base.util import Pkdictrows
-from paella.sqlgen.select import complex_select as select
-from paella.sqlgen.write import insert, delete, update
+from useless.base import Error, debug
+from useless.base.util import Pkdictrows
+from useless.sqlgen.select import complex_select as select
+from useless.sqlgen.write import insert, delete, update
 
 
 tquery_lite = "SELECT name from sqlite_master where type='table'"

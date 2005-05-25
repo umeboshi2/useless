@@ -4,7 +4,7 @@ import os, os.path
 from HTMLgen import StringTemplate
 
 
-from paella.classes.config import Configuration
+from useless.classes.config import Configuration
 
 
 from gtk import DEST_DEFAULT_MOTION

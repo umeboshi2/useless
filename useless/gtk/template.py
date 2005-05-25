@@ -1,14 +1,14 @@
 import os
 from os.path import join, dirname, isfile
 
-from paella.base import Error, debug
-from paella.base.defaults import DELIMITERS
-from paella.base.template import Template
-from paella.base.util import ujoin
+from useless.base import Error, debug
+from useless.base.defaults import DELIMITERS
+from useless.base.template import Template
+from useless.base.util import ujoin
 
-from paella.gtk.simple import TextScroll
-from paella.gtk.helpers import get_buffer_text, HasDialogs
-from paella.gtk import dialogs
+from useless.gtk.simple import TextScroll
+from useless.gtk.helpers import get_buffer_text, HasDialogs
+from useless.gtk import dialogs
 
 from gtk import MenuItem, FileSelection
 from gtk import TRUE, FALSE, mainquit, mainloop

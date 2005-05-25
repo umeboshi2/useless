@@ -4,8 +4,8 @@ from gtk import Dialog, Notebook, VPaned
 from gtk import TRUE, FALSE
 from gtk.gdk import BUTTON_PRESS_MASK
 
-from paella.base import Error
-from paella.base.util import indexed_items
+from useless.base import Error
+from useless.base.util import indexed_items
 from listboxes import ListBox
 from helpers import HasListbox, HasRecordBox, HasDialogs
 from simple import TextScroll, ItemButton, SimpleMenu, HandleToolbar
@@ -279,9 +279,9 @@ class TwinScrollCList(HPaned):
         self.show()
         
 if __name__ == '__main__':
-    import paella.gtk
+    import useless.gtk
     from gtk import mainloop, mainquit
-    from paella.base.util import file2str
+    from useless.base.util import file2str
     from gtk import Window
     tt = TextTemplater(file2str('/etc/debconf.conf'))
     win = Window()

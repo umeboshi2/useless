@@ -1,11 +1,11 @@
 from pyPgSQL.libpq import PgQuoteString as quote
 from pyPgSQL.libpq import OperationalError
 
-from paella.base import Error, debug, NoExistError
-from paella.base.util import ujoin
-from paella.sqlgen.statement import Statement
-from paella.sqlgen.classes import Table, Sequence
-from paella.sqlgen.defaults import ActionIdentifier, LogTable, ActionTrigger
+from useless.base import Error, debug, NoExistError
+from useless.base.util import ujoin
+from useless.sqlgen.statement import Statement
+from useless.sqlgen.classes import Table, Sequence
+from useless.sqlgen.defaults import ActionIdentifier, LogTable, ActionTrigger
 
 from lowlevel import CommandCursor
 from midlevel import StatementCursor
@@ -43,8 +43,8 @@ class MainCursor(StatementCursor):
     
 
 if __name__ == '__main__':
-    from paella.profile.base import PaellaConnection
-    conn = PaellaConnection()
-    c = MainCursor(conn)
+    #from paella.profile.base import PaellaConnection
+    #conn = PaellaConnection()
+    #c = MainCursor(conn)
     
     

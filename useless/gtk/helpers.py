@@ -9,7 +9,7 @@ from gtk.gdk import BUTTON2_MASK, BUTTON3_MASK
 
 from gtk import MenuItem, AccelGroup
 
-from paella.base import debug, Error
+from useless.base import debug, Error
 
 from base import right_click_pressed
 from listboxes import ListBox

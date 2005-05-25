@@ -7,9 +7,9 @@ from Queue import Queue, Full, Empty
 
 import pycurl
 
-from paella.base import Error
-from paella.base.util import blank_list, ujoin
-from paella.base.util import makepaths
+from useless.base import Error
+from useless.base.util import blank_list, ujoin
+from useless.base.util import makepaths
 
 def hide(string):
     return '__%s__' % string

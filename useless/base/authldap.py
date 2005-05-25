@@ -252,14 +252,4 @@ if __name__ == '__main__':
     base = 'dc=frobozz,dc=gue'
     l = MainLdif('frobozz.gue', 'admin', 'nss', 'moffice', 'peeple', 'gruups')
     
-    from paella.profile.base import PaellaConnection
-    from paella.profile.profile import TraitParent
-    conn = PaellaConnection()
-    tp = TraitParent(conn, 'sarge')
-    tp.set_trait('ldap_common')
-    tenv = tp.Environment()
-    keys = ['basedn', 'admin', 'nss', 'admin_base', 'adminpw', 'nsspw']
-    env = dict([(k, tenv['ldap_common_%s' % k]) for k in keys])
-    env['domain'] = 'frobozz.gue'
-    env['homepath'] = '/freespace/nfsroot/dless/home'
-    d = make_main_ldif(env)
+    

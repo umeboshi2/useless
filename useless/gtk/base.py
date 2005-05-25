@@ -1,5 +1,5 @@
 from os.path import dirname
-from paella.base.util import makepaths
+from useless.base.util import makepaths
 
 from gtk import FileSelection
 from gtk import DEST_DEFAULT_MOTION

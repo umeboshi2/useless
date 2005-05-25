@@ -1,8 +1,8 @@
-from paella.base.objects import DownloadThread
-from paella.base.objects import DlWorker, DownloadQueue
+from useless.base.objects import DownloadThread
+from useless.base.objects import DlWorker, DownloadQueue
 
-from paella.gtk import dialogs
-from paella.gtk.windows import MenuWindow
+from useless.gtk import dialogs
+from useless.gtk.windows import MenuWindow
 
 import pycurl
 

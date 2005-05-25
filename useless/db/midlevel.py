@@ -3,10 +3,10 @@ from operator import and_
 from pyPgSQL.libpq import PgQuoteString as quote
 from pyPgSQL.libpq import OperationalError
 
-from paella.base import Error, debug, NoExistError
-from paella.base.util import ujoin
-from paella.sqlgen.statement import Statement
-from paella.sqlgen.clause import Eq
+from useless.base import Error, debug, NoExistError
+from useless.base.util import ujoin
+from useless.sqlgen.statement import Statement
+from useless.sqlgen.clause import Eq
 
 from lowlevel import CommandCursor
 

@@ -9,7 +9,7 @@ from gtk import ORIENTATION_VERTICAL
 from gtk import TOOLBAR_CHILD_BUTTON
 from gtk import HandleBox, Toolbar, ProgressBar
 
-from paella.base import debug, Error
+from useless.base import debug, Error
 
 a_font = "-adobe-helvetica-medium-r-*-*-*-100-*-*-*-*-iso8859-1"
 

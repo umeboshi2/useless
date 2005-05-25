@@ -1,6 +1,6 @@
 import os
 
-from paella.base import Error
+from useless.base import Error
 from classes import cj_fields
 
 def _change_access(type, privilege, tables, user):

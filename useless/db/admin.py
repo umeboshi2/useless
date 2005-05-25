@@ -3,12 +3,12 @@ from os.path import join, isdir, isfile
 
 from pyPgSQL.libpq import PgQuoteString as quote
 
-from paella.base import Error, debug
-from paella.base.config import Configuration
-from paella.base.util import makepaths
-from paella.base.objects import Parser
+from useless.base import Error, debug
+from useless.base.config import Configuration
+from useless.base.util import makepaths
+from useless.base.objects import Parser
 
-from paella.sqlgen.statement import Statement
+from useless.sqlgen.statement import Statement
 
 from lowlevel import QuickConn
 from midlevel import StatementCursor
@@ -75,7 +75,7 @@ class AdminConnection(object):
         
 
 if __name__ == '__main__':
-    g = Configuration(files=['/etc/paellarc'])
-    ac = AdminConnection(g, 'paella')
+    #g = Configuration(files=['/etc/paellarc'])
+    #ac = AdminConnection(g, 'paella')
     #ac.set_path('/home/umeboshi/workspace/dbackup')
-    table = 'current_environment'
+    #table = 'current_environment'
