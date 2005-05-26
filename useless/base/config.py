@@ -1,7 +1,7 @@
 from ConfigParser import SafeConfigParser, NoSectionError
 import os, os.path
 
-from base import Error
+from useless.base import Error
 
 
 
