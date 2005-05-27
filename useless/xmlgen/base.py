@@ -12,10 +12,15 @@ class BaseElement(Element):
 class TextElement(BaseElement):
     def __init__(self, name, data, **atts):
         BaseElement.__init__(self, name, **atts)
+        self.insertData(data)
+        
+    def insertData(self, data, insertbr=True):
+        while self.hasChildNodes():
+            del self.childNodes[0]
         elementd = Text()
         if type(data) == str:
             lines = data.split('\n')
-            if len(lines) > 1:
+            if len(lines) > 1 and insertbr:
                 for line in lines:
                     e = Text()
                     e.data = line
@@ -118,9 +123,9 @@ class TD(BaseElement):
     def __init__(self, **atts):
         BaseElement.__init__(self, 'td', **atts)
 
-class Paragraph(BaseElement):
-    def __init__(self, **atts):
-        BaseElement.__init__(self, 'p', **atts)
+class Paragraph(TextElement):
+    def __init__(self, data='', **atts):
+        TextElement.__init__(self, 'p', data, **atts)
 
 class SimpleTitleElement(BaseElement):
     def __init__(self, title, **attributes):

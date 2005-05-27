@@ -17,7 +17,7 @@ setup(name='useless-'+package,
       description = 'useless packages and modules for basic stuff',
       author='Joseph Rawson',
       author_email='umeboshi@gregscomputerservice.com',
-      package_dir = {'' : 'src'},
+      package_dir = {'' : '.'},
       packages = packages
       )
 

@@ -74,14 +74,6 @@ install-indep:
 	# Add here commands to install the indep part of the package into
 	# debian/<package>-doc.
 	#INSTALLDOC#
-	python setup.py base install --prefix=$(CURDIR)/debian/useless-base/usr
-	rm -r build/
-	python setup.py db install --prefix=$(CURDIR)/debian/useless-db/usr
-	rm -r build/
-	python setup.py gtk install --prefix=$(CURDIR)/debian/useless-gtk/usr
-	rm -r build/
-	python setup.py sqlgen install --prefix=$(CURDIR)/debian/useless-sqlgen/usr
-	rm -r build/	
 	dh_install -i
 
 install-arch:
@@ -92,7 +84,15 @@ install-arch:
 
 	# Add here commands to install the arch part of the package into 
 	# debian/tmp.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/useless
+	#$(MAKE) install DESTDIR=$(CURDIR)/debian/useless
+	python setup.py base install --prefix=$(CURDIR)/debian/useless-base/usr
+	rm -r build/
+	python setup.py db install --prefix=$(CURDIR)/debian/useless-db/usr
+	rm -r build/
+	python setup.py gtk install --prefix=$(CURDIR)/debian/useless-gtk/usr
+	rm -r build/
+	python setup.py sqlgen install --prefix=$(CURDIR)/debian/useless-sqlgen/usr
+	rm -r build/	
 
 	dh_install -s
 # Must not depend on anything. This is to be called by
@@ -128,7 +128,7 @@ binary-common:
 	dh_builddeb
 # Build architecture independant packages using the common target.
 binary-indep: build-indep install-indep
-	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
+	#$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
 
 # Build architecture dependant packages using the common target.
 binary-arch: build-arch install-arch
