@@ -93,6 +93,12 @@ install-arch:
 	rm -r build/
 	python setup.py sqlgen install --prefix=$(CURDIR)/debian/useless-sqlgen/usr
 	rm -r build/	
+	python setup.py xmlgen install --prefix=$(CURDIR)/debian/useless-xmlgen/usr
+	rm -r build/
+	python setup.py kbase install --prefix=$(CURDIR)/debian/useless-kbase/usr
+	rm -r build/
+	python setup.py kdb install --prefix=$(CURDIR)/debian/useless-kdb/usr
+	rm -r build/
 
 	dh_install -s
 # Must not depend on anything. This is to be called by

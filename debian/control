@@ -57,6 +57,34 @@ Description: sql statement helper
  from it.  A pure python replacement function would be required to drop that
  dependency.
 
+Package: useless-xmlgen
+Section: python
+Priority: optional
+Architecture: any
+Depends: useless-base
+Description: useless xml generation objects
+	these are subclasses of xml.dom.minidom Elements
+	and nodes.
+
+Package: useless-kbase
+Section: python
+Priority: optional
+Architecture: any
+Depends: useless-base, useless-xmlgen, python-qtext
+Description: useless kde widgets
+	these are simple modules for simple application development.  This
+	code is young, and probably really useless.
+
+Package: useless-kdb
+Section: python
+Priority: optional
+Architecture: any
+Depends: useless-kbase, useless-db
+Description: useless kde database widgets
+	these are some very simple hacky db widgets for pykde.  if you are
+	interested in this, you can probably find something better somewhere
+	else.
+
 Package: useless-doc
 Architecture: all
 Description: Documentation for useless
