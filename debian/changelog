@@ -1,3 +1,9 @@
+useless (0.1-2) common; urgency=low
+
+  * moving to common
+
+ -- Joseph Rawson <umeboshi@bard>  Tue, 14 Jun 2005 10:43:28 -0500
+
 useless (0.1-1) unstable; urgency=low
 
   * Initial release Closes: #nnnn  (nnnn is the bug number of your ITP)

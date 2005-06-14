@@ -72,10 +72,3 @@ class AdminConnection(object):
         map(self.copyto, self.cursor.tables())
 
         
-        
-
-if __name__ == '__main__':
-    #g = Configuration(files=['/etc/paellarc'])
-    #ac = AdminConnection(g, 'paella')
-    #ac.set_path('/home/umeboshi/workspace/dbackup')
-    #table = 'current_environment'
