@@ -35,16 +35,3 @@ class MainCursor(StatementCursor):
             StatementCursor.create_table(self, logtable)
             self.create_trigger(ActionTrigger(table.name))
 
-    
-            
-    
-
-        
-    
-
-if __name__ == '__main__':
-    #from paella.profile.base import PaellaConnection
-    #conn = PaellaConnection()
-    #c = MainCursor(conn)
-    
-    
