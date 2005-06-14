@@ -32,8 +32,3 @@ def backup_database(conn, path):
     element = Element('xml_database')
     cursor = StatementCursor(conn, 'backup_database')
 
-
-if __name__ == '__main__':
-    #from paella.db.lowlevel import LocalConnection
-    #conn = LocalConnection('repos_db')
-    #s = StatementCursor(conn)

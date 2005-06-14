@@ -65,7 +65,7 @@ class Join(object):
         self.outer = outer
 
 
-def simple_select(table, columns=None, clause=None):
+def simple_select(table=None, columns=None, clause=None):
     if columns is not None:
         if type(columns) != str:
             cols = cj_fields(list(columns))
@@ -73,8 +73,10 @@ def simple_select(table, columns=None, clause=None):
             cols = columns
     else:
         cols = '*'
-    sel = 'select %s from %s' %(cols, table)
-    if clause:
+    sel = 'select %s' % cols
+    if table is not None:
+        sel += ' from %s' % table
+    if clause is not None:
         sel += ' where %s' % clause
     return sel
 
