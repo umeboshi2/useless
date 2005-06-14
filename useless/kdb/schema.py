@@ -1,9 +1,9 @@
-from kommon.sqlgen.classes import Table, Sequence, ColumnType, Column
-from kommon.sqlgen.defaults import Pk, Text, DefaultNamed, Bool, PkNum
-from kommon.sqlgen.defaults import PkBigname, Bigname, Name, Num, PkName
-from kommon.sqlgen.defaults import DateTime
-from kommon.sqlgen.statement import Statement
-from kommon.sqlgen.admin import grant_public, grant_group
+from useless.sqlgen.classes import Table, Sequence, ColumnType, Column
+from useless.sqlgen.defaults import Pk, Text, DefaultNamed, Bool, PkNum
+from useless.sqlgen.defaults import PkBigname, Bigname, Name, Num, PkName
+from useless.sqlgen.defaults import DateTime
+from useless.sqlgen.statement import Statement
+from useless.sqlgen.admin import grant_public, grant_group
 
 
 ZipName = ColumnType('varchar', 5)
@@ -205,23 +205,3 @@ def create_schema(cursor, group):
     execute(grant_group('UPDATE', [t().name for t in insup], group))
     
     
-    
-if __name__ == '__main__':
-    import os
-    from kommon.base.config import Config
-    from kommon.db.lowlevel import BasicConnection
-    from kommon.db.midlevel import StatementCursor
-    from kommon.base.config import BaseConfig
-    from kommon.db import BaseDatabase
-    cfg = Configuration('database', os.path.expanduser('~/.kde/share/config/konsultantrc'))
-    dbname = cfg['dbname']
-    dbhost = cfg['dbhost']
-    dbuser = cfg['dbuser']
-    conn = BasicConnection(dbuser, dbhost, dbname)
-    #fg = BaseConfig()
-    #b = BaseDatabase( cfg , 'schema maker')
-    c = StatementCursor(conn)
-    if not len(c.tables()):
-        create_schema(c)
-        conn.commit()
-

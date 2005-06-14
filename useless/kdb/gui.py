@@ -12,11 +12,11 @@ from kdeui import KListView, KStdGuiItem
 from kdeui import KPushButton, KStatusBar
 from kdeui import KColorButton
 
-from kommon.base import NoExistError
-from kommon.sqlgen.clause import Eq, In
+from useless.base import NoExistError
+from useless.sqlgen.clause import Eq, In
 
-from kommon.base.gui import MainWindow, MimeSources
-from kommon.base.gui import SimpleRecord, SimpleRecordDialog
+from useless.kbase.gui import MainWindow, MimeSources
+from useless.kbase.gui import SimpleRecord, SimpleRecordDialog
 
 class SimpleWindow(MainWindow):
     def __init__(self, app, parent, name):

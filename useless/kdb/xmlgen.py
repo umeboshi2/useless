@@ -1,14 +1,14 @@
 #from operator import and_
 from xml.dom.minidom import Element, Text
 
-from kommon.base import NoExistError
-from kommon.sqlgen.clause import Eq, In
+from useless.base import NoExistError
+from useless.sqlgen.clause import Eq, In
 
-from kommon.base.xmlgen import Html, Body, Anchor
-from kommon.base.xmlgen import BR, HR, Bold
-from kommon.base.xmlgen import TR, TD
-from kommon.base.xmlgen import TableElement
-from kommon.base.xmlgen import BaseElement, TextElement
+from useless.xmlgen.base import Html, Body, Anchor
+from useless.xmlgen.base import BR, HR, Bold
+from useless.xmlgen.base import TR, TD
+from useless.xmlgen.base import TableElement
+from useless.xmlgen.base import BaseElement, TextElement
 
 
 #db is BaseDatabase from konsultant.db

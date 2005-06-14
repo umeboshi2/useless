@@ -7,13 +7,13 @@ from kdeui import KListViewItem
 from kdeui import KListView
 
 
-from kommon.base.actions import AddDbUser, AddDbGroup
-from kommon.base.actions import AddDbSchema
-from kommon.sqlgen.clause import Eq, In
-from kommon.sqlgen.admin import create_user, create_schema
-from kommon.db import schema as kschema
-from kommon.pdb.midlevel import StatementCursor
-from kommon.base.gui import SimpleRecordDialog
+from useless.kbase.actions import AddDbUser, AddDbGroup
+from useless.kbase.actions import AddDbSchema
+from useless.sqlgen.clause import Eq, In
+from useless.sqlgen.admin import create_user, create_schema
+from useless.kdb import schema as kschema
+from useless.db.midlevel import StatementCursor
+from useless.kbase.gui import SimpleRecordDialog
 
 class AdminDb(object):
     def __init__(self, app):
