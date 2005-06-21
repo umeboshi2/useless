@@ -246,7 +246,7 @@ class RecordView(ViewBrowser):
         self.setText(self.doc.toxml())
 
     def setSource(self, url):
-        print url, 'ur;l'
+        print url, 'url'
         action, context, id = str(url).split('.')
         fields = [context]
         dlg = SimpleRecordDialog(self, fields, name='hello')
