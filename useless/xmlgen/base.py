@@ -130,6 +130,10 @@ class Paragraph(TextElement):
     def __init__(self, data='', **atts):
         TextElement.__init__(self, 'p', data, **atts)
 
+class Font(BaseElement):
+    def __init__(self, **atts):
+        BaseElement.__init__(self, 'font', **atts)
+        
 class SimpleTitleElement(BaseElement):
     def __init__(self, title, **attributes):
         BaseElement.__init__(self, 'table')
@@ -155,3 +159,20 @@ class SimpleTitleElement(BaseElement):
         element = TextElement('h1', self._title)
         self._font.appendChild(element)
             
+    def set_title2(self, title):
+        self._title = title
+        print 'i don nothing'
+        
+    def create_rightside_table(self):
+        self._rstable = BaseElement('table', border='0')
+        self.row.appendChild(TD(align='right', _node=self._rstable))
+        
+    def append_rightside_anchor(self, anchor):
+        row = TR()
+        self._rstable.appendChild(row)
+        td = TD(align='right', rowspan='1')
+        row.appendChild(td)
+        font = Font(color='gold')
+        td.appendChild(font)
+        font.appendChild(anchor)
+
