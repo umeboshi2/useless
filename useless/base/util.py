@@ -4,6 +4,7 @@ from gzip import GzipFile
 from StringIO import StringIO
 from md5 import md5
 
+from pipes import Template as PipeTemplate
 import pycurl
 
 from useless.base import debug, Error
@@ -99,6 +100,21 @@ def md5sum(afile):
         block = afile.read(BLOCK_SIZE)
     return m.hexdigest()
 
+class _zipPipe(PipeTemplate):
+    def __init__(self, cmd, decompress):
+        PipeTemplate.__init__(self)
+        if decompress:
+            cmd.append(' -d')
+        self.append(cmd, '--')
+        
+class GzipPipe(PipeTemplate):
+    def __init__(self, decompress=False):
+        _zipPipe.__init__(self, 'gzip', decompress)
+
+class BzipPipe(PipeTemplate):
+    def __init__(self, decompress=False):
+        _zipPipe.__init__(self, 'bzip2', decompress)
+        
 def gunzip(path):
     return os.popen2('gzip -cd %s' %path)[1]
 

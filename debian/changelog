@@ -1,3 +1,10 @@
+useless (0.1-5) common; urgency=low
+
+  * adding pipe templates
+  
+
+ -- Joseph Rawson <umeboshi@bard>  Fri, 24 Jun 2005 18:46:56 -0500
+
 useless (0.1-4) common; urgency=low
 
   * fixed a typo in kdb/gui.py
