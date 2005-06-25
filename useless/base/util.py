@@ -107,11 +107,11 @@ class _zipPipe(PipeTemplate):
             cmd.append(' -d')
         self.append(cmd, '--')
         
-class GzipPipe(PipeTemplate):
+class GzipPipe(_zipPipe):
     def __init__(self, decompress=False):
         _zipPipe.__init__(self, 'gzip', decompress)
 
-class BzipPipe(PipeTemplate):
+class BzipPipe(_zipPipe):
     def __init__(self, decompress=False):
         _zipPipe.__init__(self, 'bzip2', decompress)
         
@@ -142,7 +142,7 @@ def get_file(rpath, lpath, result='gone'):
         while isfile(lpath):
             os.remove(lpath)
         wget(rpath, lpath)
-        print package, ' was corrupt, got it'
+        print lpath, ' was corrupt, got it'
     else:
         print package, ' not there'
         makepaths(dir)
@@ -161,6 +161,7 @@ def oneliner(path, line):
 def export_vars(out, variables):
     lines = ['export %s=%s\n' %(k,v) for k,v in variables.items()]
     out.write(lines)
+    
 def parse_vars(path):
     f = file(path)
     lines = [x.strip() for x in f.readlines()]
