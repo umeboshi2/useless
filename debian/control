@@ -70,7 +70,7 @@ Package: useless-kbase
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base, useless-xmlgen, python-qtext
+Depends: useless-base, useless-xmlgen, python-kde3, python-qtext
 Description: useless kde widgets
 	these are simple modules for simple application development.  This
 	code is young, and probably really useless.
@@ -79,7 +79,7 @@ Package: useless-kdb
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-kbase, useless-db
+Depends: useless-kbase, useless-db, libqt3c102-mt-psql
 Description: useless kde database widgets
 	these are some very simple hacky db widgets for pykde.  if you are
 	interested in this, you can probably find something better somewhere

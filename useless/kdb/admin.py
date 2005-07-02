@@ -37,7 +37,11 @@ class AdminDb(object):
             clause = Eq('groname', group)
             row = self.db.select_row(fields=['grolist'], table='pg_group',
                                      clause=clause)
-            clause = In('usesysid', row.grolist)
+            #clause = In('usesysid', row.grolist)
+            if row.grolist is None:
+                clause = None
+            else:
+                clause = 'usesysid in %s' % row.grolist
         fields = ['usename', 'usesysid']
         return self.db.select(fields=fields, table='pg_user',
                               clause=clause)

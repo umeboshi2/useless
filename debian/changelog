@@ -1,3 +1,10 @@
+useless (0.1-7) common; urgency=low
+
+  * updated dependencies for useless kde packages
+  
+
+ -- Joseph Rawson <umeboshi@bard>  Sat,  2 Jul 2005 12:59:41 -0500
+
 useless (0.1-6) common; urgency=low
 
   * oops small bug fix in new pipe templates
