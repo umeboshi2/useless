@@ -19,7 +19,7 @@ Package: useless-db
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-sqlgen
+Depends: useless-sqlgen, python-sqlite
 Description:  Database access package
  This package is useful for accessing sql databases with a higher level
  wrapper than the standard db2.0 python cursors.  Postgres is currently the

@@ -1,3 +1,10 @@
+useless (0.1-9) common; urgency=low
+
+  * added Depends for python-sqlite
+  
+
+ -- Joseph Rawson <umeboshi@bard>  Wed,  6 Jul 2005 15:57:50 -0500
+
 useless (0.1-8) common; urgency=low
 
   * added Depends for python2.3-pycurl
