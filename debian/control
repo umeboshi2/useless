@@ -9,7 +9,7 @@ Package: useless-base
 Section: python
 Priority: optional
 Architecture: any
-Depends: python (>= 2.3), python2.3-xml
+Depends: python (>= 2.3), python2.3-xml, python2.3-pycurl
 Description: base package for useless packages
  This package contains modules that are used by other useless packages.
  In this package are modules for handling config files, and modules for small

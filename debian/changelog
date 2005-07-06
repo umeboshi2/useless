@@ -1,3 +1,10 @@
+useless (0.1-8) common; urgency=low
+
+  * added Depends for python2.3-pycurl
+  
+
+ -- Joseph Rawson <umeboshi@bard>  Wed,  6 Jul 2005 15:49:05 -0500
+
 useless (0.1-7) common; urgency=low
 
   * updated dependencies for useless kde packages
