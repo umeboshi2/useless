@@ -117,6 +117,14 @@ class Configuration(object):
         else:
             return vlist
 
+    def is_it_true(self, section, option):
+        truelist = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
+        return self.get(section, option) in truelist
+
+    def is_it_false(self, section, option):
+        falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
+        return self.get(section, option) in falselist
     
+        
 if __name__ == '__main__':
     cfg = Configuration()
