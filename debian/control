@@ -32,13 +32,14 @@ Priority: optional
 Architecture: any
 Depends: useless-base, python-gtk2
 Description: simple gtk gui widgets
- This package contains pygtk widgets.  Some widgets are subclassed from
- the standard pygtk widgets, while others are composites of multiple gtk widgets
- that are classed to work like one big widget.  The goal was to decrease the amount
- of writing for commonly used widgets that are used in various applications.  This
- package will fall out of maintainence and be deprecated one day in favor of the
- kde/qt widgets.  I have found that the kde/qt widgets decrease the amount of 
- wrapping/subclassing that I have had to use to keep the codebase short and simple.
+ This package contains pygtk widgets.  Some widgets are subclassed 
+ from the standard pygtk widgets, while others are composites of multiple 
+ gtk widgets that are classed to work like one big widget.  The goal was 
+ to decrease the amount of writing for commonly used widgets that are 
+ used in various applications.  This package will fall out of maintenence 
+ and be deprecated one day in favor of the kde/qt widgets.  I have found 
+ that the kde/qt widgets decrease the amount of wrapping/subclassing that 
+ I have had to use to keep the codebase short and simple.
 
 Package: useless-sqlgen
 Section: python
@@ -46,16 +47,17 @@ Priority: optional
 Architecture: any
 Depends: useless-base, python-pgsql
 Description: sql statement helper
- This package is designed to make it easier to form sql statements by making
- python objects.  The modules in this package range from being simple to very
- complex, though not that complex yet.  There is support for generating plpgsql
- functions, though its still limited and simple.  There is no requirement to use the
- more complex parts of the package, but there are times when doing so will make
- the development easier.  The simple statement classes should be very portable to
- other databases, but the more complex ones are more geared towards postgres.
- The python-pgsql dependency is only there because the quote function is used
- from it.  A pure python replacement function would be required to drop that
- dependency.
+ This package is designed to make it easier to form sql statements by 
+ making python objects.  The modules in this package range from being 
+ simple to very complex, though not that complex yet.  There is support 
+ for generating plpgsql functions, though its still limited and simple.  There 
+ is no requirement to use the more complex parts of the package, but 
+ there are times when doing so will make the development easier.  The 
+ simple statement classes should be very portable to other databases, 
+ but the more complex ones are more geared towards postgres.  The 
+ python-pgsql dependency is only there because the quote function is 
+ used from it.  A pure python replacement function would be required to 
+ drop that dependency.
 
 Package: useless-xmlgen
 Section: python
@@ -63,8 +65,8 @@ Priority: optional
 Architecture: any
 Depends: useless-base
 Description: useless xml generation objects
-	these are subclasses of xml.dom.minidom Elements
-	and nodes.
+ these are subclasses of xml.dom.minidom Elements
+ and nodes.
 
 Package: useless-kbase
 Section: python
@@ -72,8 +74,8 @@ Priority: optional
 Architecture: any
 Depends: useless-base, useless-xmlgen, python-kde3, python-qtext
 Description: useless kde widgets
-	these are simple modules for simple application development.  This
-	code is young, and probably really useless.
+ these are simple modules for simple application development.  This
+ code is young, and probably really useless.
 
 Package: useless-kdb
 Section: python
@@ -81,9 +83,9 @@ Priority: optional
 Architecture: any
 Depends: useless-kbase, useless-db, libqt3c102-mt-psql
 Description: useless kde database widgets
-	these are some very simple hacky db widgets for pykde.  if you are
-	interested in this, you can probably find something better somewhere
-	else.
+ these are some very simple hacky db widgets for pykde.  if you are
+ interested in this, you can probably find something better somewhere
+ else.
 
 Package: useless-doc
 Architecture: all
