@@ -12,6 +12,10 @@ from useless.base import debug, Error
 from defaults import BLOCK_SIZE
 
 class strfile(StringIO):
+    """I don't like the looks of StringIO and prefer
+    a more pythonic type name.  Nothing special about
+    this class.
+    """
     def __init__(self, string=''):
         StringIO.__init__(self, string)
 
@@ -20,6 +24,10 @@ class Pkdictrows(dict):
         dict.__init__(self, [(x[keyfield], x) for x in rows])
 
 class Mount(dict):
+    """A Mount is a very special dictionary that contains
+    information about a line in /etc/fstab, it will be
+    more valuable when it parses a line in the fstab file.
+    """
     def __init__(self, device, mtpnt, fstype, opts, dump, pass_):
         dict.__init__(self, device=device, mtpnt=mtpnt, fstype=fstype,
                       opts=opts, dump=dump)
@@ -43,6 +51,16 @@ class Mount(dict):
         return self['fstype'] == 'proc'
     
 class RefDict(dict):
+    """This dictionary can reference other keys in
+    it by having $key as a value.  For example,
+    >>> from useless.base.util import RefDict
+    >>> d = RefDict(foo='bar')
+    >>> d['key1'] = '$foo'
+    >>> d['key1']
+    '$foo'
+    >>> d.dereference('key1')
+    'bar'
+    >>> """
     def dereference(self, key):
         value = self[key]
         if value[0] == '$':
@@ -64,6 +82,9 @@ def makepaths(*paths):
             os.makedirs(path)
 
 def blank_values(count, value=None):
+    """This is a simple generator that
+    makes count amount of value.
+    """
     for x in range(count):
         yield value
 
@@ -78,12 +99,19 @@ def diff_dict(adict, bdict):
     return diffdict
 
 def apply2file(function, path, *args):
+    """apply a function with arguements to a
+    readable file at path.
+    """
     f = file(path)
     result = function(f, *args)
     f.close()
     return result
 
 def wget(url, path='.'):
+    """this will download a file with wget
+    optionally into a path of your choosing,
+    by default it's in the current directory.
+    """
     here = os.getcwd()
     if path == '.':
         path = here
@@ -93,6 +121,8 @@ def wget(url, path='.'):
     os.chdir(here)
 
 def md5sum(afile):
+    """returns the standard md5sum hexdigest
+    for a file object"""
     m = md5()
     block = afile.read(BLOCK_SIZE)
     while block:
@@ -101,6 +131,10 @@ def md5sum(afile):
     return m.hexdigest()
 
 class _zipPipe(PipeTemplate):
+    """This class shouldn't be instantiated
+    directly, but sublassed with a command
+    that de/compresses from stdin to stdout.
+    """
     def __init__(self, cmd, decompress):
         PipeTemplate.__init__(self)
         if decompress:
@@ -122,6 +156,10 @@ def bunzip(path):
     return os.popen2('bzip2 -cd %s' %path)[1]
 
 def check_file(path, md5_, quick=False):
+    """This function will check a file with a
+    given md5sum.  It can also be used to
+    just check existence.
+    """
     package = os.path.basename(path)
     if isfile(path):
         if not quick:
@@ -137,6 +175,10 @@ def check_file(path, md5_, quick=False):
         return 'gone'
 
 def get_file(rpath, lpath, result='gone'):
+    """This function is really specific to
+    mirroring debian and should be moved to
+    a better spot.
+    """
     dir, package = os.path.split(lpath)
     if result == 'corrupt':
         while isfile(lpath):
@@ -150,15 +192,25 @@ def get_file(rpath, lpath, result='gone'):
 
 
 def ujoin(*args):
+    """I think that this function name
+    looks a little better and makes the code
+    look a little better.
+    """
     return '_'.join(args)
 
 def oneliner(path, line):
+    """This function is fairly useless so it
+    will stay.
+    """
     f = file(path, 'w')
     f.write(line + '\n')
     f.close()
     
 
 def export_vars(out, variables):
+    """This function is used for writing
+    export lines to a shell script.
+    """
     lines = ['export %s=%s\n' %(k,v) for k,v in variables.items()]
     out.write(lines)
     
@@ -175,17 +227,28 @@ def parse_vars_eq(path):
     return dict(items)
 
 def writefile(path, string):
+    """this funcion will quickly write a
+    string to a path.
+    """
     f = file(path, 'w')
     f.write(string)
     f.close()
 
 def readfile(filename):
+    """this function will quickly read
+    a filname and return a string of
+    its contents.
+    """
     f = file(filename)
     s = f.read()
     f.close()
     return s
 
 def get_url(url):
+    """This function uses pycurl to
+    get the contents of a url and
+    return it as a strfile.
+    """
     string = StringIO()
     c = pycurl.Curl()
     c.setopt(c.URL, url)
@@ -197,6 +260,8 @@ def get_url(url):
     return string
 
 def filecopy(afile, path):
+    """Simple copy of a fileobject to a path
+    """
     newfile = file(path, 'w')
     if afile.tell() != 0:
         afile.seek(0)
@@ -207,6 +272,12 @@ def filecopy(afile, path):
     newfile.close()
 
 def backuptree(directory, backup):
+    """This function takes two directory arguements.
+    The backup directory is not required to exist,
+    but needs to be on the same device as the first
+    arguement.  It uses hard links to backup the files
+    in the directory.  It doesn't handle symbolic links.
+    """
     input, output = os.popen2('find %s -type d' %directory)
     dir = output.readline().strip()
     while dir:
@@ -219,11 +290,15 @@ def backuptree(directory, backup):
         file = output.readline().strip()
         
 def has_extension(filename, extension, dot=True):
+    """This function can test if a filename is a
+    .bz2 or whatever.
+    """
     if extension[0] != '.' and dot:
         extension = '.' + extension
     return filename[-len(extension):] == extension
 
 def indexed_items(items):
+    """This should be a generally useless function."""
     return dict([(v[0], k) for k,v in enumerate(items)])
 
 def get_sub_path(fullpath, rootpath):
@@ -235,14 +310,23 @@ def get_sub_path(fullpath, rootpath):
     return tpath
 
 def parse_proc_cmdline():
+    """This function returns a dictionary of the arguements
+    of the kernel commandline in /proc/cmdline.
+    """
     _opts = file('/proc/cmdline').read().strip().split()
     return dict([o.split('=') for o in _opts if o.find('=') >= 0])
 
 def parse_proc_mounts():
+    """This returns a list of special Mount dictionaries
+    about the mounts in /proc/mounts.
+    """
     mounts = [Mount(*x.strip().split()) for x in file('/proc/mounts').readlines()]
     return mounts
 
 def ismounted(mtpnt):
+    """Simple test of parsing /proc/mounts and
+    seeing if mtpnt is mounted.
+    """
     mounts = parse_proc_mounts()
     mounted = False
     for m in mounts:
@@ -252,6 +336,9 @@ def ismounted(mtpnt):
 
 def runlog(command, destroylog=False,
            keeprunning=False, logvar='LOGFILE'):
+    """This function will run a command and write all
+    output to a logfile.
+    """
     logfile = os.environ[logvar]
     if isfile(logfile) and destroylog:
         os.remove(logfile)
@@ -277,9 +364,11 @@ def runlog(command, destroylog=False,
     return run
 
 def echo(message, logvar='LOGFILE'):
+    """echo a quick message into the log."""
     runlog('echo %s' % message, logvar=logvar)
     
 def str2list(data, delim=','):
+    """separates a comma joined list of terms."""
     return [x.strip() for x in data.split(delim)]
 
 if __name__ == '__main__':

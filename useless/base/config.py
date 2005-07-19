@@ -21,6 +21,10 @@ class Configure(SafeConfigParser):
         return optionstr
 
 class Configuration(object):
+    """Configuration has the ablity to have a current section,
+    and be used as a dictionary.  If there is no current
+    section, DEFAULT is used.
+    """
     def __init__(self, section=None, files=[]):
         if not files:
             raise Error, 'need a list of files'
@@ -60,6 +64,7 @@ class Configuration(object):
         f.close()
 
     def change(self, section):
+        """This changes the current section."""
         if self.__cfg__.has_section(section):
             self.section = section
         elif section in ['DEFAULT', '', None]:
@@ -68,12 +73,14 @@ class Configuration(object):
             raise NoSectionError
         
     def get_subdict(self, keys):
+        """returns a dictionary based on the keys given"""
         data = {}
         for key in keys:
             data[key] = self[key]
         return data
         
     def get_dsn(self):
+        """returns information needed to connect to database"""
         return self.get_subdict(['dbname', 'dbhost', 'dbusername',
                                  'dbpassword', 'autocommit'])
     
@@ -107,6 +114,9 @@ class Configuration(object):
             return sections
 
     def get_list(self, option, section=None, delim=','):
+        """This method is useful for getting a comma separated
+        list of values from a config option.
+        """
         if section is None:
             section = self.section
         if section is None:
@@ -118,10 +128,12 @@ class Configuration(object):
             return vlist
 
     def is_it_true(self, section, option):
+        """Simple true/false yes/no parsing."""
         truelist = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
         return self.get(section, option) in truelist
 
     def is_it_false(self, section, option):
+        """Simple true/false yes/no parsing."""
         falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
         return self.get(section, option) in falselist
     
