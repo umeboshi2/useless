@@ -1,17 +1,23 @@
 import sys
 from distutils.core import setup
 
-package = sys.argv[1]
-del sys.argv[1]
+PACKAGES = ['base', 'debian', 'gtk', 'sqlgen', 'db', 'kbase', 'kdb', 'xmlgen']
+package = None
+if sys.argv[1] in PACKAGES:
+    package = sys.argv[1]
+    del sys.argv[1]
 
 
 pd = {'' : 'src'}
 
 
-
-packages = ['useless/'+package]
-if package == 'base':
-    packages = ['useless'] + packages
+if package is not None:
+    packages = ['useless/'+package]
+    if package == 'base':
+        packages = ['useless'] + packages
+else:
+    packages = []
+    package = 'dummy'
 setup(name='useless-'+package,
       version="0.2",
       description = 'useless packages and modules for basic stuff',
