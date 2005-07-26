@@ -1,3 +1,10 @@
+useless (0.1.2) common; urgency=low
+
+  * new Configuration object, better check for sqlite cursor in BasicConnection
+
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Tue, 26 Jul 2005 12:55:33 -0500
+
 useless (0.1.1) common; urgency=low
 
   * building with cdbs now
