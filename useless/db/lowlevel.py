@@ -21,6 +21,12 @@ class LocalConnection(Connection_lite):
         
 
 class BasicConnection(Connection):
+    """Basic Connection Object.
+
+    This is a simple connection object that
+    handles large objects.  It is the default
+    postgres connection object.
+    """
     def __init__(self, user=None, host=None, dbname=None, passwd=None,
                  port=5432):
         if passwd:
@@ -43,6 +49,10 @@ class BasicConnection(Connection):
         self.conn.lo_unlink(oid)
 
 class BaseConnection(BasicConnection):
+    """BaseConnection is deprecated.
+
+    use BasicConnection instead.
+    """
     pass
 
 
@@ -107,25 +117,41 @@ class _Simple(object):
         
     
 class FakeCursor(_Simple):
+    """FakeCursor object
+
+    This is a wrapper around other cursors.  It can use
+    either postgres or sqlite database connections.
+    Currently the sqlite connection hasn't been tested in
+    a few years, so some work may need to be done on it.
+    """
     def __init__(self, conn, name=None):
         if issubclass(conn.__class__, BasicConnection):
             self.__dbtype__ = 'pg'
             self.__tquery__ = tquery_pg
-        elif conn.__class__.__name__ == 'LocalConnection':
+        elif issubclass(conn.__class__, LocalConnection):
             self.__dbtype__ = 'lite'
             self.__tquery__ = tquery_lite
         else:
             print 'WARNING NO CURSOR', conn.__class__
-        self.__real_cursor__ = conn.cursor()
-        self._already_selected = False
+            self.__real_cursor__ = conn.cursor()
+            self._already_selected = False
         
     def close(self):
+        "wrapper for real cursor"
         self.__real_cursor__.close()
 
     def commit(self):
+        "wrapper for real cursor"
         self.__real_cursor__.commit()
+
     def execute(self, query, *args):
-        #debug(query)
+        """execute a query.
+
+        This member will return the query in
+        the error it raises making it easier to
+        debug problems with either the database
+        or the code.
+        """
         try:
             self.__real_cursor__.execute(query, *args)
         except IntegrityError, error:
@@ -135,16 +161,20 @@ class FakeCursor(_Simple):
         self.description = self.__real_cursor__.description
 
     def executemany(self, query, args):
+        "wrapper for real cursor"
         self.__real_cursor__.executemany(query, args)
         self.description = self.__real_cursor__.description
 
     def fetchone(self):
+        "wrapper for real cursor"
         return self.__real_cursor__.fetchone()
 
     def fetchmany(self, size=None):
+        "wrapper for real cursor"
         return self.__real_cursor__.fetchmany(sz=size)
 
     def fetchall(self):
+        "wrapper for real cursor"
         return self.__real_cursor__.fetchall()
 
     def next(self):
@@ -155,6 +185,7 @@ class FakeCursor(_Simple):
         return row
 
     def __iter__(self):
+        "needed to use this object as rows"
         if not self._already_selected:
             return self.iselect()
         return self
@@ -163,10 +194,15 @@ class FakeCursor(_Simple):
         return self.__real_cursor__._rows_
 
 class CommandCursor(FakeCursor):
+    """CommandCursor object.
+    This is an object that will perform simple sql
+    commands.
+    """
     def __init__(self, conn, name=None):
         FakeCursor.__init__(self, conn, name=name)
         
     def __fselect__(self, function, field, table, clause=None):
+        """Performs SELECT function(field) FROM table WHERE clause"""
         query = 'select %s(%s) from %s' %(function, field, table)
         if clause:
             query += ' where %s' % clause
@@ -188,26 +224,37 @@ class CommandCursor(FakeCursor):
         self.execute(query)
         
     def insert(self, table, adict):
+        "perform simple insert"
         query = insert(table, adict)
         #print query
         self.execute(query)
 
     def update(self, table, adict,  clause=None):
+        "perform simple update"
         query = update(table, adict, clause=clause)
         self.execute(query)
 
     def delete(self, table, clause=None):
+        "perform siple delete"
         query = delete(table, clause=clause)
         self.execute(query)
+
     def get(self, query):
+        """do this when you want to perform
+        a fetchall after an execute.  This
+        is probabaly a bad member name."""
         self.execute(query)
         return self.fetchall()
         
     def getall(self, fields, table, **args):
+        "this is ugly and will be deprecated"
         self._select(fields, table, **args)
         return self.fetchall()
 
     def as_dict(self, table, keyfield, fields=None, **args):
+        """This will return the rows as a dictionary with
+        the keyfield column as the key and the row as
+        the value."""
         if not fields:
             fields = ['*']
         self._select(fields, table, **args)

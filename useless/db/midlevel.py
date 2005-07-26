@@ -11,40 +11,61 @@ from useless.sqlgen.clause import Eq
 from lowlevel import CommandCursor
 
 class ColonelCursor(CommandCursor):
+    "This class is unused"
     def __init__(self, conn, name=None):
         CommandCursor.__init__(self, conn, name=name)
 
 class StatementCursor(CommandCursor):
+    """StatementCursor object.
+
+    This is the main cursor used in the code, at
+    the moment.  The highlevel cursors will be
+    based on this cursor.  This cursor has a
+    member 'stmt' which is a Statement from
+    useless-sqlgen.
+    """
     def __init__(self, conn, name=None):
         CommandCursor.__init__(self, conn, name=name)
         self.stmt = Statement('select')
 
     def set_table(self, table):
+        "Set the table for the statement"
         self.stmt.table = table
 
     def set_clause(self, items, cmp='=', join='and'):
+        """Set the clause for the statement.
+        This should be updated to accept clause
+        objects, this member is old now."""
         self.stmt.set_clause(items, cmp=cmp, join=join)
 
     def set_data(self, data):
+        """Sets the data member of the statement
+        for update and insert statements."""
         self.stmt.set(data)
 
     def set_fields(self, fields):
+        """Sets the fields of the statement
+        for select statements."""
         self.stmt.fields = fields
 
     def delete(self, table=None, clause=None):
+        "Perform DELETE FROM table WHERE clause"
         query = self.stmt.delete(table=table, clause=clause)
         self.execute(query)
 
     def insert(self, table=None, data=None):
+        "Perform INSERT INTO table (data.keys) VALUES (data.values)"
         query = self.stmt.insert(table=table, data=data)
         self.execute(query)
 
     def update(self, table=None, data=None, clause=None):
+        "Perform UPDATE table SET [key=value for items in data] WHERE clause"
         query = self.stmt.update(table=table, data=data, clause=clause)
         self.execute(query)
 
     def select(self, fields=None, table=None, clause=None,
                group=None, having=None, order=None):
+        "Perform SELECT fields FROM table WHERE clause"
         query = self.stmt.select(fields=fields, table=table, clause=clause,
                                  group=group, having=having, order=order)
         self.execute(query)
@@ -52,6 +73,9 @@ class StatementCursor(CommandCursor):
 
     def iselect(self, fields=None, table=None, clause=None,
                group=None, having=None, order=None):
+        """iselect is a way to use this cursor as an
+        iterator.  Like, for row in cursor.iselect():
+        """
         query = self.stmt.select(fields=fields, table=table, clause=clause,
                                  group=group, having=having, order=order)
         self.execute(query)
@@ -60,6 +84,11 @@ class StatementCursor(CommandCursor):
 
     def select_row(self, fields=None, table=None, clause=None,
                group=None, having=None, order=None):
+        """Select one row from the database successfully.
+
+        You can use this member when you need to return
+        exactly one row, or raise an error.
+        """
         query = self.stmt.select(fields=fields, table=table, clause=clause,
                                  group=group, having=having, order=order)
         self.execute(query)
@@ -73,6 +102,8 @@ class StatementCursor(CommandCursor):
 
      
     def delete_file(self, conn, field, clause):
+        """delete_file uses select_row to ensure only one
+        file is deleted."""
         row = self.select_row(fields=[field], clause=clause)
         conn.removefile(int(row[field].name))
         
@@ -89,15 +120,15 @@ class StatementCursor(CommandCursor):
         return self.openfile(conn, row[field].name)
         
     def clear(self, **args):
+        "Clears the statement"
         self.stmt.clear(**args)
 
     def fields(self, table=None):
+        """fields here uses the fact that the stmt
+        object may have a table set."""
         if table is None:
             table = self.stmt.table
         return CommandCursor.fields(self, table)
-
-    def commit(self):
-        CommandCursor.commit(self)
 
 class _TableDict(object):
     def __init__(self, conn, table, key_field='name', value_field='value'):

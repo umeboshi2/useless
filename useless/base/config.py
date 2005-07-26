@@ -1,4 +1,5 @@
 from ConfigParser import SafeConfigParser, NoSectionError
+from ConfigParser import ConfigParser
 import os, os.path
 
 from useless.base import Error
@@ -20,7 +21,114 @@ class Configure(SafeConfigParser):
     def optionxform(self, optionstr):
         return optionstr
 
-class Configuration(object):
+
+class ConfigurationNew(ConfigParser):
+    """Configuration has the ablity to have a current section,
+    and be used as a dictionary.  If there is no current
+    section, DEFAULT is used.
+    """
+    def __init__(self, section=None, files=[]):
+        ConfigParser.__init__(self)
+        self.section = section
+        if len(files):
+            self.read(files)
+
+    def read(self, files):
+        if type(files) is str:
+            ConfigParser.read(self, [files])
+        elif type(files) is file:
+            ConfigParser.readfp(self, files)
+        elif type(files) is list:
+            ConfigParser.read(self, files)
+
+    def __getitem__(self, key):
+        if self.section is None:
+            return self.defaults()[key]
+        else:
+            return self.get(self.section, key)
+
+    def keys(self):
+        if self.section is None:
+            return self.defaults().keys()
+        else:
+            return self.options(self.section)
+        
+    def items(self):
+        return [(k, self[k]) for k in self.keys()]
+
+    def values(self):
+        return [self[k] for k in self.keys()]
+
+    def write(self, fileorpath):
+        closeme = False
+        if type(fileorpath) is str:
+            f = file(path, 'w')
+            closeme = True
+        else:
+            f  = fileorpath
+        ConfigParser.write(self, f)
+        if closeme:
+            f.close()
+
+    def change(self, section):
+        """This changes the current section."""
+        if self.has_section(section):
+            self.section = section
+        elif section in ['DEFAULT', '', None]:
+            self.section = None
+        else:
+            raise NoSectionError
+        
+    def get_subdict(self, keys):
+        """returns a dictionary based on the keys given"""
+        data = {}
+        for key in keys:
+            data[key] = self[key]
+        return data
+        
+    def get_dsn(self):
+        """returns information needed to connect to database"""
+        return self.get_subdict(['dbname', 'dbhost', 'dbusername',
+                                 'dbpassword', 'autocommit'])
+    
+    def has_key(self, option):
+        section = self.section
+        if section is None:
+            section = 'DEFAULT'
+        return self.__cfg__.has_option(section, option)
+        
+    def sections(self, filter=None):
+        sections = ConfigParser.sections(self)
+        if filter is not None:
+            return [s for s in sections if filter(s)]
+        else:
+            return sections
+
+    def get_list(self, option, section=None, delim=','):
+        """This method is useful for getting a comma separated
+        list of values from a config option.
+        """
+        if section is None:
+            section = self.section
+        if section is None:
+            section = 'DEFAULT'
+        vlist = [x.strip() for x in self.get(section, option).split(delim)]
+        if len(vlist) == 1 and not vlist[0]:
+            return []
+        else:
+            return vlist
+
+    def is_it_true(self, section, option):
+        """Simple true/false yes/no parsing."""
+        truelist = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
+        return self.get(section, option) in truelist
+
+    def is_it_false(self, section, option):
+        """Simple true/false yes/no parsing."""
+        falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
+        return self.get(section, option) in falselist
+    
+class ConfigurationOrig(object):
     """Configuration has the ablity to have a current section,
     and be used as a dictionary.  If there is no current
     section, DEFAULT is used.
@@ -137,6 +245,6 @@ class Configuration(object):
         falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
         return self.get(section, option) in falselist
     
-        
+Configuration = ConfigurationNew        
 if __name__ == '__main__':
     cfg = Configuration()

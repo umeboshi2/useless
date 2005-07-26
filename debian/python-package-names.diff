@@ -1,0 +1,161 @@
+Index: control
+===================================================================
+--- control	(revision 24)
++++ control	(working copy)
+@@ -2,35 +2,41 @@
+ Section: unknown
+ Priority: optional
+ Maintainer: Joseph Rawson <umeboshi@gregscomputerservice.com>
+-Build-Depends: debhelper (>= 4.0.0), python-dev (>= 2.3), cdbs
++Build-Depends: debhelper (>= 4.0.0), python-dev (>= 2.3), python2.3-dev, cdbs
+ Standards-Version: 3.6.1
+ 
+-Package: useless-base
++Package: python-useless-base
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: python (>= 2.3), python2.3-xml, python2.3-pycurl
++Depends: python (>= 2.3), python (<< 2.4), python-xml, python-pycurl, 
++Replaces: useless-base
++Provides: useless-base
+ Description: base package for useless packages
+  This package contains modules that are used by other useless packages.
+  In this package are modules for handling config files, and modules for small
+  generic functions that can be used elsewhere, but have nowhere else to go.
+ 
+-Package: useless-db
++Package: python-useless-db
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-sqlgen, python-sqlite
++Depends: python-useless-sqlgen, python-sqlite, ${python:Depends}
++Replaces: useless-db
++Provides: useless-db
+ Description:  Database access package
+  This package is useful for accessing sql databases with a higher level
+  wrapper than the standard db2.0 python cursors.  Postgres is currently the
+  only database that is supported, although there is limited support for sqlite
+  databases.
+ 
+-Package: useless-gtk
++Package: python-useless-gtk
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-base, python-gtk2
++Depends: python-useless-base, python-gtk2, ${python:Depends}
++Replaces: useless-gtk
++Provides: useless-gtk
+ Description: simple gtk gui widgets
+  This package contains pygtk widgets.  Some widgets are subclassed 
+  from the standard pygtk widgets, while others are composites of multiple 
+@@ -41,11 +47,13 @@
+  that the kde/qt widgets decrease the amount of wrapping/subclassing that 
+  I have had to use to keep the codebase short and simple.
+ 
+-Package: useless-sqlgen
++Package: python-useless-sqlgen
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-base, python-pgsql
++Depends: python-useless-base, python-pgsql, ${python:Depends}
++Replaces: useless-sqlgen
++Provides: useless-sqlgen
+ Description: sql statement helper
+  This package is designed to make it easier to form sql statements by 
+  making python objects.  The modules in this package range from being 
+@@ -59,29 +67,35 @@
+  used from it.  A pure python replacement function would be required to 
+  drop that dependency.
+ 
+-Package: useless-xmlgen
++Package: python-useless-xmlgen
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-base
++Depends: python-useless-base, ${python:Depends}
++Replaces: useless-xmlgen
++Provides: useless-xmlgen
+ Description: useless xml generation objects
+  these are subclasses of xml.dom.minidom Elements
+  and nodes.
+ 
+-Package: useless-kbase
++Package: python-useless-kbase
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-base, useless-xmlgen, python-kde3, python-qtext
++Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext, ${python:Depends}
++Replaces: useless-kbase
++Provides: useless-kbase
+ Description: useless kde widgets
+  these are simple modules for simple application development.  This
+  code is young, and probably really useless.
+ 
+-Package: useless-kdb
++Package: python-useless-kdb
+ Section: python
+ Priority: optional
+ Architecture: any
+-Depends: useless-kbase, useless-db, libqt3c102-mt-psql
++Depends: python-useless-kbase, python-useless-db, libqt3c102-mt-psql, ${python:Depends}
++Replaces: useless-kdb
++Provides: useless-kdb
+ Description: useless kde database widgets
+  these are some very simple hacky db widgets for pykde.  if you are
+  interested in this, you can probably find something better somewhere
+Index: rules
+===================================================================
+--- rules	(revision 24)
++++ rules	(working copy)
+@@ -2,29 +2,29 @@
+ include /usr/share/cdbs/1/rules/debhelper.mk
+ include /usr/share/cdbs/1/class/python-distutils.mk
+ 
+-install/useless-base::
+-	python setup.py base install --prefix=$(CURDIR)/debian/useless-base/usr
++install/python-useless-base::
++	python setup.py base install --prefix=$(CURDIR)/debian/python-useless-base/usr
+ 	rm -r build/
+-install/useless-sqlgen::
+-	python setup.py sqlgen install --prefix=$(CURDIR)/debian/useless-sqlgen/usr
++install/python-useless-sqlgen::
++	python setup.py sqlgen install --prefix=$(CURDIR)/debian/python-useless-sqlgen/usr
+ 	rm -r build/
+-install/useless-db::
+-	python setup.py db install --prefix=$(CURDIR)/debian/useless-db/usr
++install/python-useless-db::
++	python setup.py db install --prefix=$(CURDIR)/debian/python-useless-db/usr
+ 	rm -r build/
+-install/useless-gtk::
+-	python setup.py gtk install --prefix=$(CURDIR)/debian/useless-gtk/usr
++install/python-useless-gtk::
++	python setup.py gtk install --prefix=$(CURDIR)/debian/python-useless-gtk/usr
+ 	rm -r build/
+-install/useless-kbase::
+-	python setup.py kbase install --prefix=$(CURDIR)/debian/useless-kbase/usr
++install/python-useless-kbase::
++	python setup.py kbase install --prefix=$(CURDIR)/debian/python-useless-kbase/usr
+ 	rm -r build/
+-install/useless-kdb::
+-	python setup.py kdb install --prefix=$(CURDIR)/debian/useless-kdb/usr
++install/python-useless-kdb::
++	python setup.py kdb install --prefix=$(CURDIR)/debian/python-useless-kdb/usr
+ 	rm -r build/
+-install/useless-xmlgen::
+-	python setup.py xmlgen install --prefix=$(CURDIR)/debian/useless-xmlgen/usr
++install/python-useless-xmlgen::
++	python setup.py xmlgen install --prefix=$(CURDIR)/debian/python-useless-xmlgen/usr
+ 	rm -r build/
+-install/useless-debian::
+-	python setup.py debian install --prefix=$(CURDIR)/debian/useless-debian/usr
++install/python-useless-debian::
++	python setup.py debian install --prefix=$(CURDIR)/debian/python-useless-debian/usr
+ 	rm -r build/
+ 
+ clean::

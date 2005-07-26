@@ -17,6 +17,7 @@ def pgsql_delete(name, tables, key):
     return '\n'.join(lines) + '\n'
 
 def branchlevels(name, table, column, parent='parent'):
+    "this is experimental code, don't use"
     lines = header(name, 'integer', 'integer')
     baseclause = '%s = $1' % parent
     bselect = 'select %s from %s where %s' % (column, table, baseclause)
