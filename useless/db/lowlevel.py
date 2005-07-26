@@ -133,8 +133,8 @@ class FakeCursor(_Simple):
             self.__tquery__ = tquery_lite
         else:
             print 'WARNING NO CURSOR', conn.__class__
-            self.__real_cursor__ = conn.cursor()
-            self._already_selected = False
+        self.__real_cursor__ = conn.cursor()
+        self._already_selected = False
         
     def close(self):
         "wrapper for real cursor"

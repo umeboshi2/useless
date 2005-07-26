@@ -95,7 +95,7 @@ class ConfigurationNew(ConfigParser):
         section = self.section
         if section is None:
             section = 'DEFAULT'
-        return self.__cfg__.has_option(section, option)
+        return self.has_option(section, option)
         
     def sections(self, filter=None):
         sections = ConfigParser.sections(self)
