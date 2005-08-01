@@ -53,8 +53,11 @@ class ConfigurationNew(ConfigParser):
         else:
             return self.options(self.section)
         
-    def items(self):
-        return [(k, self[k]) for k in self.keys()]
+    def items(self, section=None, raw=False):
+        if section is not None:
+            return ConfigParser.items(self, section)
+        else:
+            return [(k, self[k]) for k in self.keys()]
 
     def values(self):
         return [self[k] for k in self.keys()]
