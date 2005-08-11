@@ -1,3 +1,10 @@
+useless (0.1.3) common; urgency=low
+
+  * incrementing version for first release on berlios
+
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Thu, 11 Aug 2005 12:13:59 -0500
+
 useless (0.1.2) common; urgency=low
 
   * new Configuration object, better check for sqlite cursor in BasicConnection
