@@ -18,11 +18,15 @@ if package is not None:
 else:
     packages = []
     package = 'dummy'
+
+url = 'http://useless.berlios.de'
+
 setup(name='useless-'+package,
       version="0.2",
       description = 'useless packages and modules for basic stuff',
       author='Joseph Rawson',
       author_email='umeboshi@gregscomputerservice.com',
+      url=url,
       package_dir = {'' : '.'},
       packages = packages
       )
