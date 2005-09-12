@@ -363,6 +363,22 @@ def runlog(command, destroylog=False,
         os.close(backup[stream][0])
     return run
 
+def runlog_script(command, destroylog=False,
+           keeprunning=False, logvar='LOGFILE'):
+    """This function will run a command and write all
+    output to a logfile.  This function makes an os.system
+    call to script
+    """
+    scriptcmd = 'script -a -f'
+    if destroylog:
+        print 'ignoring destroylog'
+    logfile = os.environ[logvar]
+    cmd  = '%s -c "%s" %s' % (scriptcmd, command, logfile)
+    run = os.system(cmd)
+    if run and not keeprunning:
+        raise Error, 'error in command %s , check %s' % (command, logfile)
+    return run
+
 def echo(message, logvar='LOGFILE'):
     """echo a quick message into the log."""
     runlog('echo %s' % message, logvar=logvar)
