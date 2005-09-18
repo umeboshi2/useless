@@ -92,6 +92,10 @@ class SimpleRecord(QGridLayout):
     def getRecordData(self):
         return dict([(k,str(v.text())) for k,v in self.entries.items()])
 
+    def setRecordData(self, data):
+        for k, v in data.items():
+            self.entries[k].setText(v)
+
 class SimpleRecordDialog(KDialogBase):
     def __init__(self, parent, fields, record=None, name='SimpleRecordDialog'):
         KDialogBase.__init__(self, parent, name)
@@ -109,7 +113,9 @@ class SimpleRecordDialog(KDialogBase):
     def getRecordData(self):
         return self.grid.getRecordData()
     
-
+    def setRecordData(self, data):
+        self.grid.setRecordData(data)
+        
 class EditRecordDialog(SimpleRecordDialog):
     def __init__(self, parent, fields, record, name):
         SimpleRecordDialog.__init__(self, parent, fields, record=record, name=name)
