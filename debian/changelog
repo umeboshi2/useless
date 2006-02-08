@@ -1,3 +1,9 @@
+useless (0.1.4) common; urgency=low
+
+  * added daemon module to useless-base
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Tue,  7 Feb 2006 19:14:43 -0600
+
 useless (0.1.3) common; urgency=low
 
   * incrementing version for first release on berlios
