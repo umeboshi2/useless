@@ -1,3 +1,10 @@
+useless (0.1.5) common; urgency=low
+
+  * useless-kbase now depends on libqt3-mt-psql
+  
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Fri, 10 Feb 2006 21:17:42 -0600
+
 useless (0.1.4) common; urgency=low
 
   * added daemon module to useless-base

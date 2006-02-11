@@ -712,3 +712,12 @@ class SimpleTable(Table):
             self._generateContent()
         return Table.output(self, *args, **kwargs)
  
+
+class Favicon(Link):
+    def __init__(self, href='/favicon.ico', type='image/x-icon'):
+        Link.__init__(self, rel='shortcut icon',
+                      type=type,
+                      href=href)
+        
+class Bold(Inline):
+    tag = 'b'
