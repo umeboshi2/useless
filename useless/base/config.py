@@ -4,6 +4,8 @@ import os, os.path
 
 from useless.base import Error
 
+TRUELIST = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
+FALSELIST = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
 
 
 def list_rcfiles(rcfilename):
@@ -123,13 +125,11 @@ class ConfigurationNew(ConfigParser):
 
     def is_it_true(self, section, option):
         """Simple true/false yes/no parsing."""
-        truelist = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
-        return self.get(section, option) in truelist
+        return self.get(section, option) in TRUELIST
 
     def is_it_false(self, section, option):
         """Simple true/false yes/no parsing."""
-        falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
-        return self.get(section, option) in falselist
+        return self.get(section, option) in FALSELIST
     
 class ConfigurationOrig(object):
     """Configuration has the ablity to have a current section,
