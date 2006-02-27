@@ -1,3 +1,10 @@
+useless (0.1.6) common; urgency=low
+
+  * added shorewall module
+  * reimplemented booleans in Configuration (closer to ConfigParser module)
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Mon, 27 Feb 2006 14:10:01 -0600
+
 useless (0.1.5) common; urgency=low
 
   * useless-kbase now depends on libqt3-mt-psql

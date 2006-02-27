@@ -4,15 +4,14 @@ import os, os.path
 
 from useless.base import Error
 
-TRUELIST = ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES', 't', 'T', 'y', 'Y'] 
-FALSELIST = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
-
-
 def list_rcfiles(rcfilename):
     rcfiles = [os.path.join('/etc', rcfilename),
                os.path.expanduser('~/.'+rcfilename)]
     return rcfiles
 
+_BOOLEAN_STATES = {}
+_BOOLEAN_STATES.update({}.fromkeys(['1', 'yes', 'true', 'on', 'y', 't'], True))
+_BOOLEAN_STATES.update({}.fromkeys(['0', 'no', 'false', 'off', 'n', 'f'], False))
 
 class Configure(SafeConfigParser):
     def __init__(self, files=[]):
@@ -29,6 +28,13 @@ class ConfigurationNew(ConfigParser):
     and be used as a dictionary.  If there is no current
     section, DEFAULT is used.
     """
+    # need to add t, f, y, and n to _boolean_states
+    #_boolean_states = {'1': True, 'yes': True, 'true': True, 'on': True,
+    #                   '0': False, 'no': False, 'false': False, 'off': False,
+    #                   # adding single letter options
+    #                   't' : True, 'y' : True,
+    #                   'f' : False, 'n' : False}
+    _boolean_states = _BOOLEAN_STATES
     def __init__(self, section=None, files=[]):
         ConfigParser.__init__(self)
         self.section = section
@@ -125,11 +131,11 @@ class ConfigurationNew(ConfigParser):
 
     def is_it_true(self, section, option):
         """Simple true/false yes/no parsing."""
-        return self.get(section, option) in TRUELIST
+        return self.getboolean(section, option)
 
     def is_it_false(self, section, option):
         """Simple true/false yes/no parsing."""
-        return self.get(section, option) in FALSELIST
+        return not self.getboolean(section, option)
     
 class ConfigurationOrig(object):
     """Configuration has the ablity to have a current section,
