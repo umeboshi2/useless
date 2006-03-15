@@ -81,7 +81,7 @@ Package: useless-kdb
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-kbase, useless-db, libqt-mt-psql
+Depends: useless-kbase, useless-db, libqt3-mt-psql | libqt3c102-mt-psql
 Description: useless kde database widgets
  these are some very simple hacky db widgets for pykde.  if you are
  interested in this, you can probably find something better somewhere
