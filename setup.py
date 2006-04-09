@@ -1,7 +1,8 @@
 import sys
 from distutils.core import setup
 
-PACKAGES = ['base', 'debian', 'gtk', 'sqlgen', 'db', 'kbase', 'kdb', 'xmlgen']
+PACKAGES = ['base', 'debian', 'gtk', 'sqlgen', 'db', 'kbase', 'kdb', 'xmlgen',
+            'webframe']
 package = None
 if sys.argv[1] in PACKAGES:
     package = sys.argv[1]

@@ -26,6 +26,9 @@ install/useless-xmlgen::
 install/useless-debian::
 	python setup.py debian install --prefix=$(CURDIR)/debian/useless-debian/usr
 	rm -r build/
+install/useless-webframe::
+	python setup.py webframe install --prefix=$(CURDIR)/debian/useless-webframe/usr
+	rm -r build/
 
 clean::
 	dh_clean `find -path *.pyc`

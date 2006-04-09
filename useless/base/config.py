@@ -23,7 +23,7 @@ class Configure(SafeConfigParser):
         return optionstr
 
 
-class ConfigurationNew(ConfigParser):
+class Configuration(ConfigParser):
     """Configuration has the ablity to have a current section,
     and be used as a dictionary.  If there is no current
     section, DEFAULT is used.
@@ -254,6 +254,16 @@ class ConfigurationOrig(object):
         falselist = ['false', 'False', 'FALSE', 'no', 'No', 'NO', 'f', 'F', 'n', 'N']
         return self.get(section, option) in falselist
     
-Configuration = ConfigurationNew        
+class BaseMainConfig(Configuration):
+    def __init__(self, files, environ_var='', cfgsection='configfiles'):
+        if environ_var and environ_var in os.environ:
+            files.append(os.environ[environ_var])
+        Configuration.__init__(self, files=files)
+        self._cfgsection = cfgsection
+
+    def getConfig(self, configfile):
+        return Configuration(files=[self.get(self._cfgsection, configfile)])
+    
+
 if __name__ == '__main__':
     cfg = Configuration()
