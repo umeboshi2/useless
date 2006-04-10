@@ -91,7 +91,7 @@ Package: useless-webframe
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base
+Depends: useless-base, python-cherrypy2.1
 Description: useless web application objects
  This package is used to hold common objects that are used in 
  different web applications.
