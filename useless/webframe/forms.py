@@ -6,12 +6,19 @@ from forgethtml import Anchor, Form, Input
 from forgethtml import TableHeader, TableCell
 from forgethtml import TableRow, Table
 from forgethtml import Paragraph
+from forgethtml import Division, Label
+from forgethtml import Textarea
+from forgethtml import Submit
+from forgethtml import SimpleForm
 
-class SimpleForm(Form):
+class BaseForm(SimpleForm):
+    pass
+
+class SimpleFormDontUse(Form):
     def __init__(self, action, method='post', **args):
         Form.__init__(self, action=action, method=method, **args)
         self._inputs = {}
-        self.submit_btn = Input(type='submit', value=action)
+        self.submit_btn = Submit(action)
         self.append(Paragraph(self.submit_btn))
         
     def prepend_input(self, name, value='', type='text', **args):
@@ -23,7 +30,7 @@ class BaseLoginForm(Form):
         Form.__init__(self, action=action, method=method, **args)
         self.user_inp = Input(type='text', name='login', value='')
         self.passwd_inp = Input(type='password', name='password', value='')
-        self.submit_btn = Input(type='submit', value='login')
+        self.submit_btn = Submit('login')
         self.clear_btn = Input(type='reset', value='clear entries')
         self.append(Paragraph('User:'))
         self.append(self.user_inp)

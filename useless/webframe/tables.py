@@ -71,14 +71,16 @@ class OneCellTable(Table):
         self.cell.set(data)
         
 class MainHeader(Table):
-    def __init__(self, subhead='subhead', **args):
+    def __init__(self, subhead='subhead', image_=None, **args):
         Table.__init__(self, width='100%', class_='mainheader', colspan=0, **args)
         atts = {'class' : 'mainheader'}
         self.h1 = Header('hello there', 1)
         self.h2 = Header(subhead, 2)
         toprow = TableRow(**atts)
-        toprow.append(TableCell(Image(src=reroot_href('/ambulence.png')),
-                                align='left', **atts))
+        if image_ is None:
+            image_ = Image()
+        self._image = image_
+        toprow.append(TableCell(image_, align='left', **atts))
         toprow.append(TableCell(self.h1, align='center', **atts))
         self.append(toprow)
         self.append(TableRow(TableCell(self.h2, colspan=3, align='center',
@@ -90,12 +92,15 @@ class MainHeader(Table):
     def set_h2(self, info):
         self.h2.set(info)
 
+    def set_image(self, **atts):
+        self._image.attributes.update(atts)
+    
 class MainFooter(Table):
     def __init__(self, subhead='subhead', **args):
         Table.__init__(self, width='100%', _class='mainfooter', **args)
         self.anchors = []
     
-        home = Anchor('Home', href=reroot_href('/'))
+        home = Anchor('Home', href='/')
         up = Anchor('Up', href='index')
         rel = Anchor('Reload', href='javascript:document.location.reload()')
         row = TableRow()
@@ -165,6 +170,9 @@ class MainTable(Table):
     def set_header(self, data):
         self._header.set_h1(data)
 
+    def set_header_image(self, **atts):
+        self._header.set_image(**atts)
+        
     def set_subhead(self, data):
         self._header.set_h2(data)
         
