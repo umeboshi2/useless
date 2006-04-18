@@ -94,7 +94,8 @@ Architecture: any
 Depends: useless-base, python-cherrypy2.1
 Description: useless web application objects
  This package is used to hold common objects that are used in 
- different web applications.
+ different web applications.  It is hoped that this will be used to
+ easily create quick simple applications with this.
 
 
 Package: useless-doc

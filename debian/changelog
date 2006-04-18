@@ -1,8 +1,15 @@
+useless (0.1.8) common; urgency=low
+
+  * releasing with new webframe package
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Tue, 18 Apr 2006 12:56:40 -0500
+
 useless (0.1.7) common; urgency=low
 
   * one more depends fix for useless-kdb (libqt3-mt-psql or libqt3c102-mt-psql)
+  * added webframe package
 
- -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Wed, 15 Mar 2006 15:30:33 -0600
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Tue, 18 Apr 2006 12:54:01 -0500
 
 useless (0.1.6) common; urgency=low
 
