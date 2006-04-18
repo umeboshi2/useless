@@ -570,7 +570,7 @@ class SimpleForm(Form):
     def __init__(self, **kwargs):
         Form.__init__(self, **kwargs)
 
-    def _addInput(self, inputclass, id, description=None, value=None):
+    def _addInput(self, inputclass, id, description=None, value=None, **args):
         """Adds a textfield, optionallly with a label."""
         div = Division()
         self.append(div)
@@ -579,15 +579,15 @@ class SimpleForm(Form):
             label['for'] = id
             div.append(label)
         if(value):
-            div.append(inputclass(id=id, name=id, value=value))
+            div.append(inputclass(id=id, name=id, value=value, **args))
         else:    
-            div.append(inputclass(id=id, name=id))
+            div.append(inputclass(id=id, name=id, **args))
 
-    def addText(self, id, description=None, value=None):
-        self._addInput(Textfield, id, description=description, value=value)
+    def addText(self, id, description=None, value=None, **args):
+        self._addInput(Textfield, id, description=description, value=value, **args)
 
-    def addTextarea(self, id, description=None, value=None):
-        self._addInput(Textarea, id, description=description, value=value)
+    def addTextarea(self, id, description=None, value=None, **args):
+        self._addInput(Textarea, id, description=description, value=value, **args)
         
     def addChoices(self, id, choices, description=None, 
                    default=None):
