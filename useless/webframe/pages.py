@@ -3,8 +3,7 @@ from document import BaseDocument
 
 
 class BasePage(object):
-    def __init__(self, docclass=BaseDocument):
-        self._docclass = docclass
+    _docclass = BaseDocument
         
     def get_docobject(self):
         if 'DocumentObject' not in cherrypy.session:

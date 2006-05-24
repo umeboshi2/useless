@@ -245,7 +245,29 @@ class Link(HeadStuff):
 class NonIndentMixin:
     
     def output(self, indent=0):
+        # override indent
         indent = -999
+        self._check_abstract()
+        result = indention * indent + '<' + self.tag
+        # Each attribute in the form key="value"
+        count = -1
+        for (attribute,value) in self.attributes.items():
+            count += 1
+            if(not count % 2 and count): # Not the first time!
+                result = result + '\n' + indention * indent + ' ' * (len(self.tag) + 1)
+            result = result + ' %s="%s"' % (attribute,value)
+        if(not self._content):
+            result = result + ' />\n' # No content!
+        else:
+            # if content, no newline after tag
+            print 'writing NonIndentMixin', self._content
+            result = result + '>'
+            for element in self._content:
+                result = result + element.output(indent=0) # increased indent level
+                # end tag
+            result = result + indention * indent + '</' + self.tag + '>\n'
+        return result
+        
         return Element.output(self, indent)
 
 # <link href="/stylesheet.css" rel="stylesheet" type="text/css" />
@@ -507,7 +529,9 @@ class Hidden(Input):
 
 class Textarea(Inline, NonIndentMixin):
     tag = 'textarea'
-
+    def output(self, indent=0):
+        return NonIndentMixin.output(self, indent=indent)
+        
 
 class Label(Inline):
     tag = 'label'
