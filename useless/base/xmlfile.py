@@ -15,10 +15,12 @@ from useless.base.util import strfile
     
 
 class TextElement(Element):
-    def __init__(self, name, value):
+    def __init__(self, name, value, **atts):
         Element.__init__(self, name)
         self.set(value)
-
+        for key, value in atts:
+            self.setAttribute(key, value)
+        
     def set(self, value):
         while self.hasChildNodes():
             del self.childNodes[0]
@@ -42,9 +44,20 @@ class TextElement(Element):
                 value = None
         else:
             value = None
-        TextElement.__init__(self, name, value)
+        atts = {}
+        for att in dict(element.attributes):
+            atts[att.encode()] = element.getAttribute(att).encode()
+        TextElement.__init__(self, name, value, **atts)
 
-class DictElement(Element):
+# This class will be removed soon
+# as it is responsible for making some bad
+# tag names.  The newer class will name the
+# child elements with a good tag name so
+# it will be like <tagname name=key>
+# I'm holding on to it with a new class name
+# in order to help convert the xml files that use
+# it to the newer DictElement type.
+class DictElementDeprecated(Element):
     def __init__(self, name, data):
         Element.__init__(self, name)
         self.__data_dict__  = {}
@@ -71,6 +84,45 @@ class DictElement(Element):
         return self.__data_dict__[key]
 
     def reform(self, element):
+        name = element.tagName.encode()
+        data = {}
+        for node in element.childNodes:
+            try:
+                data[node.tagName.encode()] = node.firstChild.data.encode()
+            except AttributeError:
+                pass
+        DictElementDeprecated.__init__(self, name, data)
+
+
+class DictElement(Element):
+    def __init__(self, name, subtag_name, data, name_att='name'):
+        Element.__init__(self, name)
+        self.__data_dict__  = {}
+        for key, value in data.items():
+            self.__data_dict__[key] = TextElement(subtag_name, value)
+            self.__data_dict__[key].setAttribute('name', key)
+            self.appendChild(self.__data_dict__[key])
+
+    def __getitem__(self, key):
+        return self.__data_dict__[key].get()
+
+    def __setitem__(self, key, value):
+        self.__data_dict__[key].set(value)
+
+    def keys(self):
+        return self.__data_dict__.keys()
+
+    def values(self):
+        return [telement.get() for telement in self.__data_dict__.values()]
+
+    def items(self):
+        return [(k, v.get()) for k,v in self.__data_dict__.items()]
+
+    def element(self, key):
+        return self.__data_dict__[key]
+
+    def reform(self, element):
+        raise Error, "reform is currently broken in DictElement"
         name = element.tagName.encode()
         data = {}
         for node in element.childNodes:
@@ -128,9 +180,6 @@ class XmlDoc(object):
         
 
 class ParserHelper(object):
-    def __init__(self):
-        object.__init__(self)
-        
     def _get_single_section(self, element, section):
         sections = element.getElementsByTagName(section)
         if len(sections) > 1:

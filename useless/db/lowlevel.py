@@ -16,8 +16,8 @@ tquery_lite = "SELECT name from sqlite_master where type='table'"
 tquery_pg = "SELECT tablename from pg_tables"# where tablename not like 'pg_%'"
 
 class LocalConnection(Connection_lite):
-    def __init__(self, dbname='test.db', autocommit=1):
-        Connection_lite.__init__(self, dbname, autocommit=autocommit)
+    def __init__(self, dbname='test.db', autocommit=1, encoding='ascii'):
+        Connection_lite.__init__(self, dbname, autocommit=autocommit, encoding=encoding)
         
 
 class BasicConnection(Connection):
