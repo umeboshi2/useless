@@ -1,3 +1,5 @@
+import warnings
+warnings.warn('useless.kbase is deprecated', DeprecationWarning, stacklevel=2)
 
 class Error(Exception):
     pass

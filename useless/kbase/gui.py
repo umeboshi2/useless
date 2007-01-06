@@ -16,8 +16,9 @@ from kdeui import KStdAction
 from kdeui import KTabWidget, KActionSelector
 from kdeui import KComboBox
 
-#from konsultant.base.actions import EditAddresses, ManageClients
-#from konsultant.base.config import DefaultSkeleton, KonsultantConfig
+import warnings
+warnings.warn("useless.kbase.gui shouldn't be used, it needs splitting",
+              RuntimeWarning, stacklevel=2)
 
 class MimeSources(QMimeSourceFactory):
     def __init__(self):
