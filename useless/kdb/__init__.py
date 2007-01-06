@@ -10,6 +10,8 @@ from useless.sqlgen.statement import Statement
 from useless.db.lowlevel import BasicConnection
 from useless.db.midlevel import StatementCursor
 
+raise DeprecationWarning, "useless.kdb is deprecated"
+
 class BaseDriver(QSqlDriver):
     def __init__(self, parent=None, name=None):
         self.stmt = Statement()
