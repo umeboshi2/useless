@@ -19,6 +19,9 @@ from kdeui import KComboBox
 #from konsultant.base.actions import EditAddresses, ManageClients
 #from konsultant.base.config import DefaultSkeleton, KonsultantConfig
 
+print "WARNING, useless.kdebase.gui should not be used."
+
+
 class MimeSources(QMimeSourceFactory):
     def __init__(self):
         QMimeSourceFactory.__init__(self)
