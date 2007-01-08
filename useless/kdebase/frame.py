@@ -1,0 +1,85 @@
+from qt import QFrame
+from qt import QGridLayout
+
+from kdeui import KPushButton
+from kdeui import KLineEdit
+
+# This is a class that is good for dialog windows
+# that display records.
+# fields is an ordered list of fields
+# the fields will be displayed in rows
+# record can either be a dictionary
+# or a database row (with dict access)
+
+class BaseRecordFrame(QFrame):
+    def __init__(self, parent, fields, text=None,
+                 record=None, name='BaseRecordFrame'):
+        QFrame.__init__(self, parent, name)
+        numrows = len(fields) + 1
+        numcols = 2
+        margin = 1
+        space = -1
+        self.grid = QGridLayout(self, numrows, numcols,
+                                margin, space, name)
+        self.fields = fields
+        self.entries = {}
+
+        #self.grid.setSpacing(7)
+        #self.grid.setMargin(10)
+
+        self.record = record
+
+        # need to explain refbuttons and refdata somewhere
+        self._refbuttons = {}
+
+        self._setup_fields(text)
+
+    def _setup_fields(self, text):
+        if text is None:
+            text = '<b>insert a simple record</b>'
+        refdata = None
+        # check if the record has refdata
+        if self.record is not None and hasattr(self.record, '_refdata'):
+            refdata = self.record._refdata
+        for field_index in range(len(self.fields)):
+            field = self.fields[field_index]
+            # here we make either a label or button
+            if refdata is not None and field in refdata.cols:
+                button = KPushButton('select/create', self)
+                self._refbuttons[field] = button
+                # add button to grid (column 1)
+                self.grid.addWidget(button, field_index + 1, 1)
+                # make buddy the button
+                buddy = button
+            else:
+                record_value = ''
+                if self.record is not None:
+                    record_value = self.record[field]
+                entry = KLineEdit(record_value, self)
+                self.entries[field] = entry
+                self.grid.addWidget(entry, field_index + 1, 1)
+                # make buddy the entry
+                buddy = entry
+            # make the label
+            lbl_text = '&%s' % field
+            lbl_name = '%sLabel' % field
+            # buddy may not be well defined, or appropriate here
+            label = QLabel(buddy, lbl_text, self, lbl_name)
+            self.grid.addWidget(label, field_index + 1, 0)
+        self.text_label = QLabel(text, self)
+        self.grid.addMultiCellWidget(self.text_label, 0, 0, 0, 1)
+
+    def getRecordData(self):
+        entry_items = self.entries.items()
+        data_items = [k, str(v.text()) for k,v in entry_items]
+        return dict(data_items)
+
+    def setRecordData(self, record_data):
+        for field, value in record_data.items():
+            self.entries[field].setText(value)
+
+    def setText(self, text):
+        self.text_label.setText(text)
+        
+    
+        

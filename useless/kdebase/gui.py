@@ -19,7 +19,10 @@ from kdeui import KComboBox
 #from konsultant.base.actions import EditAddresses, ManageClients
 #from konsultant.base.config import DefaultSkeleton, KonsultantConfig
 
-print "WARNING, useless.kdebase.gui should not be used."
+import warnings
+warnings.warn("useless.kdebase.gui shouldn't be used, it needs splitting",
+              RuntimeWarning, stacklevel=2)
+
 
 
 class MimeSources(QMimeSourceFactory):
@@ -27,26 +30,6 @@ class MimeSources(QMimeSourceFactory):
         QMimeSourceFactory.__init__(self)
         self.addFilePath('/usr/share/wallpapers')
 
-class MainWindow(KMainWindow):
-    def __init__(self, parent, name='MainWindow'):
-        KMainWindow.__init__(self, parent, name)
-        self.initActions()
-        self.initMenus()
-        if hasattr(self, 'initToolbar'):
-            self.initToolbar()
-
-    def initActions(self, collection=None):
-        if collection is None:
-            collection = self.actionCollection()
-        self.quitAction = KStdAction.quit(self.close, collection)
-
-    def initMenus(self, mainmenu=None):
-        if mainmenu is None:
-            mainmenu = KPopupMenu(self)
-        self.quitAction.plug(mainmenu)
-        self.menuBar().insertItem('&Main', mainmenu)
-        self.menuBar().insertItem('&Help', self.helpMenu(''))
-    
 class SimpleRecord(QGridLayout):
     def __init__(self, parent, fields, text=None, record=None, name=None):
         print 'record, name', record, name
@@ -220,13 +203,6 @@ class BaseAssigner(VboxDialog):
     def initView(self):
         print 'you need to override initView'
         
-
-class MyCombo(KComboBox):
-    def fill(self, alist):
-        self.clear()
-        for item in alist:
-            self.insertItem(item)
-            
 
 #############################
 ## from paella-kde need to remove

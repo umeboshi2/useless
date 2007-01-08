@@ -18,6 +18,11 @@ from useless.sqlgen.clause import Eq, In
 from useless.kbase.gui import MainWindow, MimeSources
 from useless.kbase.gui import SimpleRecord, SimpleRecordDialog
 
+import warnings
+warnings.warn('useless.kdedb.gui should not be used',
+              DeprecationWarning, stacklevel=2)
+
+
 class SimpleWindow(MainWindow):
     def __init__(self, app, parent, name):
         MainWindow.__init__(self, parent, name)

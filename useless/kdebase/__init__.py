@@ -1,19 +1,4 @@
+from kdecore import KApplication
 
-class Error(Exception):
-    pass
-
-class ExistsError(Error):
-    pass
-
-class NoExistError(Error):
-    pass
-class NoFileError(NoExistError):
-    pass
-
-class UnbornError(NoExistError):
-    pass
-
-class TableError(ExistsError):
-    pass
-
-
+def get_application_pointer():
+    return KApplication.kApplication()
