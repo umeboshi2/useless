@@ -6,7 +6,7 @@ from pyPgSQL.libpq import IntegrityError, OperationalError
 from sqlite.main import Connection as Connection_lite
 from sqlite.main import Cursor as Cursor_lite
 
-from useless.base import Error, debug
+from useless.base import debug, AlreadyExistsError
 from useless.base.util import Pkdictrows
 from useless.sqlgen.select import complex_select as select
 from useless.sqlgen.write import insert, delete, update
@@ -59,7 +59,7 @@ class BaseConnection(BasicConnection):
 class QuickConn(BasicConnection):
     def __init__(self, cfg=None):
         if cfg is None:
-            raise Error, 'need config now'
+            raise RuntimeError, 'need config now'
         user = cfg['dbusername']
         host = cfg['dbhost']
         dbname = cfg['dbname']
@@ -95,13 +95,13 @@ class _Simple(object):
         if table.name not in self.tables():
             self.execute('create table %s' %table)
         else:
-            raise Error, 'Table %s already Exists' % table.name
+            raise AlreadyExistsError, 'Table %s already Exists' % table.name
 
     def create_sequence(self, seq):
         if seq.name not in self.sequences():
             self.execute('create sequence %s' % seq)
         else:
-            raise Error, 'Sequence %s already Exists' % seq.name
+            raise AlreadyExistsError, 'Sequence %s already Exists' % seq.name
 
     def create_trigger(self, trigger):
         self.execute('create trigger %s' % trigger)
@@ -155,9 +155,11 @@ class FakeCursor(_Simple):
         try:
             self.__real_cursor__.execute(query, *args)
         except IntegrityError, error:
-            raise IntegrityError, '%s: %s' % (error, query)
+            print 'Caught IntegrityError on query', query
+            raise error
         except OperationalError, error:
-            raise OperationalError, '%s: %s' % (error, query)
+            print 'Caught OperationalError on query', query
+            raise error
         self.description = self.__real_cursor__.description
 
     def executemany(self, query, args):

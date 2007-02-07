@@ -7,7 +7,7 @@ from md5 import md5
 from pipes import Template as PipeTemplate
 import pycurl
 
-from useless.base import debug, Error
+from useless.base import debug
 
 from defaults import BLOCK_SIZE
 
@@ -314,7 +314,7 @@ def indexed_items(items):
 
 def get_sub_path(fullpath, rootpath):
     if fullpath[:len(rootpath)] != rootpath:
-        raise Error, 'fullpath not in rootpath\n%s\n%s' %(fullpath, rootpath)
+        raise RuntimeError, 'fullpath not in rootpath\n%s\n%s' %(fullpath, rootpath)
     if rootpath[-1] != '/':
         rootpath += '/'
     tpath = fullpath.split(rootpath)[1]
@@ -365,7 +365,7 @@ def runlog(command, destroylog=False,
         os.dup2(newstream[stream].fileno(), backup[stream][1])
     run = os.system(command)
     if run and not keeprunning:
-        raise Error, 'error in command %s , check %s' % (command, logfile)
+        raise RuntimeError, 'error in command %s , check %s' % (command, logfile)
     for stream in sysstream:
         os.dup2(backup[stream][0], backup[stream][1])
     for stream in newstream:
@@ -387,7 +387,7 @@ def runlog_script(command, destroylog=False,
     cmd  = '%s -c "%s" %s' % (scriptcmd, command, logfile)
     run = os.system(cmd)
     if run and not keeprunning:
-        raise Error, 'error in command %s , check %s' % (command, logfile)
+        raise RuntimeError, 'error in command %s , check %s' % (command, logfile)
     return run
 
 def echo(message, logvar='LOGFILE'):

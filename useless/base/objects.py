@@ -7,7 +7,6 @@ from Queue import Queue, Full, Empty
 
 import pycurl
 
-from useless.base import Error
 from useless.base.util import blank_list, ujoin
 from useless.base.util import makepaths
 
@@ -46,7 +45,7 @@ class DbBaseRow(object):
         elif isinstance(key, int):
             return self._vallist_[key]
         else:
-            raise Error, 'item not found'
+            raise KeyError, 'item %s not found' % key
 
     def __getattr__(self, key):
         if key in self._keylist_:
@@ -87,13 +86,13 @@ class SuperDict(object):
         
     def __getitem__(self, key):
         if key not in self.__superdict__:
-            raise Error, 'key %s not in SuperDict' % key
+            raise KeyError, 'key %s not in SuperDict' % key
         main, field = self.__superdict__[key]
         return self.get(main, field)
     
     def __setitem__(self, key, value):
         if key not in self.__superdict__:
-            raise Error, 'SuperDict cant make new items'
+            raise RuntimeError, 'SuperDict cant make new items'
         main, field = self.__superdict__[key]
         self.set(main, field, value)
 
@@ -184,7 +183,7 @@ class SuperShelf(shelve.DbfilenameShelf):
         orderkeys = self['___order_keys___']
         for field in fieldlist:
             if field not in fields:
-                raise Error, 'bad field %s in order' % field
+                raise LookupError, 'bad field %s in order' % field
         orders[order] = fieldlist
         self['___orders___'] = orders
         orderkeys[order] = []

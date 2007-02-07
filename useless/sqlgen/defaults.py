@@ -160,7 +160,7 @@ class RelationalTable(Table):
 class LogTable(Table):
     def __init__(self, table):
         if not issubclass(table.__class__, Table):
-            raise Error, 'need to pass a Table'
+            raise RuntimeError, 'need to pass a Table'
         table = deepcopy(table)
         #remove constraints from original table's columns
         for col in table.columns:

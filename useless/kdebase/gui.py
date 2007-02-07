@@ -19,10 +19,8 @@ from kdeui import KComboBox
 #from konsultant.base.actions import EditAddresses, ManageClients
 #from konsultant.base.config import DefaultSkeleton, KonsultantConfig
 
-import warnings
-warnings.warn("useless.kdebase.gui shouldn't be used, it needs splitting",
-              RuntimeWarning, stacklevel=2)
-
+from useless import deprecated
+deprecated("useless.kdebase.gui shouldn't be used, it needs splitting up")
 
 
 class MimeSources(QMimeSourceFactory):

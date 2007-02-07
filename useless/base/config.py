@@ -2,7 +2,7 @@ from ConfigParser import SafeConfigParser, NoSectionError
 from ConfigParser import ConfigParser
 import os, os.path
 
-from useless.base import Error
+from useless import deprecated
 
 def list_rcfiles(rcfilename):
     rcfiles = [os.path.join('/etc', rcfilename),
@@ -152,8 +152,9 @@ class ConfigurationOrig(object):
     section, DEFAULT is used.
     """
     def __init__(self, section=None, files=[]):
+        deprecated('ConfigurationOrig class is deprecated')
         if not files:
-            raise Error, 'need a list of files'
+            raise RuntimeError, 'need a list of files'
         object.__init__(self)
         self.__cfg__ = Configure(files=files)
         self.change(section)

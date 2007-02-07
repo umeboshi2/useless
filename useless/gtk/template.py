@@ -1,7 +1,7 @@
 import os
 from os.path import join, dirname, isfile
 
-from useless.base import Error, debug
+from useless.base import debug
 from useless.base.defaults import DELIMITERS
 from useless.base.template import Template
 from useless.base.util import ujoin
@@ -11,7 +11,6 @@ from useless.gtk.helpers import get_buffer_text, HasDialogs
 from useless.gtk import dialogs
 
 from gtk import MenuItem, FileSelection
-from gtk import TRUE, FALSE, mainquit, mainloop
 
 from gtk import TextBuffer, TextTag, TextView
 

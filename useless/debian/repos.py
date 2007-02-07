@@ -11,7 +11,7 @@ from copy import deepcopy as copy
 
 from apt_pkg import ParseTagFile
 
-from useless.base import debug, Error, NoFileError
+from useless.base import debug, NoFileError
 from useless.base.util import readfile, wget, strfile
 from useless.base.util import md5sum as md5sum_base
 from useless.base.util import makepaths, check_file, get_file, get_url
@@ -59,7 +59,7 @@ class LocalRepos(object):
             self.arch = arch
             self.sections = {}
         else:
-            raise Error, 'not a local source'
+            raise RuntimeError, 'not a local source'
     
     def __repr__(self):
         return 'LocalRepos %s' %self.source
@@ -78,7 +78,7 @@ class LocalRepos(object):
         elif self.source.type == 'deb-src':
             return parse_sources(listfile)
         else:
-            raise Error, 'bad source type'
+            raise RuntimeError, 'bad source type'
 
     def _check_path_(self, full_path, msum):
         if not isfile(full_path):
@@ -165,7 +165,7 @@ class RemoteRepos(object):
         remotesource = make_source(remotesource)
         localsource = make_source(localsource)
         if islocaluri(remotesource.uri):
-            raise Error, 'localuri'
+            raise RuntimeError, 'localuri'
         self.source = remotesource
         self.local = LocalRepos(localsource, arch=arch)
         self.arch = arch

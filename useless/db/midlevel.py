@@ -3,7 +3,7 @@ from operator import and_
 from pyPgSQL.libpq import PgQuoteString as quote
 from pyPgSQL.libpq import OperationalError
 
-from useless.base import Error, debug, NoExistError
+from useless.base import debug, NoExistError
 from useless.base.util import ujoin
 from useless.sqlgen.statement import Statement
 from useless.sqlgen.clause import Eq
@@ -98,7 +98,7 @@ class StatementCursor(CommandCursor):
         elif rows == 0:
             raise NoExistError
         else:
-            raise Error, 'bad row count %s' % rows
+            raise RuntimeError, 'bad row count %s' % rows
 
      
     def delete_file(self, conn, field, clause):
@@ -179,7 +179,8 @@ class TableDict(_TableDict):
         if len(rows) == 1:
             return rows[0][self.__value_field__]
         else:
-            raise Error, 'key problem'
+            msg = 'duplicate rows in TableDict for key %s' % key
+            raise KeyError, msg
 
     def __setitem__(self, key, value):
         if key in self.keys():
@@ -206,7 +207,8 @@ class TableRowDict(_TableDict):
         if len(rows) == 1:
             return rows[0]
         else:
-            raise Error, 'key problem'
+            msg = 'duplicate rows in TableRowDict for key %s' % key
+            raise KeyError, msg
 
     def __setitem__(self, key, value):
         if key in self.keys():
@@ -237,7 +239,8 @@ class BaseEnvironment(_TableDict):
         if len(rows) == 1:
             return rows[0][self.__value_field__]
         else:
-            raise Error, 'key problem'
+            msg = 'duplicate rows in BaseEnvironment for key %s' % key
+            raise KeyError, 'key problem'
 
     def __setitem__(self, key, value):
         try:
@@ -304,7 +307,7 @@ class MultiEnvironment(BaseEnvironment):
     def __init__(self, conn, table, main_fields,
                  key_field='name', value_field='value'):
         if type(main_fields) == str or not len(main_fields) > 1:
-            raise Error, 'need at least two fields in a nonstring sequence obj'
+            raise RuntimeError, 'need at least two fields in a nonstring sequence obj'
         BaseEnvironment.__init__(self, conn, table,
                                  key_field=key_field, value_field=value_field)
         self.__main_fields__ = main_fields
@@ -324,10 +327,12 @@ class MultiEnvironment(BaseEnvironment):
             data[self.__value_field__] = value
             print data
             self.cursor.insert(data=data)
-        except OperationalError:
-            self.cursor.update(data={self.__value_field__ : value},
-                               clause=self._double_clause_(key))
-
+        except OperationalError, inst:
+            if inst.args[0].startswith('ERROR:  duplicate key violates unique constraint'):
+                self.cursor.update(data={self.__value_field__ : value},
+                                   clause=self._double_clause_(key))
+            else:
+                raise inst
 
 class SimpleRelation(object):
     def __init__(self, conn, table, main, name='SimpleRelation'):
@@ -368,7 +373,7 @@ class SimpleRelation(object):
         self.set_clause((name, value))
         rows = self.cmd.select()
         if len(rows) != 1:
-            raise Error, 'incorrect rows in %s' %self.cmd.stmt.table
+            raise KeyError, 'incorrect rows in %s' %self.cmd.stmt.table
         return rows[0]
 
     def delete(self, main):

@@ -2,6 +2,8 @@ import os
 import logging
 from logging.handlers import SysLogHandler
 
+from useless import deprecated
+
 def _Log(name, path=None, logformat=''):
     log = logging.getLogger(name)
     if path is not None:
@@ -30,23 +32,27 @@ def debug(*something):
     if os.environ.has_key('DEBUG'):
 	syslog.debug(' '.join(map(str, something)))
 
-class Error(Exception):
+class BaseError(StandardError):
     pass
 
-class ExistsError(Error):
+class Error(BaseError):
+    def __init__(self, *args):
+        deprecated('Use of Error class is now deprecated')
+        BaseError.__init__(self, *args)
+        
+class AlreadyExistsError(BaseError):
     pass
 
-class NoExistError(Error):
+class BaseLookupError(LookupError):
     pass
+
+class NoExistError(BaseLookupError):
+    pass
+
 class NoFileError(NoExistError):
     pass
 
 class UnbornError(NoExistError):
     pass
 
-class KeyError(ExistsError):
-    pass
-
-class TableError(ExistsError):
-    pass
 

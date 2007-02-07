@@ -4,7 +4,6 @@ from gtk import Dialog, Notebook, VPaned
 
 from gtk.gdk import BUTTON_PRESS_MASK
 
-from useless.base import Error
 from useless.base.util import indexed_items
 from listboxes import ListBox
 from helpers import HasListbox, HasRecordBox, HasDialogs
@@ -52,7 +51,7 @@ class FieldEntryVbox(VBox):
         if self.vdict.has_key(key):
             self.vdict[key].set(value)
         else:
-            raise Error, 'foobar'
+            raise KeyError, 'no key %s in FieldEntryVbox' % key
     def keys(self):
         return self.vdict.keys()
     def values(self):
@@ -81,7 +80,7 @@ class ItemButtonBox(VBox):
         if self.vdict.has_key(key):
             self.vdict[key].set(value)
         else:
-            raise Error, 'foobar'
+            raise KeyError, 'no key %s in ItemButtonBox' % key
     def keys(self):
         return self.vdict.keys()
     def values(self):

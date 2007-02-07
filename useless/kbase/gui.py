@@ -16,9 +16,9 @@ from kdeui import KStdAction
 from kdeui import KTabWidget, KActionSelector
 from kdeui import KComboBox
 
-import warnings
-warnings.warn("useless.kbase.gui shouldn't be used, it needs splitting",
-              RuntimeWarning, stacklevel=2)
+from useless import deprecated
+deprecated("useless.kbase.gui shouldn't be used, it needs splitting up")
+
 
 class MimeSources(QMimeSourceFactory):
     def __init__(self):

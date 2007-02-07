@@ -12,6 +12,6 @@ def get_single_row(listbox, selected='a row'):
         dialogs.Message('select %s first.' % selected)
         allok = False
     if len(rows) > 1:
-        raise Error, 'need to use single select listbox'
+        raise RuntimeError, 'need to use single select listbox'
     return value
 

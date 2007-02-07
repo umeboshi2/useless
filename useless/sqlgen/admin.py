@@ -1,6 +1,5 @@
 import os
 
-from useless.base import Error
 from classes import cj_fields
 
 def _change_access(type, privilege, tables, user):
@@ -10,7 +9,7 @@ def _change_access(type, privilege, tables, user):
     elif type == 'revoke':
         return 'REVOKE %s on %s from %s' %(privilege, tables, user)
     else:
-        raise Error, 'bad command type in _change_access'
+        raise RuntimeError, 'bad command type in _change_access'
 
 def grant_user(privilege, tables, user):
     return _change_access('grant', privilege, tables, user)

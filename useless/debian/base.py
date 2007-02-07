@@ -6,7 +6,7 @@ import email
 from apt_pkg import ParseTagFile
 
 
-from useless.base import debug, Error
+from useless.base import debug
 from useless.base.util import gunzip, bunzip
 from useless.base.util import readfile
 
@@ -41,7 +41,7 @@ class RepositorySource(object):
             else:
                 return dotjoin('Packages', self._zip_)
         else:
-            raise Error, 'this shouldnt have been called'
+            raise RuntimeError, 'this shouldnt have been called'
         
     def set_source(self, line):
         debug(line)

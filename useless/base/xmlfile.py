@@ -4,7 +4,7 @@ from xml.dom.ext import PrettyPrint
 from xml.dom.minidom import parse as parse_file
 from xml.dom.minidom import parseString as parse_string
 
-from useless.base import Error, debug
+from useless.base import debug
 from useless.base.util import strfile
 
 
@@ -122,7 +122,7 @@ class DictElement(Element):
         return self.__data_dict__[key]
 
     def reform(self, element):
-        raise Error, "reform is currently broken in DictElement"
+        raise RuntimeError, "reform is currently broken in DictElement"
         name = element.tagName.encode()
         data = {}
         for node in element.childNodes:
@@ -183,7 +183,7 @@ class ParserHelper(object):
     def _get_single_section(self, element, section):
         sections = element.getElementsByTagName(section)
         if len(sections) > 1:
-            raise Error, 'too many %s sections' %section
+            raise RuntimeError, 'too many %s sections' %section
         else:
             return sections
 

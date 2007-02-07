@@ -3,7 +3,7 @@ from os.path import join, isdir, isfile
 
 from pyPgSQL.libpq import PgQuoteString as quote
 
-from useless.base import Error, debug
+from useless.base import debug
 from useless.base.config import Configuration
 from useless.base.util import makepaths
 from useless.base.objects import Parser

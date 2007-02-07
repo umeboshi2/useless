@@ -12,15 +12,15 @@ from kdeui import KListView, KStdGuiItem
 from kdeui import KPushButton, KStatusBar
 from kdeui import KColorButton
 
+from useless import deprecated
 from useless.base import NoExistError
 from useless.sqlgen.clause import Eq, In
 
 from useless.kbase.gui import MainWindow, MimeSources
 from useless.kbase.gui import SimpleRecord, SimpleRecordDialog
 
-import warnings
-warnings.warn('useless.kdedb.gui should not be used',
-              DeprecationWarning, stacklevel=2)
+deprecated('useless.kdedb.gui should not be used')
+
 
 
 class SimpleWindow(MainWindow):

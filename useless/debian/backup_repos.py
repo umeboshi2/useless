@@ -47,7 +47,7 @@ class BackupRepos(object):
         localsource = make_source(localsource)
         print dir(localsource)
         if not islocaluri(localsource.uri):
-            raise Error, 'remote uri'
+            raise RuntimeError, 'remote uri'
         self.local = LocalRepos(localsource)
         backup_src = make_source(str(localsource))
         backup_src.uri = path.join(backup_src.uri, 'backup')

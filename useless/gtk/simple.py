@@ -9,7 +9,7 @@ from gtk import ORIENTATION_VERTICAL
 from gtk import TOOLBAR_CHILD_BUTTON
 from gtk import HandleBox, Toolbar, ProgressBar
 
-from useless.base import debug, Error
+from useless.base import debug
 
 a_font = "-adobe-helvetica-medium-r-*-*-*-100-*-*-*-*-iso8859-1"
 
@@ -79,7 +79,7 @@ class ItemLabel(HBox):
 class ItemEntry(HBox):
     def __init__(self, item, name='ItemEntry'):
         if len(item) != 2:
-            raise Error, 'ItemEntry needs item not %s' %item
+            raise RuntimeError, 'ItemEntry needs item not %s' %item
         field, value = item
         HBox.__init__(self)
         self.set_name(name)
@@ -216,7 +216,7 @@ class HandleToolbar(HandleBox):
         elif orientation == 'vertical':
             self.toolbar.set_orientation(ORIENTATION_VERTICAL)
         else:
-            raise Error, 'bad orientation %s' % orientation
+            raise RuntimeError, 'bad orientation %s' % orientation
 
 class MyProgress:
     def __init__(self):

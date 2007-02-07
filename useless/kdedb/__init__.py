@@ -4,13 +4,13 @@ from qtsql import QSqlDatabase, QSqlDriver
 from dcopexport import DCOPExObj
 
 
+from useless import deprecated
 from useless.base import NoExistError
 from useless.sqlgen.clause import Eq, In
 from useless.sqlgen.statement import Statement
 from useless.db.lowlevel import BasicConnection
 from useless.db.midlevel import StatementCursor
 
-import warnings
 
 class BaseDriver(QSqlDriver):
     def __init__(self, parent=None, name=None):
@@ -20,8 +20,7 @@ class BaseDriver(QSqlDriver):
 
 class BaseDatabase(QSqlDatabase):
     def __init__(self, dsn, name, parent=None, objname=None):
-        warnings.warn('useless.kdedb.BaseDatabase is deprecated',
-                      DeprecationWarning, stacklevel=2)
+        deprecated('useless.kdedb.BaseDatabase is deprecated')
         QSqlDatabase.__init__(self, 'QPSQL7', name, parent, objname)
         if hasattr(dsn, 'items'): #if dsn is dictionary
             self.conn = BasicConnection(**dsn)
@@ -97,7 +96,7 @@ class BaseDatabase(QSqlDatabase):
         elif rows == 0:
             raise NoExistError
         else:
-            raise Error, 'bad row count %s' % rows
+            raise RuntimeError, 'bad row count %s' % rows
 
     def clear(self, **args):
         self.stmt.clear(**args)
@@ -121,8 +120,7 @@ class BaseDatabase(QSqlDatabase):
         
 class BaseObject(DCOPExObj):
     def __init__(self, id='BaseObject'):
-        warnings.warn('useless.kdedb.BaseObject is deprecated',
-                      DeprecationWarning, stacklevel=2)
+        deprecated('useless.kdedb.BaseObject is deprecated')
         DCOPExObj.__init__(self, id)
         self.addMethod('QString helloworld()', self.helloworld)
         self.addMethod('BaseDatabase getdb()', self.getdb)

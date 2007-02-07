@@ -5,7 +5,7 @@ import rfc822
 from apt_pkg import ParseTagFile
 
 
-from useless.base import debug, Error
+from useless.base import debug
 from useless.base.util import strfile
 
 
@@ -117,9 +117,9 @@ def copy_configdb(src_path, dest_path):
         while len(srcdb) and srcdb[0]['name'] < name:
             newdb.append(srcdb.pop(0))
             if len(newdb) > _max_inserts:
-                raise Error, 'bad looping in copy_configdb'
+                raise RuntimeError, 'bad looping in copy_configdb'
         if len(newdb) > _max_inserts:
-            raise Error, 'bad looping in copy_configdb'
+            raise RuntimeError, 'bad looping in copy_configdb'
     data = '\n'.join(map(str, newdb))
     target = file(dest_path, 'w')
     target.write(data)

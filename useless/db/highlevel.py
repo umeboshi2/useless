@@ -1,7 +1,7 @@
 from pyPgSQL.libpq import PgQuoteString as quote
 from pyPgSQL.libpq import OperationalError
 
-from useless.base import Error, debug, NoExistError
+from useless.base import debug, NoExistError
 from useless.base.util import ujoin
 from useless.sqlgen.statement import Statement
 from useless.sqlgen.classes import Table, Sequence
