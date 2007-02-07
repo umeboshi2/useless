@@ -5,8 +5,6 @@ from gtk import Entry as gtkEntry
 from gtk import Combo as gtkCombo
 from gtk import Button
 
-from gtk import TRUE, FALSE
-
 from simple import TextScroll, ItemEntry
 from helpers import HasListbox, HasRecordBox
 
@@ -22,8 +20,8 @@ class _GenDialog(gtkDialog):
         self.ok_button.set_name(name)
         self.cancel_button = Button('cancel', 'gtk-cancel')
         self.cancel_button.set_name(name)
-        self.action_area.pack_start(self.ok_button, TRUE, TRUE, 0)
-        self.action_area.pack_end(self.cancel_button, TRUE, TRUE, 0)
+        self.action_area.pack_start(self.ok_button, True, True, 0)
+        self.action_area.pack_end(self.cancel_button, True, True, 0)
         self.ok_button.show()
         self.cancel_button.show()
         self.cancel_button.connect('clicked', lambda *x : self.destroy())
@@ -49,8 +47,8 @@ class Dialog(_GenDialog):
         _GenDialog.__init__(self, name=name)
         self.set_name(name)
         self.label = Label(message)
-        self.vbox.pack_start(self.label, FALSE, TRUE, 0)
-        self.vbox.set_homogeneous(FALSE)
+        self.vbox.pack_start(self.label, False, True, 0)
+        self.vbox.set_homogeneous(False)
         self.label.show()
 
 class Message(Dialog):
@@ -62,7 +60,7 @@ class Calendar(_GenDialog):
     def __init__(self):
         _GenDialog.__init__(self)
         self.calendar = Calendar()
-        self.vbox.pack_start(self.calendar, TRUE, TRUE, 0)
+        self.vbox.pack_start(self.calendar, True, True, 0)
         self.calendar.show()
 
     def get_date(self):
@@ -78,7 +76,7 @@ class Entry(Dialog):
         self.set_name(name)
         self.entry = gtkEntry()
         self.accels = AccelGroup()
-        self.vbox.pack_start(self.entry, TRUE, TRUE, 0)
+        self.vbox.pack_start(self.entry, True, True, 0)
         self.entry.show()
 
     def get(self):
@@ -114,7 +112,7 @@ class CList(Dialog, HasListbox):
         HasListbox.__init__(self, self.scroll, name=name,
                             dnd=dnd, targets=targets)
         self.scroll.show()
-        self.vbox.pack_start(self.scroll, TRUE, TRUE, 0)
+        self.vbox.pack_start(self.scroll, True, True, 0)
         self.set_size_request(150, 300)
             
 class TextDialog(Dialog):
@@ -122,7 +120,7 @@ class TextDialog(Dialog):
         Dialog.__init__(self, message, name=name)
         self.text = TextScroll(text)
         self.text.show()
-        self.vbox.pack_start(self.text, TRUE, TRUE, 0)
+        self.vbox.pack_start(self.text, True, True, 0)
         self.set_size_request(150, 300)
         
 
@@ -132,7 +130,7 @@ class _ScrollBox(Dialog):
         Dialog.__init__(self, message, name=name)
         self.scroll = ScrolledWindow()
         self.scroll.show()
-        self.vbox.pack_start(self.scroll, TRUE, TRUE, 0)
+        self.vbox.pack_start(self.scroll, True, True, 0)
         self.set_size_request(150, 300)
         if type =='v':
             self.mbox = VBox()

@@ -1,5 +1,4 @@
 from gtk import CList
-from gtk import TRUE
 from gtk import DEST_DEFAULT_MOTION
 from gtk import DEST_DEFAULT_HIGHLIGHT
 from gtk import DEST_DEFAULT_DROP
@@ -56,7 +55,7 @@ class ListBox(CList):
         self.set_reorderable(1)
         self.connect('click_column', self.sort_column)
         for column_no in xrange(len(self.__col_titles__)):
-            self.set_column_resizeable(column_no, TRUE)
+            self.set_column_resizeable(column_no, True)
 
     def set_row_select(self, select_fun):
         self.__select_row_func__ = select_fun

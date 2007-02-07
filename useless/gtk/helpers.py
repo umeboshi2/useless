@@ -1,4 +1,3 @@
-from gtk import TRUE, FALSE
 from gtk import SELECTION_MULTIPLE, SELECTION_EXTENDED, SELECTION_SINGLE
 from gtk import DEST_DEFAULT_MOTION
 from gtk import DEST_DEFAULT_HIGHLIGHT
@@ -171,7 +170,7 @@ class _HasRecord_(object):
         self.entries = dict([(i[0], itementry(i)) for i in self._data_items_])
         self.accels = AccelGroup()
         for key, value in self._data_items_:
-            vbox.pack_start(self.entries[key], FALSE, FALSE, 1)
+            vbox.pack_start(self.entries[key], False, False, 1)
             self[key] = str(value)
         
     def keys(self):

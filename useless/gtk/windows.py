@@ -1,7 +1,6 @@
 from gtk import Window, Button, Combo, VBox, HBox
 from gtk import ScrolledWindow, Entry, Label, Calendar
 
-from gtk import TRUE, FALSE
 from simple import HandleToolbar, SimpleMenuBar, SimpleMenu
 from simple import RadioMenu
 from middle import TwinCList, CommandBox
@@ -42,7 +41,7 @@ class MenuWindowOrig(Window):
         self.vbox = VBox()
         self.add(self.vbox)
         self.menubar = SimpleMenuBar()
-        self.vbox.pack_start(self.menubar, FALSE, FALSE, 0)
+        self.vbox.pack_start(self.menubar, False, False, 0)
         self.vbox.show()
         self.show()
 
@@ -62,7 +61,7 @@ class MenuWindow(Window, HasMenuDialog):
         self.vbox = VBox()
         self.add(self.vbox)
         self.menubar = SimpleMenuBar()
-        self.vbox.pack_start(self.menubar, FALSE, FALSE, 0)
+        self.vbox.pack_start(self.menubar, False, False, 0)
         self.vbox.show()
         self.show()
     

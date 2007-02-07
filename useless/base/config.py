@@ -136,7 +136,16 @@ class Configuration(ConfigParser):
     def is_it_false(self, section, option):
         """Simple true/false yes/no parsing."""
         return not self.getboolean(section, option)
-    
+
+    def clear_section(self, section):
+        for option in self.options(section):
+            self.remove_option(section, option)
+
+    def clear_all(self):
+        self.defaults().clear()
+        for section in self.sections():
+            self.clear_section(section)
+            
 class ConfigurationOrig(object):
     """Configuration has the ablity to have a current section,
     and be used as a dictionary.  If there is no current

@@ -76,11 +76,22 @@ class RefDict(dict):
     
 
 
-def makepaths(*paths):
+def makepaths_orig(*paths):
     for path in paths:
         if not isdir(path):
             os.makedirs(path)
 
+def makepaths(*paths):
+    for path in paths:
+        try:
+            os.makedirs(path)
+        except OSError, inst:
+            # expect the error 17, 'File exists'
+            if inst.args[0] == 17:
+                pass
+            else:
+                raise inst
+            
 def blank_values(count, value=None):
     """This is a simple generator that
     makes count amount of value.

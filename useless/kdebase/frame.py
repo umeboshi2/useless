@@ -1,5 +1,6 @@
 from qt import QFrame
 from qt import QGridLayout
+from qt import QLabel
 
 from kdeui import KPushButton
 from kdeui import KLineEdit
@@ -17,8 +18,8 @@ class BaseRecordFrame(QFrame):
         QFrame.__init__(self, parent, name)
         numrows = len(fields) + 1
         numcols = 2
-        margin = 1
-        space = -1
+        margin = 10
+        space = 7
         self.grid = QGridLayout(self, numrows, numcols,
                                 margin, space, name)
         self.fields = fields
@@ -71,8 +72,10 @@ class BaseRecordFrame(QFrame):
 
     def getRecordData(self):
         entry_items = self.entries.items()
-        data_items = [k, str(v.text()) for k,v in entry_items]
-        return dict(data_items)
+        record_data = {}
+        for key, entry in entry_items:
+            record_data[key] = str(entry.text())
+        return record_data
 
     def setRecordData(self, record_data):
         for field, value in record_data.items():

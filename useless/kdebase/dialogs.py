@@ -36,7 +36,8 @@ class BaseRecordDialog(KDialogBase):
         self.setButtonOKText('insert', 'insert')
         self.dialogs = {}
         self.refbuttons = self.frame._refbuttons
-
+        self.setMainWidget(self.frame)
+        
     def getRecordData(self):
         return self.frame.getRecordData()
 

@@ -1,7 +1,7 @@
 from gtk import Window, Button, Combo, VBox, HBox, HPaned
 from gtk import ScrolledWindow, Entry, Label, Calendar
 from gtk import Dialog, Notebook, VPaned
-from gtk import TRUE, FALSE
+
 from gtk.gdk import BUTTON_PRESS_MASK
 
 from useless.base import Error
@@ -25,7 +25,7 @@ class _FieldEntry(HBox):
         self.set_name(name)
         self.label = Label(name)
         self.entry = Entry()
-        self.pack_start(self.label, TRUE, TRUE, 0)
+        self.pack_start(self.label, True, True, 0)
         self.add(self.entry)
         self.label.show()
         self.entry.show()
@@ -264,8 +264,8 @@ class CommandBox(VBox, HasMenuBar):
         self.set_name(name)
         self.tbar = HandleToolbar()
         self.menubar = SimpleMenuBar()
-        self.pack_start(self.menubar, FALSE, FALSE, 0)
-        self.pack_end(self.tbar, FALSE, FALSE, 0)
+        self.pack_start(self.menubar, False, False, 0)
+        self.pack_end(self.tbar, False, False, 0)
         self.show()
 
 class TwinScrollCList(HPaned):

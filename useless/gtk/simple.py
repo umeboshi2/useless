@@ -3,7 +3,7 @@ from gtk import ScrolledWindow, Entry, Label, Calendar, TextView
 from gtk import Menu, MenuItem, ItemFactory, AccelGroup
 from gtk import HSeparator, VSeparator, MenuBar
 from gtk import SeparatorMenuItem, RadioMenuItem
-from gtk import TRUE, FALSE, WRAP_WORD
+from gtk import WRAP_WORD
 from gtk import TOOLBAR_TEXT, ORIENTATION_HORIZONTAL
 from gtk import ORIENTATION_VERTICAL
 from gtk import TOOLBAR_CHILD_BUTTON
@@ -16,7 +16,7 @@ a_font = "-adobe-helvetica-medium-r-*-*-*-100-*-*-*-*-iso8859-1"
 class MyCombo(Combo):
     def __init__(self, a_list=[], activate_fun=None):
         Combo.__init__(self)
-        self.set_use_arrows(TRUE)
+        self.set_use_arrows(True)
         if a_list:
             self.fill(a_list)
             self.set("No Value Selected")
@@ -84,10 +84,10 @@ class ItemEntry(HBox):
         HBox.__init__(self)
         self.set_name(name)
         self.label = Label(field)
-        self.pack_start(self.label, FALSE, FALSE, 0)
+        self.pack_start(self.label, False, False, 0)
         self.entry = Entry()
         self.set(str(value))
-        self.pack_end(self.entry, TRUE, TRUE, 0)
+        self.pack_end(self.entry, True, True, 0)
         self.label.show()
         self.entry.show()
         self.show()
