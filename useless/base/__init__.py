@@ -43,6 +43,11 @@ class Error(BaseError):
 class AlreadyExistsError(BaseError):
     pass
 
+class ExistsError(AlreadyExistsError):
+    def __init__(self, *args):
+        deprecated('Use of ExistsError is deprecated use AlreadyExistsError instead')
+        AlreadyExistsError.__init__(self, *args)
+        
 class BaseLookupError(LookupError):
     pass
 

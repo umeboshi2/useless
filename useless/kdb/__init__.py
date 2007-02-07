@@ -11,7 +11,7 @@ from useless.sqlgen.statement import Statement
 from useless.db.lowlevel import BasicConnection
 from useless.db.midlevel import StatementCursor
 
-deprecated('useless.kdb is deprecated')
+deprecated('useless.kdb is deprecated - do not import')
 
 class BaseDriver(QSqlDriver):
     def __init__(self, parent=None, name=None):

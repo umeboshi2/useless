@@ -20,7 +20,7 @@ from kdeui import KComboBox
 #from konsultant.base.config import DefaultSkeleton, KonsultantConfig
 
 from useless import deprecated
-deprecated("useless.kdebase.gui shouldn't be used, it needs splitting up")
+deprecated("useless.kdebase.gui shouldn't be imported, it needs splitting up")
 
 
 class MimeSources(QMimeSourceFactory):

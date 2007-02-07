@@ -17,7 +17,7 @@ from kdeui import KTabWidget, KActionSelector
 from kdeui import KComboBox
 
 from useless import deprecated
-deprecated("useless.kbase.gui shouldn't be used, it needs splitting up")
+deprecated("useless.kbase.gui shouldn't be imported, it needs splitting up")
 
 
 class MimeSources(QMimeSourceFactory):
