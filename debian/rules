@@ -1,33 +1,35 @@
 #!/usr/bin/make -f
 include /usr/share/cdbs/1/rules/debhelper.mk
+DEB_PYTHON_SYSTEM=pysupport
 include /usr/share/cdbs/1/class/python-distutils.mk
 
+prefix=$(CURDIR)/debian/$(cdbs_curpkg)/usr
 install/useless-base::
-	python setup.py base install --prefix=$(CURDIR)/debian/useless-base/usr
+	python setup.py base install --prefix=$(prefix)
 	rm -r build/
 install/useless-sqlgen::
-	python setup.py sqlgen install --prefix=$(CURDIR)/debian/useless-sqlgen/usr
+	python setup.py sqlgen install --prefix=$(prefix)
 	rm -r build/
 install/useless-db::
-	python setup.py db install --prefix=$(CURDIR)/debian/useless-db/usr
+	python setup.py db install --prefix=$(prefix)
 	rm -r build/
 install/useless-gtk::
-	python setup.py gtk install --prefix=$(CURDIR)/debian/useless-gtk/usr
+	python setup.py gtk install --prefix=$(prefix)
 	rm -r build/
 install/useless-kbase::
-	python setup.py kbase install --prefix=$(CURDIR)/debian/useless-kbase/usr
+	python setup.py kbase install --prefix=$(prefix)
 	rm -r build/
 install/useless-kdb::
-	python setup.py kdb install --prefix=$(CURDIR)/debian/useless-kdb/usr
+	python setup.py kdb install --prefix=$(prefix)
 	rm -r build/
 install/useless-xmlgen::
-	python setup.py xmlgen install --prefix=$(CURDIR)/debian/useless-xmlgen/usr
+	python setup.py xmlgen install --prefix=$(prefix)
 	rm -r build/
 install/useless-debian::
-	python setup.py debian install --prefix=$(CURDIR)/debian/useless-debian/usr
+	python setup.py debian install --prefix=$(prefix)
 	rm -r build/
 install/useless-webframe::
-	python setup.py webframe install --prefix=$(CURDIR)/debian/useless-webframe/usr
+	python setup.py webframe install --prefix=$(prefix)
 	rm -r build/
 
 clean::
