@@ -30,7 +30,9 @@ if os.environ.has_key('DEBUG'):
 
 def debug(*something):
     if os.environ.has_key('DEBUG'):
-	syslog.debug(' '.join(map(str, something)))
+        msg = ' '.join(map(str, something))
+        syslog.debug(msg)
+        print msg
 
 class BaseError(StandardError):
     pass

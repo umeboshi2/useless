@@ -155,10 +155,12 @@ class FakeCursor(_Simple):
         try:
             self.__real_cursor__.execute(query, *args)
         except IntegrityError, error:
-            print 'Caught IntegrityError on query', query
+            debug('Caught IntegrityError on query', query)
+            error.query = query
             raise error
         except OperationalError, error:
-            print 'Caught OperationalError on query', query
+            debug('Caught OperationalError on query', query)
+            error.query = query
             raise error
         self.description = self.__real_cursor__.description
 
@@ -213,9 +215,11 @@ class CommandCursor(FakeCursor):
     def max(self, field, table, clause=None):
         self.execute(self.__fselect__('max', field, table, clause=clause))
         return self.fetchall()
+
     def min(self, field, table, clause=None):
         self.execute(self.__fselect__('min', field, table, clause=clause))
         return self.fetchall()
+
     def count(self, field, table, clause=None):
         self.execute(self.__fselect__('count', field, table, clause=clause))
         return self.fetchall()
