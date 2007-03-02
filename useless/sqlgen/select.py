@@ -1,5 +1,5 @@
 from pyPgSQL.libpq import PgQuoteString as quote
-from classes import cj_fields
+from classes import handle_fieldlist
 
 cond_ops = ['=', '<', '>', '<=', '>=', '<>', 'like']
 log_ops = ['and', 'or', 'not']
@@ -68,7 +68,7 @@ class Join(object):
 def simple_select(table=None, columns=None, clause=None):
     if columns is not None:
         if type(columns) != str:
-            cols = cj_fields(list(columns))
+            cols = handle_fieldlist(list(columns))
         else:
             cols = columns
     else:
@@ -84,11 +84,11 @@ def complex_select(table, columns=None, clause=None,
                    group=None, having=None, order=None):
     sel = simple_select(table, columns=columns, clause=clause)
     if group:
-        sel += ' GROUP BY %s' % cj_fields(group)
+        sel += ' GROUP BY %s' % handle_fieldlist(group)
     if having:
         sel += ' HAVING %s' % having
     if order:
-        sel += ' ORDER BY %s' % cj_fields(order)
+        sel += ' ORDER BY %s' % handle_fieldlist(order)
     return sel
 
 if __name__ == '__main__':

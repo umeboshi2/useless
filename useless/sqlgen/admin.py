@@ -1,9 +1,9 @@
 import os
 
-from classes import cj_fields
+from classes import handle_fieldlist
 
 def _change_access(type, privilege, tables, user):
-    tables = cj_fields(tables)
+    tables = handle_fieldlist(tables)
     if type == 'grant':
         return 'GRANT %s on %s to %s' %(privilege, tables, user)
     elif type == 'revoke':

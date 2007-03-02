@@ -1,12 +1,21 @@
 #base classes for create table statements, and where clauses
 from types import NoneType
 
+from useless import deprecated
+
 def cj_fields(fields):
+    deprecated('cj_fields is deprecated use handle_fieldlist instead')
     if type(fields) == list:
         return ', '.join(fields)
     else:
         return fields
 
+def handle_fieldlist(fieldlist):
+    if type(fieldlist) == list:
+        return ', '.join(fieldlist)
+    else:
+        return str(fieldlist)
+    
 class ColumnType(object):
     def __init__(self, type='text', width=None):
         object.__init__(self)
@@ -145,10 +154,10 @@ class Table(object):
         self.columns = columns
 
     def __write__(self):
-        cols = cj_fields(map(str, self.columns))
+        cols = handle_fieldlist(map(str, self.columns))
         constraint = self.__pk_constraint__()
         if constraint:
-            cols = cj_fields([cols, constraint])
+            cols = handle_fieldlist([cols, constraint])
         table = '%s (%s)' % (self.name, cols)
         return table
     
@@ -161,7 +170,7 @@ class Table(object):
             if col.constraint.pk:
                 pkeys.append(col.name)
         if len(pkeys):
-            flist = '(%s)' %cj_fields(pkeys)
+            flist = '(%s)' % handle_fieldlist(pkeys)
             pkey_constraint = 'primary key %s' %flist
             return pkey_constraint
         else:

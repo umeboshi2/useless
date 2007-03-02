@@ -1,11 +1,11 @@
 from pyPgSQL.libpq import PgQuoteString as quote
-from classes import cj_fields
+from classes import handle_fieldlist
 
 
 def _set_eq_(key, value):
     return "%s = %s" %(key, quote(str(value)))
 def _set_vals_(a_dict):
-    return cj_fields([_set_eq_(k,v) for k,v in a_dict.items()])
+    return handle_fieldlist([_set_eq_(k,v) for k,v in a_dict.items()])
 
 #make string key1="val",key2="val"  ...
 def set_values(adict):
@@ -13,7 +13,7 @@ def set_values(adict):
 
 #return a string tuple from list
 def make_tuple(alist):
-    return '(%s)' % cj_fields(alist)
+    return '(%s)' % handle_fieldlist(alist)
 
 #return a list of 2 tuples [key tup, val tup]
 #where val tup is quoted
