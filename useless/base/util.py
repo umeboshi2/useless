@@ -399,11 +399,15 @@ def str2list(data, delim=','):
     """separates a comma joined list of terms."""
     return [x.strip() for x in data.split(delim)]
 
-def excepthook_message(type, value, tracebackobj):
+def traceback_to_string(tracebackobj):
     tbinfofile = strfile()
     traceback.print_tb(tracebackobj, None, tbinfofile)
     tbinfofile.seek(0)
     tbinfo = tbinfofile.read()
+    return tbinfo
+
+def excepthook_message(type, value, tracebackobj):
+    tbinfo = traceback_to_string(tracebackobj)
     separator = '-' * 80
     sections = [str(type), str(value), separator, tbinfo, separator]
     msg = '\n'.join(sections)
