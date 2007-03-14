@@ -761,7 +761,7 @@ class path(_base):
         finally:
             f.close()
 
-    def read_md5(self):
+    def read_md5(self, hexdigest=False):
         """ Calculate the md5 hash for this file.
 
         This reads through the entire file.
@@ -776,7 +776,10 @@ class path(_base):
                 m.update(d)
         finally:
             f.close()
-        return m.digest()
+        if hexdigest:
+            return m.hexdigest()
+        else:
+            return m.digest()
 
     # --- Methods for querying the filesystem.
 

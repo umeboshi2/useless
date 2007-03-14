@@ -97,10 +97,10 @@ class Configuration(ConfigParser):
             data[key] = self[key]
         return data
         
-    def get_dsn(self):
+    def get_dsn(self, fields=['dbname', 'dbhost', 'dbusername', 'dbpassword',
+                              'autocommit']):
         """returns information needed to connect to database"""
-        return self.get_subdict(['dbname', 'dbhost', 'dbusername',
-                                 'dbpassword', 'autocommit'])
+        return self.get_subdict(fields)
     
     def has_key(self, option):
         section = self.section
