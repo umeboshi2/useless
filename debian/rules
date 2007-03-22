@@ -22,6 +22,12 @@ install/useless-kbase::
 install/useless-kdb::
 	python setup.py kdb install --prefix=$(prefix)
 	rm -r build/
+install/useless-kdebase::
+	python setup.py kdebase install --prefix=$(prefix)
+	rm -r build/
+install/useless-kdedb::
+	python setup.py kdedb install --prefix=$(prefix)
+	rm -r build/
 install/useless-xmlgen::
 	python setup.py xmlgen install --prefix=$(prefix)
 	rm -r build/

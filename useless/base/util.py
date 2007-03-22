@@ -4,6 +4,7 @@ from os.path import isfile, isdir, join
 from gzip import GzipFile
 from StringIO import StringIO
 from md5 import md5
+import subprocess
 
 from pipes import Template as PipeTemplate
 import pycurl
@@ -11,6 +12,9 @@ import pycurl
 from useless.base import debug
 
 from defaults import BLOCK_SIZE
+
+class ShellError(OSError):
+    pass
 
 class strfile(StringIO):
     """I don't like the looks of StringIO and prefer
@@ -74,8 +78,19 @@ class RefDict(dict):
             return value
         
 
-    
+def has_error(errorclass):
+    clsname = errorclass.__name__
+    def decorator(fun):
+        setattr(fun, clsname, errorclass)
+        return fun
+    return decorator
 
+
+@has_error(ShellError)
+def shell(cmd):
+    retval = subprocess.call(cmd, shell=True)
+    if retval != 0:
+        raise ShellError, '%s returned %d' % (cmd, retval)
 
 def makepaths_orig(*paths):
     for path in paths:

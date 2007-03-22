@@ -1,3 +1,9 @@
+useless (0.1.9) etch; urgency=low
+
+  * moving to etch
+
+ -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Wed, 21 Mar 2007 21:13:30 -0500
+
 useless (0.1.8) common; urgency=low
 
   * releasing with new webframe package
