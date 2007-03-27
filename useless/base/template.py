@@ -33,10 +33,13 @@ class Template(dict):
     def _replace_function_(self, match):
         left, right = match.span()
         key = self._strip_tag_(self.template[left:right])
-        return self.dereference(key)
-    
+        print 'key is', key
+        #return self.dereference(key)
+        return self[key]
 
     def dereference(self, key):
+        raise RuntimeError, 'Template.dereference should not be called anymore.'
+        print 'in dereference, keys', self.keys()
         value = self[key]
         if value[0] == '$':
             key = value[1:]
@@ -52,7 +55,19 @@ class Template(dict):
         self.template = template
 
     def sub(self):
-        return self.tag.sub(self._replace_function_, self.template)
+        orig = self.template
+        sub = self.tag.sub(self._replace_function_, self.template)
+        count = 0
+        print 'sub', count +1, sub
+        self.template = sub
+        sub = self.tag.sub(self._replace_function_, self.template)
+        while sub != self.template:
+            self.template = sub
+            sub = self.tag.sub(self._replace_function_, self.template)
+            count += 1
+            print '%d extra subs' % count
+        self.template = orig
+        return sub
                 
     def spans(self):
         matches = self.tag.finditer(self.template)
