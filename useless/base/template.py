@@ -58,14 +58,14 @@ class Template(dict):
         orig = self.template
         sub = self.tag.sub(self._replace_function_, self.template)
         count = 0
-        print 'sub', count +1, sub
+        #print 'sub', count +1, sub
         self.template = sub
         sub = self.tag.sub(self._replace_function_, self.template)
         while sub != self.template:
             self.template = sub
             sub = self.tag.sub(self._replace_function_, self.template)
             count += 1
-            print '%d extra subs' % count
+            #print '%d extra subs' % count
         self.template = orig
         return sub
                 

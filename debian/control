@@ -5,32 +5,32 @@ Maintainer: Joseph Rawson <umeboshi@gregscomputerservice.com>
 Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
 Standards-Version: 3.6.1
 
-Package: useless-base
+Package: python-useless-base
 Section: python
 Priority: optional
 Architecture: any
 Depends: python-xml, python-pycurl, ${python:Depends}
-Description: base package for useless packages
- This package contains modules that are used by other useless packages.
+Description: base package for python-useless packages
+ This package contains modules that are used by other python-useless packages.
  In this package are modules for handling config files, and modules for small
  generic functions that can be used elsewhere, but have nowhere else to go.
 
-Package: useless-db
+Package: python-useless-db
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-sqlgen, python-sqlite
+Depends: python-useless-sqlgen, python-sqlite
 Description:  Database access package
  This package is useful for accessing sql databases with a higher level
  wrapper than the standard db2.0 python cursors.  Postgres is currently the
  only database that is supported, although there is limited support for sqlite
  databases.
 
-Package: useless-gtk
+Package: python-useless-gtk
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base, python-gtk2
+Depends: python-useless-base, python-gtk2
 Description: simple gtk gui widgets
  This package contains pygtk widgets.  Some widgets are subclassed 
  from the standard pygtk widgets, while others are composites of multiple 
@@ -41,11 +41,11 @@ Description: simple gtk gui widgets
  that the kde/qt widgets decrease the amount of wrapping/subclassing that 
  I have had to use to keep the codebase short and simple.
 
-Package: useless-sqlgen
+Package: python-useless-sqlgen
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base, python-pgsql
+Depends: python-useless-base, python-pgsql
 Description: sql statement helper
  This package is designed to make it easier to form sql statements by 
  making python objects.  The modules in this package range from being 
@@ -59,46 +59,46 @@ Description: sql statement helper
  used from it.  A pure python replacement function would be required to 
  drop that dependency.
 
-Package: useless-xmlgen
+Package: python-useless-xmlgen
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base
+Depends: python-useless-base
 Description: useless xml generation objects
  these are subclasses of xml.dom.minidom Elements
  and nodes.
 
-Package: useless-kbase
+Package: python-useless-kbase
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base, useless-xmlgen, python-kde3, python-qtext
+Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
 Description: useless kde widgets
  these are simple modules for simple application development.  This
  code is young, and probably really useless.
 
-Package: useless-kdb
+Package: python-useless-kdb
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-kbase, useless-db, libqt3-mt-psql | libqt3c102-mt-psql
+Depends: python-useless-kbase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql
 Description: useless kde database widgets
  these are some very simple hacky db widgets for pykde.  if you are
  interested in this, you can probably find something better somewhere
  else.
 
-Package: useless-webframe
+Package: python-useless-webframe
 Section: python
 Priority: optional
 Architecture: any
-Depends: useless-base, python-cherrypy2.1
+Depends: python-useless-base, python-cherrypy2.1
 Description: useless web application objects
  This package is used to hold common objects that are used in 
  different web applications.  It is hoped that this will be used to
  easily create quick simple applications with this.
 
 
-Package: useless-doc
+Package: python-useless-doc
 Architecture: all
 Description: Documentation for useless
  This is a dummy package that reminding me to write docs for this one day.

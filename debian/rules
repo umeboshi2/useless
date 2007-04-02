@@ -4,37 +4,37 @@ DEB_PYTHON_SYSTEM=pysupport
 include /usr/share/cdbs/1/class/python-distutils.mk
 
 prefix=$(CURDIR)/debian/$(cdbs_curpkg)/usr
-install/useless-base::
+install/python-useless-base::
 	python setup.py base install --prefix=$(prefix)
 	rm -r build/
-install/useless-sqlgen::
+install/python-useless-sqlgen::
 	python setup.py sqlgen install --prefix=$(prefix)
 	rm -r build/
-install/useless-db::
+install/python-useless-db::
 	python setup.py db install --prefix=$(prefix)
 	rm -r build/
-install/useless-gtk::
+install/python-useless-gtk::
 	python setup.py gtk install --prefix=$(prefix)
 	rm -r build/
-install/useless-kbase::
+install/python-useless-kbase::
 	python setup.py kbase install --prefix=$(prefix)
 	rm -r build/
-install/useless-kdb::
+install/python-useless-kdb::
 	python setup.py kdb install --prefix=$(prefix)
 	rm -r build/
-install/useless-kdebase::
+install/python-useless-kdebase::
 	python setup.py kdebase install --prefix=$(prefix)
 	rm -r build/
-install/useless-kdedb::
+install/python-useless-kdedb::
 	python setup.py kdedb install --prefix=$(prefix)
 	rm -r build/
-install/useless-xmlgen::
+install/python-useless-xmlgen::
 	python setup.py xmlgen install --prefix=$(prefix)
 	rm -r build/
-install/useless-debian::
+install/python-useless-debian::
 	python setup.py debian install --prefix=$(prefix)
 	rm -r build/
-install/useless-webframe::
+install/python-useless-webframe::
 	python setup.py webframe install --prefix=$(prefix)
 	rm -r build/
 
