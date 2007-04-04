@@ -77,7 +77,32 @@ Description: useless kde widgets
  these are simple modules for simple application development.  This
  code is young, and probably really useless.
 
+ This package is deprecated, and will be removed one day.  Please use
+ python-useless-kdebase instead.
+
 Package: python-useless-kdb
+Section: python
+Priority: optional
+Architecture: any
+Depends: python-useless-kbase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql
+Description: useless kde database widgets
+ these are some very simple hacky db widgets for pykde.  if you are
+ interested in this, you can probably find something better somewhere
+ else.
+
+ This package is deprecated, and will be removed one day.  Please use
+ python-useless-kdedb instead.
+
+Package: python-useless-kdebase
+Section: python
+Priority: optional
+Architecture: any
+Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
+Description: useless kde widgets
+ these are simple modules for simple application development.  This
+ code is young, and probably really useless.
+
+Package: python-useless-kdedb
 Section: python
 Priority: optional
 Architecture: any
