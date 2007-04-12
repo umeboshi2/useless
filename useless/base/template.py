@@ -33,7 +33,7 @@ class Template(dict):
     def _replace_function_(self, match):
         left, right = match.span()
         key = self._strip_tag_(self.template[left:right])
-        print 'key is', key
+        #print 'key is', key
         #return self.dereference(key)
         return self[key]
 
