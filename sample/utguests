@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+import sys
+
+from kdecore import KCmdLineArgs
+
+from utbase import excepthook
+from utapp import MainApplication, AboutData
+
+from utmainwin import MainWindow
+
+if __name__ == '__main__':
+    aboutData = AboutData()
+    KCmdLineArgs.init(sys.argv, aboutData)
+    #install excepthook here
+    sys.excepthook = excepthook
+
+    app = MainApplication()
+    win = MainWindow(None)
+    win.show()
+
+    app.setMainWidget(win)
+    app.exec_loop()
+    
