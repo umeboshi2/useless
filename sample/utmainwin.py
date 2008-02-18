@@ -30,9 +30,11 @@ class MainWindow(KMainWindow):
         collection = self.actionCollection()
         self.quitAction = KStdAction.quit(self.close, collection)
         self.newGuestAction = KStdAction.openNew(self.slotNewGuest, collection)
-
+        self.selectAllAction = KStdAction.selectAll(self.slotSelectAll,
+                                                    collection)
         mainmenu = KPopupMenu(self)
         self.newGuestAction.plug(mainmenu)
+        self.selectAllAction.plug(mainmenu)
         self.quitAction.plug(mainmenu)
         menubar = self.menuBar()
         menubar.insertItem('&Main', mainmenu)
@@ -69,6 +71,9 @@ class MainWindow(KMainWindow):
         self.new_guest_dialog = win
         win.show()
     
+    def slotSelectAll(self):
+        self.textView.view_all_guests()
+        
     def _new_guest_added(self):
         dlg = self.new_guest_dialog
         if dlg is not None:

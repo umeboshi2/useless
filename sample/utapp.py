@@ -65,7 +65,7 @@ class MainApplication(KApplication):
         self.main_config_dir = self.datadir
         if not os.path.exists(self.datadir):
             os.mkdir(self.datadir)
-        
+
     # This method is currently useless, but may be useful later
     # if some house cleaning needs doing before quitting
     def quit(self):

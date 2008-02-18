@@ -5,7 +5,7 @@ from qt import QLabel, QGridLayout
 from kdeui import KLineEdit, KTextEdit
 from kdeui import KDialogBase
 from kdeui import KPushButton
-
+from kdeui import KStdGuiItem
 
 from utbase import get_application_pointer
 
@@ -62,6 +62,30 @@ class BaseGuestAppearanceFrame(QFrame):
             self.grid.addWidget(widget, row, 0)
             row += 1
 
+    def get_data(self):
+        url = str(self.appearance_url.text())
+        return dict(url=url)
+
+    def set_data(self, data):
+        self.appearance_url.setText(data['url'])
+        
+
+# ha ha picture frame :)
+class BaseGuestPictureFrame(QFrame):
+    def __init__(self, parent, name='BaseGuestPictureFrame'):
+        QFrame.__init__(self, parent, name)
+        margin = 0
+        space = 1
+        self.grid = QGridLayout(self, 2, 2, margin, space)
+        self.picture_lbl = QLabel('Picture', self)
+        self.picture_url = KLineEdit('', self)
+        self.picture_btn = KPushButton(KStdGuiItem.Open(),
+                                       'Browse for picture', self)
+
+        self.grid.addMultiCellWidget(self.picture_lbl, 0, 0, 0, 1)
+        self.grid.addWidget(self.picture_url, 0, 1)
+        self.grid.addWidget(self.picture_btn, 1, 1)
+        
     def get_data(self):
         url = str(self.appearance_url.text())
         return dict(url=url)

@@ -1,5 +1,8 @@
 import os
 import traceback
+import urlparse
+import datetime
+
 from StringIO import StringIO
 
 from qt import SIGNAL, SLOT
@@ -22,6 +25,22 @@ def excepthook(type, value, tracebackobj):
     sections = [separator, errmsg, separator]
     msg = '\n'.join(sections)
     KMessageBox.detailedError(None, msg, tbinfo)
+
+def parse_wtprn_m3u_url(url):
+    utuple = urlparse.urlparse(url)
+    m3u_filename = utuple[2].split('/')[-1]
+    show_date = m3u_filename.split('_')[0]
+    year = int(show_date[:4])
+    month = int(show_date[4:6])
+    day = int(show_date[6:8])
+    date = datetime.date(year, month, day)
+    return date
+
+def make_2hr_wtprn_mp3_urls(m3u_url):
+    h1 = m3u_url[:-4] + '1.mp3'
+    h2 = m3u_url[:-4] + '2.mp3'
+    return h1, h2
+
 
 if __name__ == '__main__':
     print "testing module"

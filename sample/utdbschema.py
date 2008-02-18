@@ -1,6 +1,12 @@
-from useless.sqlgen.classes import Table, Column
+from useless.sqlgen.classes import Table, Column, ColumnType
 from useless.sqlgen.defaults import Text, Name, Bigname
 from useless.sqlgen.defaults import PkNum, Num, NUM
+from useless.sqlgen.defaults import DateTime
+
+DATE = ColumnType('date')
+    
+def Date(name):
+    return Column(name, DATE)
 
 class AutoId(Column):
     def __init__(self, colname):
@@ -14,7 +20,7 @@ class AutoId(Column):
         col = '%s' % self.name
         col += ' INTEGER AUTOINCREMENT'
         return col
-        
+
 class GuestTable(Table):
     def __init__(self):
         idcol = AutoId('guestid')
@@ -47,15 +53,31 @@ class GuestAppearances(Table):
     def __init__(self):
         idcol = Num('guestid')
         url = Bigname('url')
-        cols = [idcol, url]
+        showdate = Date('showdate')
+        cols = [idcol, showdate, url]
         Table.__init__(self, 'appearances', cols)
         
+class AllPictures(Table):
+    def __init__(self):
+        idcol = AutoId('pixnum')
+        fname = Bigname('filename')
+        cols = [idcol, fname]
+        Table.__init__(self, 'all_pictures', cols)
 
+class GuestPictures(Table):
+    def __init__(self):
+        pixnum = PkNum('pixnum')
+        guestid = PkNum('guestid')
+        cols = [pixnum, guestid]
+        Table.__init__(self, 'guest_pictures', cols)
+        
 def generate_schema(cursor):
     cursor.create_table(GuestTable())
     cursor.create_table(WorksTable())
     cursor.create_table(GuestWorks())
     cursor.create_table(GuestAppearances())
+    cursor.create_table(AllPictures())
+    cursor.create_table(GuestPictures())
     
     
 if __name__ == '__main__':
