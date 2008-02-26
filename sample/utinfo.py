@@ -15,7 +15,8 @@ from kio import KIO
 from useless.base.util import md5sum
 
 from utbase import get_application_pointer
-from utbase import make_2hr_wtprn_mp3_urls
+#from utbase import make_2hr_wtprn_mp3_urls
+from utbase import make_2hr_wtprn_mp3_urls_test as make_2hr_wtprn_mp3_urls
 from utdoc import InfoDoc
 from utdoc import AllGuestsDoc
 
@@ -128,33 +129,96 @@ class InfoPart(KHTMLPart):
             self.connect(win, SIGNAL('okClicked()'), self.add_new_appearance)
             self.new_appearance_dlg = win
         elif action == 'play':
-            dcop = self.app.dcopClient()
-            iface = DCOPObj('kaffeine', dcop, 'KaffeineIface')
-            hr1_url, hr2_url = make_2hr_wtprn_mp3_urls(ident)
+            mp3info = self._make_mp3_info(ident)
+            self._current_mp3info = mp3info
+            #hr1_url, hr2_url = make_2hr_wtprn_mp3_urls(url)
+            self._jobcount = 0
+            self._grab_mp3_files_from_wtprn(mp3info)
+            if self._jobcount == 0:
+                self._play_in_kaffeine(mp3info)
+            
+            
+                
+        else:
+            KMessageBox.error(self.dialog_parent, 'unknown action %s' % action)
+
+    # url here is the .m3u url from wtprn
+    def _make_mp3_info(self, url):
+            hr1_url, hr2_url = make_2hr_wtprn_mp3_urls(url)
             hr1_filename = hr1_url.split('/')[-1]
             hr2_filename = hr2_url.split('/')[-1]
             datadir = self.app.datadir
             hr1 = os.path.join(datadir, hr1_filename)
             hr2 = os.path.join(datadir, hr2_filename)
-            if not os.path.exists(hr1):
-                kl = KURL.List()
-                kl.append(KURL(hr1_url))
-                KIO.copy(kl, KURL('file://%s' % hr1))
-            if not os.path.exists(hr2):
-                kl = KURL.List()
-                kl.append(KURL(hr2_url))
-                KIO.copy(kl, KURL('file://%s' % hr2))
-                
-            ok, void = iface.openURL(hr1)
-            print ok, void, hr1
-            ok, void = iface.appendURL(hr2)
-            print ok, void, hr2
-            
-            #KMessageBox.information(self.dialog_parent,
-            #                        'play with kaffeine')
+            data = dict(hr1=hr1, hr1_url=hr1_url,
+                        hr2=hr2, hr2_url=hr2_url)
+            return data
+        
+    # mp3info here is the dict returned from self._make_mp3_info
+    def _grab_mp3_files_from_wtprn(self, mp3info):
+        hr1_url, hr1 = mp3info['hr1_url'], mp3info['hr1']
+        hr2_url, hr2 = mp3info['hr2_url'], mp3info['hr2']
+        if not os.path.exists(hr1):
+            self._make_job('hr1', mp3info)
         else:
-            KMessageBox.error(self.dialog_parent, 'unknown action %s' % action)
-
+            if not os.path.exists(hr2):
+                self._make_job('hr2', mp3info)
+        
+    def _make_job(self, currenthour, mp3info):
+        if not os.path.exists(mp3info[currenthour]):
+            key = '%s_url' % currenthour
+            url = mp3info[key]
+            kl = KURL.List()
+            kl.append(KURL(url))
+            job = KIO.copy(kl, KURL('file://%s' % mp3info[currenthour]))
+            self._jobcount += 1
+            self.connect(job, SIGNAL('result(KIO::Job *)'), self._handle_job)
+            job.addMetaData(mp3info)
+            job.mergeMetaData(dict(currenthour='currenthour'))
+            self._currenthour = currenthour
+        
+    def _handle_job(self, job):
+        self._jobcount -= 1
+        mp3info = self._current_mp3info
+        if self._currenthour == 'hr1':
+            if not os.path.exists(mp3info['hr2']):
+                self._make_job('hr2', mp3info)
+            else:
+                self._play_in_kaffeine(mp3info)
+        elif self._currenthour == 'hr2':
+            self._play_in_kaffeine(mp3info)
+        else:
+            print "currenthour", currenthour
+            KMessageBox.error(self.dialog_parent,
+                              "Unable to handle currenthour %s" % currenthour)
+        
+    # mp3info here is the dict returned from self._make_mp3_info
+    def _grab_mp3_files_from_wtprn_orig(self, mp3info):
+        if not os.path.exists(hr1):
+            kl = KURL.List()
+            kl.append(KURL(hr1_url))
+            job1 = KIO.copy(kl, KURL('file://%s' % hr1))
+        if not os.path.exists(hr2):
+            kl = KURL.List()
+            kl.append(KURL(hr2_url))
+            job2 = KIO.copy(kl, KURL('file://%s' % hr2))
+            
+    def _play_in_kaffeine(self, mp3info):
+        self._jobcount = 0
+        hr1 = mp3info['hr1']
+        hr2 = mp3info['hr2']
+        dcop = self.app.dcopClient()
+        iface = DCOPObj('kaffeine', dcop, 'KaffeineIface')
+        kaffeine_error = "Unable to add %s to kaffeine playlist"
+        ok, void = iface.openURL(hr1)
+        if not ok:
+            KMessageBox.error(self.dialog_parent, kaffeine_error % hr1)
+        ok, void = iface.appendURL(hr2)
+        if not ok:
+            KMessageBox.error(self.dialog_parent, kaffeine_error % hr2)
+        if not ok:
+            os.system('kaffeine')
+        
     def _perform_picture_action(self, action, guestid):
         if action == 'new':
             win = KFileDialog('', '', self.dialog_parent,

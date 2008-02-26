@@ -41,6 +41,12 @@ def make_2hr_wtprn_mp3_urls(m3u_url):
     h2 = m3u_url[:-4] + '2.mp3'
     return h1, h2
 
+def make_2hr_wtprn_mp3_urls_test(m3u_url):
+    m3u_filename = m3u_url.split('/')[-1]
+    testurl = 'http://localhost/utguests/%s' % m3u_filename
+    return make_2hr_wtprn_mp3_urls(testurl)
+
+    
 
 if __name__ == '__main__':
     print "testing module"

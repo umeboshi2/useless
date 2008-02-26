@@ -5,6 +5,7 @@ from useless.db.midlevel import StatementCursor
 
 from useless.sqlgen.clause import Eq
 
+from utbase import parse_wtprn_m3u_url
 from utdbschema import generate_schema
 
 DOUBLE_BS = '\\'
@@ -94,9 +95,11 @@ class Guests(object):
         clause = Eq('guestid', guestid)
         return cursor.select(table=table, clause=clause, order=['url'])
 
+    # the url here is the .m3u url from wtrpn archives page
     def insert_new_appearance(self, guestid, url):
         cursor = self.conn.stmtcursor()
-        data = dict(guestid=guestid, url=url)
+        showdate = parse_wtprn_m3u_url(url)
+        data = dict(guestid=guestid, showdate=showdate, url=url)
         cursor.insert('appearances', data)
         
 

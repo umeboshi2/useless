@@ -3,6 +3,9 @@ from qt import SIGNAL
 
 from kdeui import KMainWindow
 from kdeui import KListView
+from kdeui import KStdAction
+from kdeui import KPopupMenu
+
 
 from error import MethodNotImplementedError
 

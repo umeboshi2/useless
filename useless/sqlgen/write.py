@@ -1,9 +1,10 @@
 from pyPgSQL.libpq import PgQuoteString as quote
 from classes import handle_fieldlist
 
-
+# This function uses quote
 def _set_eq_(key, value):
     return "%s = %s" %(key, quote(str(value)))
+
 def _set_vals_(a_dict):
     return handle_fieldlist([_set_eq_(k,v) for k,v in a_dict.items()])
 
@@ -17,6 +18,7 @@ def make_tuple(alist):
 
 #return a list of 2 tuples [key tup, val tup]
 #where val tup is quoted
+# This function uses quote
 def tuplize_dict(adict):
     klist, vlist = [], []
     for k,v in adict.items():
@@ -47,6 +49,7 @@ def update(table, adict, clause=None):
     return query
 
 #insert into table (keys) values (values) from adict
+# This function uses quote
 def insert(table, adict):
     if type(adict) in [list, tuple]:
         vals = make_tuple(map(quote, map(str, adict)))
