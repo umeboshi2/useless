@@ -1,5 +1,5 @@
 Source: useless
-Section: unknown
+Section: python
 Priority: optional
 Maintainer: Joseph Rawson <umeboshi@gregscomputerservice.com>
 Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
@@ -70,7 +70,7 @@ Description: useless xml generation objects
 
 Package: python-useless-kbase
 Section: python
-Priority: optional
+Priority: extra
 Architecture: any
 Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
 Description: useless kde widgets
@@ -81,7 +81,7 @@ Description: useless kde widgets
 
 Package: python-useless-kdb
 Section: python
-Priority: optional
+Priority: extra
 Architecture: any
 Depends: python-useless-kbase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql
 Description: useless kde database widgets
@@ -122,6 +122,8 @@ Description: useless web application objects
 
 
 Package: python-useless-doc
+Section: doc
+Priority: optional
 Architecture: all
 Description: Documentation for useless
  This is a dummy package that reminding me to write docs for this one day.
