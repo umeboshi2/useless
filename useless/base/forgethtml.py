@@ -288,7 +288,8 @@ class Inline(Flow):
 class Text(Inline):
     """Special class for plain text"""
     tag = ''
-
+    _rawtext = False
+    
     def _define_allowed(self):
         return []
 
@@ -316,19 +317,25 @@ class Text(Inline):
         
     def output(self, indent=0):
         result = ''
-        for line in self._content:
-            # we need to properly escape the text to keep
-            # from clobbering the html
-            # took these two lines straight from
-            # xml.dom.minidom._write_data
-            line = line.replace("&", "&amp;").replace("<", "&lt;")
-            line = line.replace("\"", "&quot;").replace(">", "&gt;")
-            result = result + indention * indent + str(line) + '\n'
-            # Question: What would be the right thing to do here?
-            # Is it acceptable to allow several entries in self._content?
-            # Shoult they be seperated by ' ', '\n' or '' in output? 
-        return result
+        if self._rawtext:
+            return ''.join(self._content)
+        else:
+            for line in self._content:
+                # we need to properly escape the text to keep
+                # from clobbering the html
+                # took these two lines straight from
+                # xml.dom.minidom._write_data
+                line = line.replace("&", "&amp;").replace("<", "&lt;")
+                line = line.replace("\"", "&quot;").replace(">", "&gt;")
+                result = result + indention * indent + str(line) + '\n'
+                # Question: What would be the right thing to do here?
+                # Is it acceptable to allow several entries in self._content?
+                # Shoult they be seperated by ' ', '\n' or '' in output? 
+            return result
 
+    def set_rawtext(self, raw):
+        self._rawtext = raw
+        
 class List(Block):
     
     def _define_allowed(self):

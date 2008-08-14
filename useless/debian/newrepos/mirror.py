@@ -1,6 +1,7 @@
 import os
 from os.path import join, split, isfile
 from os.path import isdir, basename, dirname
+import subprocess
 from xmlrpclib import ServerProxy, SafeTransport
 
 from paella.base.config import Configuration
@@ -31,7 +32,8 @@ class DebRepos(object):
         
     def extract_packages(self, packages, path):
         makepaths(path)
-        os.system('rm %s/* -fr' %path)
+        gpath = '%s/*' % path
+        subprocess.call(['rm', gpath, '-fr'])
         print 'extracting ', ', '.join(packages)
         print 'current_suite', self.current_suite
         for package in packages:

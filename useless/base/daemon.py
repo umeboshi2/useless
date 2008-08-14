@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # much of the code below was cut and pasted from:
 # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/66012
 '''
@@ -25,6 +25,7 @@
 '''
 import sys, os, time
 from signal import SIGTERM
+from errno import ESRCH
 
 def daemonize(stdout='/dev/null', stderr=None, stdin='/dev/null',
               pidfile=None, startmsg = 'started with pid %s' ):
@@ -98,8 +99,12 @@ def startstop(stdout='/dev/null', stderr=None, stdin='/dev/null',
                    os.kill(pid,SIGTERM)
                    time.sleep(1)
             except OSError, err:
-               err = str(err)
-               if err.find("No such process") > 0:
+               #err = str(err)
+               #if err.find("No such process") > 0:
+               # use ESRCH from errno to match the
+               # error instead of depending on 
+               # "No such process" message
+               if err.errno == ESRCH:
                    os.remove(pidfile)
                    if 'stop' == action:
                        sys.exit(0)

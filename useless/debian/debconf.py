@@ -1,6 +1,6 @@
 import os
 import rfc822
-
+import subprocess
 
 from apt_pkg import ParseTagFile
 
@@ -64,10 +64,13 @@ def backup_debconf_section(package, filename, run=True):
     driver = _copt('Driver', 'File')
     dbfile = _copt('FileName', filename)
     cmd = 'debconf-copydb configdb backup --owner-pattern=' % package
-    opts = ' '.join([dbname, driver, dbfile])
-    cmd = ' '.join([cmd, opts])
+    #opts = ' '.join([dbname, driver, dbfile])
+    #cmd = ' '.join([cmd, opts])
+    cmd = ['debconf-copydb', 'configdb', 'backup', '--owner-pattern=%s' % pattern]
+    cmd += [dbname, driver, dbfile]
     if run:
-        os.system(cmd)
+        #os.system(cmd)
+        subprocess.call(cmd)
     else:
         return cmd
 
@@ -75,11 +78,14 @@ def restore_debconf_section(package, filename, run=True):
     dbname = _copt('Name', 'backup')
     driver = _copt('Driver', 'File')
     dbfile = _copt('FileName', filename)
-    cmd = 'debconf-copydb backup configdb --owner-pattern=' % package
-    opts = ' '.join([dbname, driver, dbfile])
-    cmd = ' '.join([cmd, opts])
+    cmd = ['debconf-copydb', 'backup', 'configdb', '--owner-pattern=%s' % pattern]
+    #cmd = 'debconf-copydb backup configdb --owner-pattern=' % package
+    #opts = ' '.join([dbname, driver, dbfile])
+    #cmd = ' '.join([cmd, opts])
+    cmd += [dbname, driver, dbfile]
     if run:
-        os.system(cmd)
+        #os.system(cmd)
+        subprocess.call(cmd)
     else:
         return cmd
 

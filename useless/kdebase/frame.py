@@ -5,14 +5,14 @@ from qt import QLabel
 from kdeui import KPushButton
 from kdeui import KLineEdit
 
-# This is a class that is good for dialog windows
-# that display records.
-# fields is an ordered list of fields
-# the fields will be displayed in rows
-# record can either be a dictionary
-# or a database row (with dict access)
-
 class BaseRecordFrame(QFrame):
+    """This is a class that is good for dialog windows
+    that display records.
+    fields is an ordered list of fields
+    the fields will be displayed in rows
+    record can either be a dictionary
+    or a database row (with dict access)
+    """
     def __init__(self, parent, fields, text=None,
                  record=None, name='BaseRecordFrame'):
         QFrame.__init__(self, parent, name)
@@ -71,6 +71,8 @@ class BaseRecordFrame(QFrame):
         self.grid.addMultiCellWidget(self.text_label, 0, 0, 0, 1)
 
     def getRecordData(self):
+        """Returns a dictionary of the fields and entries.
+        All values will be python strings."""
         entry_items = self.entries.items()
         record_data = {}
         for key, entry in entry_items:
@@ -78,10 +80,13 @@ class BaseRecordFrame(QFrame):
         return record_data
 
     def setRecordData(self, record_data):
+        """This member sets the entries according to the
+        dictionary that is passed to it."""
         for field, value in record_data.items():
             self.entries[field].setText(value)
 
     def setText(self, text):
+        """Sets the text of the main label."""
         self.text_label.setText(text)
         
     

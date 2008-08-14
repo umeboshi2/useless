@@ -6,24 +6,29 @@ from kdeui import KListView
 from kdeui import KStdAction
 from kdeui import KPopupMenu
 
+from base import get_application_pointer
+from base import HasDialogs
 
 from error import MethodNotImplementedError
 
-class BaseMainWindow(KMainWindow):
+# This is the base KMainWindow class for applications using useless.
+# Includes self.app, and dialog handling members.
+class BaseMainWindow(KMainWindow, HasDialogs):
     def __init__(self, parent, name='BaseMainWindow'):
         KMainWindow.__init__(self, parent, name)
-    
-    def initActions(self):
-        raise MethodNotImplementedError(self, 'initActions not implemented in base class')
+        HasDialogs.__init__(self)
+        self.app = get_application_pointer()
 
-    def initMenus(self):
-        raise MethodNotImplementedError(self, 'initMenus not implemented in base class')
-
-    def initToolbar(self):
-        raise MethodNotImplementedError(self, 'initMenus not implemented in base class')
-    
-
+# This is a simple main window for applications
+# Includes helpers to add actions, a menu and a toolbar
+# This is very simple class
 class SimpleMainWindow(BaseMainWindow):
+    def __init__(self, parent, name='SimpleMainWindow'):
+        BaseMainWindow.__init__(self, parent, name=name)
+        self.initActions()
+        self.initMenus()
+        self.initToolbar()
+        
     # in subclass at end of initActions call
     # SimpleMainWindow.initActions(self, collection)
     # to automatically add the quitAction
@@ -43,6 +48,9 @@ class SimpleMainWindow(BaseMainWindow):
         self.menuBar().insertItem('&Main', mainmenu)
         self.menuBar().insertItem('&Help', self.helpMenu(''))
     
+    def initToolbar(self):
+        raise MethodNotImplementedError(self, 'initToolbar not implemented in base class')
+
 class BaseSplitWindow(BaseMainWindow):
     def __init__(self, parent, view, listview=None, name='BaseSplitWIndow'):
         BaseMainWindow.__init__(self, parent, name=name)

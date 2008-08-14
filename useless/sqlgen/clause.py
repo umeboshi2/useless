@@ -1,5 +1,5 @@
 from operator import and_, or_
-from pyPgSQL.libpq import PgQuoteString as quote
+from quote import quote
 
 
 cond_op = ['=', '<', '>', '<=', '>=', '<>']

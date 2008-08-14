@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 class PgPoolConfig(object):
     def __init__(self, cfg, tmpdir):
@@ -38,12 +39,15 @@ class PgPool(object):
         self.pidfile = self.cfg.pidfile
         
     def run(self):
-        cmd = '%s -f %s' % (self.cmd, self.conf)
+        #cmd = '%s -f %s' % (self.cmd, self.conf)
+        cmd = [self.cmd, '-f', self.conf]
         print cmd
-        os.system(cmd)
+        #os.system(cmd)
+        subprocess.call(cmd)
 
     def stop(self):
-        os.system('%s -f %s stop' % (self.cmd, self.conf))
+        #os.system('%s -f %s stop' % (self.cmd, self.conf))
+        subprocess.call([self.cmd, '-f', self.conf, 'stop'])
         
         
         

@@ -3,8 +3,8 @@ from qt import SIGNAL
 
 from kdeui import KListView
 
-# I use the listbox on the left and textbrowser on the right an awful lot.
 class BaseManagerWidget(QSplitter):
+    """I use the listbox on the left and textbrowser on the right an awful lot."""
     def __init__(self, parent, mainview, listview=None, name='BaseManagerWidget'):
         QSplitter.__init__(self, parent, name)
         if listview is None:

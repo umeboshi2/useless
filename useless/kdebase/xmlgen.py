@@ -1,3 +1,6 @@
+from useless import deprecated
+deprecated('useless.kdebase.xmlgen is deprecated')
+
 from xml.dom.minidom import Element, Text
 
 class BaseElement(Element):

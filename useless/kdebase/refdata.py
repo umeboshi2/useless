@@ -2,11 +2,12 @@ from useless.sqlgen.classes import ColumnType, Column, Table
 from useless.sqlgen.statement import Statement
 from useless.sqlgen.clause import Eq, In, NotIn
 
-#refcols is a  name, idcol paired dictionary
-#refdata[name] is a dictionary of id, record pairs
-#  where id is from idcol in refcols
-#refobject[name] is the object that handles the corresponding refdata
 class RefData(object):
+    """refcols is a  name, idcol paired dictionary
+    refdata[name] is a dictionary of id, record pairs
+      where id is from idcol in refcols
+    refobject[name] is the object that handles the corresponding refdata
+    """
     def __init__(self, refcols):
         object.__init__(self)
         self.cols = refcols

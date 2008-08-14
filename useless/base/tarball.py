@@ -1,6 +1,7 @@
 import os
 from os.path import join, isdir, basename
 import tempfile
+import subprocess
 from tarfile import TarFile, open
 
 from util import makepaths
@@ -49,8 +50,7 @@ class RootTarball(TarFile):
     
     def __del__(self):
         if self.tmpdir is not None:
-            os.system('rm %s -fr' % self.tmpdir)
-
+            subprocess.call(['rm', self.tmpdir, '-fr'])
     
 if __name__ == '__main__':
     r = RootTarball('/mirrors/bkups/sid.base.tar')

@@ -1,3 +1,6 @@
+"""
+Some default variables that can be used in many programs.
+"""
 
 DELIMITERS = {
     'pipeq' : ['|=-', '-=|'],
@@ -27,6 +30,7 @@ MB = 1048576
 
 GB = 1024*MB
 
+BYTE_UNITS = ['b', 'Kb', 'Mb', 'Gb', 'Tb']
 
 
 folder_closed_xpm = [

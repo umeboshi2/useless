@@ -1,4 +1,4 @@
-from pyPgSQL.libpq import PgQuoteString as quote
+from quote import quote
 from classes import handle_fieldlist
 
 # This function uses quote
