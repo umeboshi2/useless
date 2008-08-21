@@ -1,8 +1,8 @@
 Source: useless
 Section: python
 Priority: optional
-Maintainer: Joseph Rawson <umeboshi@gregscomputerservice.com>
-Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
+Maintainer: Joseph Rawson <umeboshi3@gmail.com>
+Build-Depends: debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
 Standards-Version: 3.6.1
 
 Package: python-useless-base
@@ -10,6 +10,8 @@ Section: python
 Priority: optional
 Architecture: any
 Depends: python-xml, python-pycurl, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: base package for python-useless packages
  This package contains modules that are used by other python-useless packages.
  In this package are modules for handling config files, and modules for small
@@ -19,7 +21,9 @@ Package: python-useless-db
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-sqlgen, python-sqlite
+Depends: python-useless-sqlgen, python-sqlite, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description:  Database access package
  This package is useful for accessing sql databases with a higher level
  wrapper than the standard db2.0 python cursors.  Postgres is currently the
@@ -30,7 +34,9 @@ Package: python-useless-gtk
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base, python-gtk2
+Depends: python-useless-base, python-gtk2, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: simple gtk gui widgets
  This package contains pygtk widgets.  Some widgets are subclassed 
  from the standard pygtk widgets, while others are composites of multiple 
@@ -45,7 +51,9 @@ Package: python-useless-sqlgen
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base, python-pgsql
+Depends: python-useless-base, python-pgsql, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: sql statement helper
  This package is designed to make it easier to form sql statements by 
  making python objects.  The modules in this package range from being 
@@ -63,7 +71,9 @@ Package: python-useless-xmlgen
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base
+Depends: python-useless-base, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless xml generation objects
  these are subclasses of xml.dom.minidom Elements
  and nodes.
@@ -72,7 +82,9 @@ Package: python-useless-kbase
 Section: python
 Priority: extra
 Architecture: any
-Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
+Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless kde widgets
  these are simple modules for simple application development.  This
  code is young, and probably really useless.
@@ -83,7 +95,9 @@ Package: python-useless-kdb
 Section: python
 Priority: extra
 Architecture: any
-Depends: python-useless-kbase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql
+Depends: python-useless-kbase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless kde database widgets
  these are some very simple hacky db widgets for pykde.  if you are
  interested in this, you can probably find something better somewhere
@@ -95,7 +109,9 @@ Package: python-useless-kdebase
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
+Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless kde widgets
  these are simple modules for simple application development.  This
  code is young, and probably really useless.
@@ -104,7 +120,9 @@ Package: python-useless-kdedb
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-kdebase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql
+Depends: python-useless-kdebase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless kde database widgets
  these are some very simple hacky db widgets for pykde.  if you are
  interested in this, you can probably find something better somewhere
@@ -114,7 +132,9 @@ Package: python-useless-webframe
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base, python-cherrypy2.1
+Depends: python-useless-base, python-cherrypy2.1, ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: useless web application objects
  This package is used to hold common objects that are used in 
  different web applications.  It is hoped that this will be used to

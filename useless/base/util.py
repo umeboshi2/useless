@@ -6,6 +6,7 @@ from StringIO import StringIO
 from md5 import md5
 import subprocess
 import urlparse
+import tempfile
 
 from pipes import Template as PipeTemplate
 import pycurl
@@ -32,6 +33,41 @@ class Pkdictrows(dict):
     def __init__(self, rows, keyfield):
         dict.__init__(self, [(x[keyfield], x) for x in rows])
 
+
+class Gpg(object):
+    def __init__(self):
+        self.directory = path(tempfile.mkdtemp('gpg'))
+        self.keyring = self.directory / 'keyring'
+        self.cmdbase = ['gpg', '--no-default-keyring', '--keyring', self.keyring]
+
+    def __del__(self):
+        self.directory.rmtree()
+        
+    def importkey(self, keydata):
+        cmd = self.cmdbase + ['--import']
+        prefix = 'gpg: key '
+        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        proc.stdin.write(keydata)
+        proc.stdin.close()
+        retval = proc.wait()
+        lines = []
+        errorlines = []
+        for line in proc.stderr:
+            errorlines.append(line)
+            if line.startswith(prefix):
+                lines.append(line)
+        error = ''.join(errorlines)
+        if len(lines) != 1:
+            print "gpg returned an unexpected error:"
+            print error
+            raise RuntimeError, "gpg returned an unexpected error"
+        if retval:
+            raise RuntimeError, "gpg returned %d\n%s" % (retval, error)
+        line = lines[0]
+        keyid = line.split(prefix)[1].split(':')[0]
+        return keyid
+    
 class Mount(dict):
     """A Mount is a very special dictionary that contains
     information about a line in /etc/fstab, it will be
@@ -383,8 +419,12 @@ def ismounted(mtpnt):
 def runlog(command, destroylog=False,
            keeprunning=False, logvar='LOGFILE'):
     """This function will run a command and write all
-    output to a logfile.
+    output to a logfile.  This function is likely
+    to be deprecated.  It was only called from paella,
+    and now paella has it's own runlog function.
     """
+    from useless import deprecated
+    deprecated("runlog is deprecated")
     logfile = os.environ[logvar]
     if isfile(logfile) and destroylog:
         os.remove(logfile)

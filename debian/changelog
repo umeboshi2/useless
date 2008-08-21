@@ -1,8 +1,9 @@
-useless (0.1.9) etch; urgency=low
+useless (0.1.9) unstable; urgency=low
 
   * moving to etch
+  * moving to unstable
 
- -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Wed, 21 Mar 2007 21:13:30 -0500
+ -- Joseph Rawson <umeboshi3@gmail.com>  Fri, 15 Aug 2008 13:33:41 -0500
 
 useless (0.1.8) common; urgency=low
 

@@ -117,7 +117,9 @@ class Configuration(ConfigParser):
 
     def get_list(self, option, section=None, delim=','):
         """This method is useful for getting a comma separated
-        list of values from a config option.
+        list of values from a config option.  Please note
+        that the option comes before the section in the
+        arguments.
         """
         if section is None:
             section = self.section
@@ -129,6 +131,9 @@ class Configuration(ConfigParser):
         else:
             return vlist
 
+    def getlist(self, section, option, delim=','):
+        return self.get_list(option, section=section, delim=delim)
+    
     def is_it_true(self, section, option):
         """Simple true/false yes/no parsing."""
         return self.getboolean(section, option)
