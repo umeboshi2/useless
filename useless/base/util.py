@@ -105,7 +105,23 @@ class RefDict(dict):
     '$foo'
     >>> d.dereference('key1')
     'bar'
-    >>> """
+    >>>
+    
+    If the value needs to start with a '$',
+    then it needs to be stored in the dictionary
+    as $$foo, 
+    >>> d = RefDict(key1='$$foo')
+    >>> d['key1']
+    '$$foo'
+    >>> d.dereference('key1')
+    '$foo'
+    >>>
+
+    This class was used in paella, but paella
+    now uses it's template system for referring
+    to other keys.  This class is probably obsolete
+    at the moment.
+    """
     def dereference(self, key):
         value = self[key]
         if value[0] == '$':
