@@ -3,7 +3,14 @@ from classes import handle_fieldlist
 
 # This function uses quote
 def _set_eq_(key, value):
-    return "%s = %s" %(key, quote(str(value)))
+    if value is None:
+        return '%s = NULL' % key
+    elif type(value) in [int, long]:
+        return '%s = %d' % (key, value)
+    elif type(value) is float:
+        return '%s = %f' % (key, value)
+    else:
+        return "%s = %s" %(key, quote(str(value)))
 
 def _set_vals_(a_dict):
     return handle_fieldlist([_set_eq_(k,v) for k,v in a_dict.items()])

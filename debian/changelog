@@ -1,3 +1,9 @@
+useless (0.1.11) unstable; urgency=low
+
+  * bugfix, insert and update NULL values instead of "None" strings
+
+ -- Joseph Rawson <umeboshi3@gmail.com>  Mon, 15 Sep 2008 09:24:57 -0500
+
 useless (0.1.10) unstable; urgency=low
 
   * added simple gpg interface to useless.base.util
