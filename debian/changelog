@@ -148,7 +148,7 @@ useless (0.1-2) common; urgency=low
 
 useless (0.1-1) unstable; urgency=low
 
-  * Initial release Closes: #nnnn  (nnnn is the bug number of your ITP)
+  * Initial release
 
  -- Joseph Rawson <umeboshi@gregscomputerservice.com>  Tue, 24 May 2005 00:04:03 -0500
 
