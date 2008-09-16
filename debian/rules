@@ -16,12 +16,6 @@ install/python-useless-db::
 install/python-useless-gtk::
 	python setup.py gtk install --prefix=$(prefix)
 	rm -r build/
-install/python-useless-kbase::
-	python setup.py kbase install --prefix=$(prefix)
-	rm -r build/
-install/python-useless-kdb::
-	python setup.py kdb install --prefix=$(prefix)
-	rm -r build/
 install/python-useless-kdebase::
 	python setup.py kdebase install --prefix=$(prefix)
 	rm -r build/
