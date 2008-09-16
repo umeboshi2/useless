@@ -1,0 +1,10 @@
+Document: useless
+Title: Useless API Documentation
+Author: Joseph Rawson
+Abstract:  This is the API documentation for the useless
+	Python package.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/useless-doc/html/index.html
+Files: /usr/share/doc/useless-doc/html/*

@@ -13,9 +13,6 @@ install/python-useless-sqlgen::
 install/python-useless-db::
 	python setup.py db install --prefix=$(prefix)
 	rm -r build/
-install/python-useless-gtk::
-	python setup.py gtk install --prefix=$(prefix)
-	rm -r build/
 install/python-useless-kdebase::
 	python setup.py kdebase install --prefix=$(prefix)
 	rm -r build/
@@ -31,8 +28,15 @@ install/python-useless-debian::
 install/python-useless-webframe::
 	python setup.py webframe install --prefix=$(prefix)
 	rm -r build/
+build-docs: build-docs-stamp
+build-docs-stamp:
+	epydoc useless
+	touch build-docs-stamp
+build/useless-doc:: build-docs
 
 clean::
 	dh_clean `find -path *.pyc`
 	dh_clean `find -path *~`
+	rm html -fr
 	dh_clean configure-stamp
+	dh_clean build-docs-stamp

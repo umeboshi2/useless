@@ -2,7 +2,7 @@ Source: useless
 Section: python
 Priority: optional
 Maintainer: Joseph Rawson <umeboshi3@gmail.com>
-Build-Depends: debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
+Build-Depends: debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev, python-epydoc
 Standards-Version: 3.8.0
 
 Package: python-useless-base
@@ -27,22 +27,6 @@ Description:  Database access package
  wrapper than the standard db2.0 python cursors.  Postgres is currently the
  only database that is supported, although there is limited support for sqlite
  databases.
-
-Package: python-useless-gtk
-Section: python
-Priority: optional
-Architecture: any
-Depends: python-useless-base, python-gtk2, ${python:Depends}
-Provides: ${python:Provides}
-Description: simple gtk gui widgets
- This package contains pygtk widgets.  Some widgets are subclassed 
- from the standard pygtk widgets, while others are composites of multiple 
- gtk widgets that are classed to work like one big widget.  The goal was 
- to decrease the amount of writing for commonly used widgets that are 
- used in various applications.  This package will fall out of maintenence 
- and be deprecated one day in favor of the kde/qt widgets.  I have found 
- that the kde/qt widgets decrease the amount of wrapping/subclassing that 
- I have had to use to keep the codebase short and simple.
 
 Package: python-useless-sqlgen
 Section: python
@@ -106,10 +90,11 @@ Description: useless web application objects
  easily create quick simple applications with this.
 
 
-Package: python-useless-doc
+Package: useless-doc
 Section: doc
 Priority: optional
 Architecture: all
+Depends: doc-base
 Description: Documentation for useless
  This is a dummy package that reminding me to write docs for this one day.
 
