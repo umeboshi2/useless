@@ -1,3 +1,9 @@
+useless (0.1.12) unstable; urgency=low
+
+  * nothing really new, just got rid of old code, and added apidocs
+
+ -- Joseph Rawson <umeboshi3@gmail.com>  Tue, 16 Sep 2008 10:55:16 -0500
+
 useless (0.1.11) unstable; urgency=low
 
   * bugfix, insert and update NULL values instead of "None" strings
