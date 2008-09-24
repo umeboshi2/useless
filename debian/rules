@@ -22,9 +22,6 @@ install/python-useless-kdedb::
 install/python-useless-debian::
 	python setup.py debian install --prefix=$(prefix)
 	rm -r build/
-install/python-useless-webframe::
-	python setup.py webframe install --prefix=$(prefix)
-	rm -r build/
 build-docs: build-docs-stamp
 build-docs-stamp:
 	epydoc useless

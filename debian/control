@@ -68,18 +68,6 @@ Description: useless kde database widgets
  interested in this, you can probably find something better somewhere
  else.
 
-Package: python-useless-webframe
-Section: python
-Priority: optional
-Architecture: any
-Depends: python-useless-base, python-cherrypy2.1, ${python:Depends}
-Provides: ${python:Provides}
-Description: useless web application objects
- This package is used to hold common objects that are used in 
- different web applications.  It is hoped that this will be used to
- easily create quick simple applications with this.
-
-
 Package: useless-doc
 Section: doc
 Priority: optional
