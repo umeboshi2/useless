@@ -1,3 +1,9 @@
+useless (0.1.16) unstable; urgency=low
+
+  * update regex to scan for colons in templates
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Wed, 24 Sep 2008 17:19:24 -0500
+
 useless (0.1.15) unstable; urgency=low
 
   * removing some more unused modules from kdedb
@@ -12,7 +18,6 @@ useless (0.1.14) unstable; urgency=low
 
 useless (0.1.13) unstable; urgency=low
 
-  * Non-maintainer upload.
   * added sep argument to Environment class, shouldn't have
   been using the '_' in the first place.  I will probably be using
   the ':' in the future in paella.

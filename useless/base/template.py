@@ -11,7 +11,7 @@ class Tag(object):
     def __init__(self, delimiters=DELIMITERS['out-arrows']):
         object.__init__(self)
         left, right = map(re.escape, delimiters)
-        pattern = '%s[\w_]+%s' % (left, right)
+        pattern = '%s[\w_:]+%s' % (left, right)
         self.re_object = re.compile(pattern)
 
     def __getattr__(self, name, *args):
