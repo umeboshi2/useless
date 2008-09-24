@@ -1,3 +1,6 @@
+# while this code isn't being used, I'm
+# going to keep this around, as it might be
+# useful in the future.
 
 def get_oid_from_relname(relname):
     statement = """SELECT c.oid, n.nspname, c.relname

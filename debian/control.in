@@ -59,20 +59,11 @@ Description: sql statement helper
  used from it.  A pure python replacement function would be required to 
  drop that dependency.
 
-Package: python-useless-xmlgen
-Section: python
-Priority: optional
-Architecture: any
-Depends: python-useless-base
-Description: useless xml generation objects
- these are subclasses of xml.dom.minidom Elements
- and nodes.
-
 Package: python-useless-kbase
 Section: python
 Priority: optional
 Architecture: any
-Depends: python-useless-base, python-useless-xmlgen, python-kde3, python-qtext
+Depends: python-useless-base, python-kde3, python-qtext
 Description: useless kde widgets
  these are simple modules for simple application development.  This
  code is young, and probably really useless.

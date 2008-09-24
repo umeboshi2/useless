@@ -1,5 +1,12 @@
 import os
 import md5, base64
+# This isn't being used anymore, but I'm keeping it until
+# I can find something else that will do what I need it to.
+
+# Easy configuring of ldap has come a long way since
+# this code was written, so it's very likely that I will find
+# something more useful.
+
 
 #this needs to go into another module to keep deps clean
 #import ldap

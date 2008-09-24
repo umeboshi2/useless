@@ -19,9 +19,6 @@ install/python-useless-kdebase::
 install/python-useless-kdedb::
 	python setup.py kdedb install --prefix=$(prefix)
 	rm -r build/
-install/python-useless-xmlgen::
-	python setup.py xmlgen install --prefix=$(prefix)
-	rm -r build/
 install/python-useless-debian::
 	python setup.py debian install --prefix=$(prefix)
 	rm -r build/

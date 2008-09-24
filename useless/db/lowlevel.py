@@ -48,30 +48,6 @@ class BasicConnection(Connection):
     def removefile(self, oid):
         self.conn.lo_unlink(oid)
 
-class BaseConnection(BasicConnection):
-    """BaseConnection is deprecated.
-
-    use BasicConnection instead.
-    """
-    pass
-
-
-class QuickConn(BasicConnection):
-    def __init__(self, cfg=None):
-        if cfg is None:
-            raise RuntimeError, 'need config now'
-        user = cfg['dbusername']
-        host = cfg['dbhost']
-        dbname = cfg['dbname']
-        passwd = cfg['dbpassword']
-        autocommit = 0
-        if cfg['autocommit'] == 'true':
-            autocommit = 1
-        BasicConnection.__init__(self, user=user, host=host,
-                                dbname=dbname, passwd=passwd)
-        self.autocommit = autocommit
-
-
 class _Simple(object):
     def fields(self, table):
         query = 'select * from %s where NULL' % table

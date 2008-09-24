@@ -198,20 +198,3 @@ class ParserHelper(object):
         return element.getAttribute(attribute).encode()
             
         
-if __name__ == '__main__':
-    from useless.base.config import Configuration
-    from useless.db.lowlevel import QuickConn
-    from useless.db.midlevel import TableDict
-    conn = QuickConn(g)
-    e = TableDict(conn, 'woody_variables')
-    
-    x = XmlDoc()
-    x.hello = x.insert(x.doc, 'hello')
-    t = TextElement('person', 'hank')
-    td = dict(foo='bar', a='a', b='sdf', dd='val')
-    
-    d = DictElement('foodict', e)
-    rows = e.cursor.select()
-    ss = parse_string(d.toxml())
-    
-    

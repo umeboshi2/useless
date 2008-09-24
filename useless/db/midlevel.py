@@ -172,66 +172,6 @@ class _TableDict(object):
     def __repr__(self):
         return str(dict(self.items()))
     
-class TableDict(_TableDict):
-    def __getitem__(self, key):
-        rows = self.cursor.select(fields=[self.__value_field__],
-                                  clause=self._single_clause_(key))
-        if len(rows) == 1:
-            return rows[0][self.__value_field__]
-        else:
-            msg = 'duplicate rows in TableDict for key %s' % key
-            raise KeyError, msg
-
-    def __setitem__(self, key, value):
-        if key in self.keys():
-            self.cursor.update(data={self.__value_field__ : value},
-                               clause=self._single_clause_(key))
-        else:
-            self.cursor.insert(data={self.__key_field__ : key,
-                                     self.__value_field__ : value})
-
-    def __delitem__(self, key):
-        self.cursor.delete(clause=self._single_clause_(key))
-
-
-    
-    def _single_clause_(self, key):
-        return '%s = %s' % (self.__key_field__, quote(key))
-
-class TableRowDict(_TableDict):
-    def __init__(self, conn, table, key):
-        _TableDict.__init__(self, conn, table, key_field=key)
-
-    def __getitem__(self, key):
-        rows = self.cursor.select(clause=self._single_clause_(key))
-        if len(rows) == 1:
-            return rows[0]
-        else:
-            msg = 'duplicate rows in TableRowDict for key %s' % key
-            raise KeyError, msg
-
-    def __setitem__(self, key, value):
-        if key in self.keys():
-            self.cursor.update(data=value,
-                               clause=self._single_clause_(key))
-        else:
-            self.cursor.insert(data=value)
-
-    def __delitem__(self, key):
-        self.cursor.delete(clause=self._single_clause_(key))
-
-    def keys(self):
-        rows = self.cursor.select(fields=[self.__key_field__],
-                                  order=self.__key_field__)
-        return [r[self.__key_field__] for r in rows]
-
-    def values(self):
-        return self.cursor.select(order=self.__key_field__)
-    
-    def _single_clause_(self, key):
-        return '%s = %s' % (self.__key_field__, quote(key))
-
-
 class BaseEnvironment(_TableDict):
     def __getitem__(self, key):
         rows = self.cursor.select(fields=[self.__value_field__],
@@ -279,16 +219,19 @@ class BaseEnvironment(_TableDict):
     def _double_clause_(self, key):
         return '%s and %s = %s' %(self._single_clause_(), self.__key_field__, quote(key))
 
-    def _make_superdict_(self, clause):
+    def _make_superdict(self, clause, sep='_'):
         superdict = {}
         field = self.__main_field__
         mains = [r[field] for r in self.cursor.select(fields=[field], clause=clause)]
         for m in mains:
             self.set_main(m)
-            items = [(m + '_' + key, value) for key, value in self.items()]
+            items = [(m + sep + key, value) for key, value in self.items()]
             superdict.update(dict(items))
         return superdict
-        
+
+    def make_superdict(self, clause, sep='_'):
+        return self._make_superdict(clause, sep=sep)
+    
 class Environment(BaseEnvironment):
     def __init__(self, conn, table, main_field,
                  key_field='name', value_field='value'):
@@ -397,10 +340,4 @@ class SimpleRelation(object):
         self.cmd.insert(data=insert_data)
         
     
-
-if __name__ == '__main__':
-    from lowlevel import QuickConn
-    c = QuickConn()
-    e = Environment(c, 'woody_variables', 'trait', 'name', 'value')
-    cc = StatementCursor(c)
 

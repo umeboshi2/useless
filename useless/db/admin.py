@@ -10,16 +10,22 @@ from useless.base.objects import Parser
 
 from useless.sqlgen.statement import Statement
 
-from lowlevel import QuickConn
+from lowlevel import BasicConnection
 from midlevel import StatementCursor
 
 def dquote(string):
     return '"%s"' %string
 
 class AdminConnection(object):
-    def __init__(self, cfg, dbname):
+    """This isn't being used anymore.  It's been updated to use
+    the BasicConnection class, but it's probably going to be
+    transferred to another object one day, or removed
+    completely."""
+    def __init__(self, user=None, host=None, dbname=None, passwd=None,
+                 port=5432):
         object.__init__(self)
-        self.conn = QuickConn(cfg)
+        self.conn = BasicConnection(user=user, host=host, dbname=dbname,
+                                    passwd=passwd, port=port)
         self.cursor = StatementCursor(self.conn, name='AdminConnection')
         self.stmt = Statement('select')
         self.dbname = dbname

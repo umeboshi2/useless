@@ -3,6 +3,14 @@ from pyPgSQL.PgSQL import Connection, Cursor, PgLargeObject
 from pyPgSQL.PgSQL import PgResultSet, make_PgResultSetClass
 from pyPgSQL.libpq import IntegrityError, OperationalError
 
+#####################################
+# This module is still being used by konsultant
+# although konsultant is probably broken due
+# to the changes in the useless kde modules.
+# Konsultant is fairly low on the priority list, but
+# I will probably update it one day.
+#####################################
+
 class Record(PgResultSet):
     def __init__(self, value, desc):
         PgResultSet._desc_ = desc
@@ -11,16 +19,6 @@ class Record(PgResultSet):
             self._xlatkey[desc[column][0]] = column
         PgResultSet.__init__(self, value)
         
-class RefRecordOrig(PgResultSet):
-    def __init__(self, record, refdata):
-        PgResultSet._desc_ = record._desc_
-        PgResultSet._xlatkey = {}
-        PgResultSet._refdata = refdata
-        desc = record._desc_
-        for column in range(len(desc)):
-            self._xlatkey[desc[column][0]] = column
-        PgResultSet.__init__(self, record.baseObj)
-
 def RefRecord(record, refdata):
     record.__dict__['_refdata'] = refdata
     return record

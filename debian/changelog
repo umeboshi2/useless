@@ -1,3 +1,15 @@
+useless (0.1.13) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * added sep argument to Environment class, shouldn't have
+  been using the '_' in the first place.  I will probably be using
+  the ':' in the future in paella.
+  * performed another massive cleanup of old code
+  * removing the xmlgen package, as it's not being used anymore
+  
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Wed, 24 Sep 2008 15:28:28 -0500
+
 useless (0.1.12) unstable; urgency=low
 
   * nothing really new, just got rid of old code, and added apidocs
