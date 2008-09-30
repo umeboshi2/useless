@@ -2,7 +2,7 @@ Source: useless
 Section: python
 Priority: optional
 Maintainer: Joseph Rawson <umeboshi3@gmail.com>
-Build-Depends: debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev
+Build-Depends: debhelper (>= 4.2.0), debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-all-dev (>= 2.3.5-11), python-support (>= 0.3.2), python-dev, python-epydoc
 Standards-Version: 3.8.0
 
 Package: python-useless-base
@@ -67,4 +67,12 @@ Description: useless kde database widgets
  these are some very simple hacky db widgets for pykde.  if you are
  interested in this, you can probably find something better somewhere
  else.
+
+Package: useless-doc
+Section: doc
+Priority: optional
+Architecture: all
+Depends: doc-base
+Description: Documentation for useless
+ This is a dummy package that reminding me to write docs for this one day.
 
