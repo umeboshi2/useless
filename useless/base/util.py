@@ -1,12 +1,12 @@
 import os, sys
 import traceback
-#from os.path import isfile, isdir, join
 from gzip import GzipFile
 from StringIO import StringIO
 from md5 import md5
 import subprocess
 import urlparse
 import tempfile
+import random
 
 from pipes import Template as PipeTemplate
 import pycurl
@@ -16,6 +16,7 @@ from useless.base import debug
 from path import path
 
 from defaults import BLOCK_SIZE, BYTE_UNITS
+from defaults import PASSWDCHARS
 
 
 class ShellError(OSError):
@@ -571,6 +572,58 @@ def format_bytes(bytes, format='%2.1f', split=True):
         return value, unit
     else:
         return '%s %s' % (value, unit)
+
+def make_random_passwd(length=8, choices=None):
+    "make random passwords"
+    if choices is None:
+        choices = PASSWDCHARS
+    myrange = range(length + 1)
+    passwd = ''
+    while myrange.pop():
+        passwd += random.choice(choices)
+    return passwd
+
+def make_debian_passwd(plaintext=None, salt=None):
+    """This will make a password suitable for debian login.
+    This will only work if you are using the default md5
+    passwords.  The choices for the salt may not be correct.
+    If this function is called without arguments, a random
+    password will be generated, and the plaintext will be
+    returned, along with the encrypted password.  Passing
+    a plaintext argument will just return the encrypted
+    password.
+    """
+    return_plaintext = False
+    if plaintext is None:
+        plaintext = make_random_passwd()
+        return_plaintext = True
+    # it's possible that '$' should be added
+    # to salt_choices, but I'm not really sure.
+    # The reason that we don't already have
+    # The extra characters in the PASSWDCHARS,
+    # is because we don't want users to have to
+    # remember and use the funny characters (the
+    # random string of alpanumeric characters is
+    # hard enough).
+    salt_choices = PASSWDCHARS + './'
+    if salt is None:
+        salt = make_random_passwd(choices=salt_choices)
+    cmd = ['mkpasswd', '--salt=%s' % salt, '--method=md5',
+           '--stdin']
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    proc.stdin.write('%s\n' % plaintext)
+    retval = proc.wait()
+    if retval:
+        raise RuntimeError , 'mkpasswd returned %d' % retval
+    passwd = proc.stdout.read()
+    # strip the newline from the end
+    passwd = passwd.strip()
+    if return_plaintext:
+        return plaintext, passwd
+    else:
+        return passwd
+
+
     
 if __name__ == '__main__':
     print 'hello'

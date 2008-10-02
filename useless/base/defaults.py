@@ -1,6 +1,10 @@
+from string import ascii_letters, digits
+
 """
 Some default variables that can be used in many programs.
 """
+
+PASSWDCHARS =  ascii_letters + digits
 
 DELIMITERS = {
     'pipeq' : ['|=-', '-=|'],
