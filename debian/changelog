@@ -1,3 +1,9 @@
+useless (0.1.17) unstable; urgency=low
+
+  * new public release
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Sat, 18 Oct 2008 08:59:43 -0500
+
 useless (0.1.16) unstable; urgency=low
 
   * update regex to scan for colons in templates
