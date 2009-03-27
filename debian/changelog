@@ -1,3 +1,9 @@
+useless (0.1.18) unstable; urgency=low
+
+  * fix arch=all instead of any in debian/control
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Fri, 27 Mar 2009 05:41:35 -0500
+
 useless (0.1.17) unstable; urgency=low
 
   * new public release

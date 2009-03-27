@@ -8,7 +8,7 @@ Standards-Version: 3.8.0
 Package: python-useless-base
 Section: python
 Priority: optional
-Architecture: any
+Architecture: all
 Depends: python-xml, python-pycurl, ${python:Depends}
 Provides: ${python:Provides}
 Description: base package for python-useless packages
@@ -19,7 +19,7 @@ Description: base package for python-useless packages
 Package: python-useless-db
 Section: python
 Priority: optional
-Architecture: any
+Architecture: all
 Depends: python-useless-sqlgen, python-sqlite, ${python:Depends}
 Provides: ${python:Provides}
 Description:  Database access package
@@ -31,7 +31,7 @@ Description:  Database access package
 Package: python-useless-sqlgen
 Section: python
 Priority: optional
-Architecture: any
+Architecture: all
 Depends: python-useless-base, python-pgsql, ${python:Depends}
 Provides: ${python:Provides}
 Description: sql statement helper
@@ -50,7 +50,7 @@ Description: sql statement helper
 Package: python-useless-kdebase
 Section: python
 Priority: optional
-Architecture: any
+Architecture: all
 Depends: python-useless-base, python-kde3, python-qtext, ${python:Depends}
 Provides: ${python:Provides}
 Description: useless kde widgets
@@ -60,7 +60,7 @@ Description: useless kde widgets
 Package: python-useless-kdedb
 Section: python
 Priority: optional
-Architecture: any
+Architecture: all
 Depends: python-useless-kdebase, python-useless-db, libqt3-mt-psql | libqt3c102-mt-psql, ${python:Depends}
 Provides: ${python:Provides}
 Description: useless kde database widgets
