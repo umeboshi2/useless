@@ -1,8 +1,9 @@
 useless (0.1.18) unstable; urgency=low
 
   * fix arch=all instead of any in debian/control
+  * remove build of useless-docs package
 
- -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Fri, 27 Mar 2009 05:41:35 -0500
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Wed, 22 Apr 2009 21:20:29 -0500
 
 useless (0.1.17) unstable; urgency=low
 
