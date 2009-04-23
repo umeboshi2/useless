@@ -1,3 +1,12 @@
+useless (0.1.19) unstable; urgency=low
+
+  * refer to common lgpl in debian/copyright
+  * capitalize python/kde/pykde in description to make lintian happy
+  * remove debian/useless.doc-base.EX
+  * lintian is now happy :)
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Wed, 22 Apr 2009 21:49:55 -0500
+
 useless (0.1.18) unstable; urgency=low
 
   * fix arch=all instead of any in debian/control
