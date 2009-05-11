@@ -1,3 +1,9 @@
+useless (0.2.0) unstable; urgency=low
+
+  * New Release
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Sat, 09 May 2009 14:01:29 -0500
+
 useless (0.1.19) unstable; urgency=low
 
   * refer to common lgpl in debian/copyright
