@@ -1,3 +1,13 @@
+useless (0.2.1) unstable; urgency=low
+
+  * start fixing things for squeeze
+  * added upkg stuff to help package software for windows, etc.
+  * added logrotate module to base
+  * start using hashlib since md5 module is deprecated (not completely
+    done yet).
+
+ -- Joseph Rawson (new email) <umeboshi3@gmail.com>  Sun, 28 Nov 2010 17:44:47 -0600
+
 useless (0.2.0) unstable; urgency=low
 
   * New Release

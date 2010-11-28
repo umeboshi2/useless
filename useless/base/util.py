@@ -624,6 +624,24 @@ def make_debian_passwd(plaintext=None, salt=None):
         return passwd
 
 
+def pipeline(*commands, **kw):
+    orig_stdout = None
+    if 'stdout' in kw:
+        orig_stdout = kw['stdout']
+    kw['stdout'] = subprocess.PIPE
+    # link all commands together except the last one
+    for command in commands[:-1]:
+        proc = subprocess.Popen(command, **kw)
+        # do this after to keep the stdin of the first command
+        # and link stdout of the next command to stdin of the previous
+        kw['stdin'] = proc.stdout
+
+    # restore original stdout
+    kw['stdout'] = orig_stdout
+    last_command = commands[-1]
+    last_proc = subprocess.Popen(last_command, **kw)
+    return last_proc
+
     
 if __name__ == '__main__':
     print 'hello'

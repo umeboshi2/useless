@@ -1,8 +1,12 @@
 from xml.dom.minidom import DOMImplementation, Document
 from xml.dom.minidom import Element, Text
-from xml.dom.ext import PrettyPrint
+#from xml.dom.ext import PrettyPrint
 from xml.dom.minidom import parse as parse_file
 from xml.dom.minidom import parseString as parse_string
+
+from lxml.etree import tostring as etree_to_string
+from lxml.etree import fromstring as etree_from_string
+
 
 from useless.base import debug
 from useless.base.util import strfile
@@ -12,6 +16,13 @@ from useless.base.util import strfile
 #    def writexml(self, file, indent='\t', newl='\n', addindent='\t'):
 #        _Element.writexml(self, file, indent=indent, newl=newl,
 #                          addindent=addindent)
+    
+
+def PrettyPrint(element, fileobj):
+    contents = element.toxml()
+    lxml_element = etree_from_string(contents)
+    lxml_contents = etree_to_string(lxml_element)
+    fileobj.write(lxml_contents)
     
 
 class TextElement(Element):

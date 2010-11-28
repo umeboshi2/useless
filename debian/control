@@ -9,7 +9,7 @@ Package: python-useless-base
 Section: python
 Priority: optional
 Architecture: all
-Depends: python-xml, python-pycurl, ${python:Depends}
+Depends: python-lxml, python-pycurl, ${python:Depends}
 Provides: ${python:Provides}
 Description: base package for python-useless packages
  This package contains modules that are used by other python-useless packages.
