@@ -2,7 +2,7 @@ import os, sys
 import traceback
 from gzip import GzipFile
 from StringIO import StringIO
-from md5 import md5
+import hashlib
 import subprocess
 import urlparse
 import tempfile
@@ -206,7 +206,7 @@ def wget(url, directory='.'):
 def md5sum(afile):
     """returns the standard md5sum hexdigest
     for a file object"""
-    m = md5()
+    m = hashlib.md5()
     block = afile.read(BLOCK_SIZE)
     while block:
         m.update(block)
