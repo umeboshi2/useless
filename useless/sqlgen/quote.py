@@ -17,7 +17,7 @@ import os
 # or cursor object
 
 from pyPgSQL.libpq import PgQuoteString
-from sqlite.main import _quote as sqlite_quote
+#from sqlite3.main import _quote as sqlite_quote
 # here we make a basic quote function
 def quote(text):
     return "'%s'" % text
@@ -26,7 +26,7 @@ pg_quote = PgQuoteString
 backend_key = '_USELESS_DB_BACKEND'
 if os.environ.has_key(backend_key):
     if os.environ[backend_key] == 'sqlite':
-        quote = sqlite_quote
+        raise RuntimeError, "sqlite not supported anymore"
     else:
         quote = pg_quote
 else:

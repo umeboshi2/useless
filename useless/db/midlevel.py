@@ -1,4 +1,3 @@
-from sets import Set
 from operator import and_
 from pyPgSQL.libpq import PgQuoteString as quote
 from pyPgSQL.libpq import OperationalError
@@ -325,8 +324,8 @@ class SimpleRelation(object):
         self.reset_clause()
 
     def diff(self, field, values):
-        current_values = Set([x[field] for x in self.cmd.select()])
-        diff = list(Set(values) - current_values)
+        current_values = set([x[field] for x in self.cmd.select()])
+        diff = list(set(values) - current_values)
         return diff
     
     def insert(self, field, values):

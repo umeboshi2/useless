@@ -245,8 +245,31 @@ class Link(HeadStuff):
 class NonIndentMixin:
     
     def output(self, indent=0):
+        # override indent
         indent = -999
-        return Element.output(self, indent)
+        self._check_abstract()
+        result = indention * indent + '<' + self.tag
+        # Each attribute in the form key="value"
+        count = -1
+        for (attribute,value) in self.attributes.items():
+            count += 1
+            if(not count % 2 and count): # Not the first time!
+                result = result + '\n' + indention * indent + ' ' * (len(self.tag) + 1)
+            result = result + ' %s="%s"' % (attribute,value)
+        if(not self._content):
+            result = result + ' />\n' # No content!
+        else:
+            # if content, no newline after tag
+            print 'writing NonIndentMixin', self._content
+            result = result + '>'
+            for element in self._content:
+                result = result + element.output(indent=0) # increased indent level
+                # end tag
+            result = result + indention * indent + '</' + self.tag + '>\n'
+        #return Element.output(self, indent)
+        return result
+        
+        
 
 # <link href="/stylesheet.css" rel="stylesheet" type="text/css" />
 
@@ -289,7 +312,7 @@ class Text(Inline):
     """Special class for plain text"""
     tag = ''
     _rawtext = False
-    
+
     def _define_allowed(self):
         return []
 
@@ -329,8 +352,10 @@ class Text(Inline):
                 line = line.replace("\"", "&quot;").replace(">", "&gt;")
                 result = result + indention * indent + str(line) + '\n'
                 # Question: What would be the right thing to do here?
-                # Is it acceptable to allow several entries in self._content?
-                # Shoult they be seperated by ' ', '\n' or '' in output? 
+                # Is it acceptable to allow several entries in
+                # self._content?
+                # Shoult they be seperated by ' ', '\n'
+                # or '' in output? 
             return result
 
     def set_rawtext(self, raw):
@@ -514,7 +539,9 @@ class Hidden(Input):
 
 class Textarea(Inline, NonIndentMixin):
     tag = 'textarea'
-
+    def output(self, indent=0):
+        return NonIndentMixin.output(self, indent=indent)
+        
 
 class Label(Inline):
     tag = 'label'
@@ -577,7 +604,7 @@ class SimpleForm(Form):
     def __init__(self, **kwargs):
         Form.__init__(self, **kwargs)
 
-    def addText(self, id, description=None, value=None):
+    def _addInput(self, inputclass, id, description=None, value=None, **args):
         """Adds a textfield, optionallly with a label."""
         div = Division()
         self.append(div)
@@ -586,10 +613,16 @@ class SimpleForm(Form):
             label['for'] = id
             div.append(label)
         if(value):
-            div.append(Textfield(id=id, name=id, value=value))
+            div.append(inputclass(id=id, name=id, value=value, **args))
         else:    
-            div.append(Textfield(id=id, name=id))
+            div.append(inputclass(id=id, name=id, **args))
 
+    def addText(self, id, description=None, value=None, **args):
+        self._addInput(Textfield, id, description=description, value=value, **args)
+
+    def addTextarea(self, id, description=None, value=None, **args):
+        self._addInput(Textarea, id, description=description, value=value, **args)
+        
     def addChoices(self, id, choices, description=None, 
                    default=None):
         """Adds a selection box for the given choices.

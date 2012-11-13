@@ -3,8 +3,8 @@ from pyPgSQL import PgSQL
 from pyPgSQL.PgSQL import Connection, Cursor, PgLargeObject
 from pyPgSQL.libpq import IntegrityError, OperationalError
 
-from sqlite.main import Connection as Connection_lite
-from sqlite.main import Cursor as Cursor_lite
+from sqlite3 import Connection as Connection_lite
+from sqlite3 import Cursor as Cursor_lite
 
 from useless.base import debug, AlreadyExistsError
 from useless.base.util import Pkdictrows
