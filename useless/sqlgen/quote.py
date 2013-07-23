@@ -16,13 +16,18 @@ import os
 # In the future, it may be better to instantiate each sqlgen class from a connection
 # or cursor object
 
-from pyPgSQL.libpq import PgQuoteString
+#from pyPgSQL.libpq import PgQuoteString
+from psycopg2.extensions import adapt
+
 #from sqlite3.main import _quote as sqlite_quote
 # here we make a basic quote function
 def quote(text):
     return "'%s'" % text
 
-pg_quote = PgQuoteString
+#pg_quote = PgQuoteString
+def pg_quote(*args):
+    return str(adapt(*args))
+
 backend_key = '_USELESS_DB_BACKEND'
 if os.environ.has_key(backend_key):
     if os.environ[backend_key] == 'sqlite':

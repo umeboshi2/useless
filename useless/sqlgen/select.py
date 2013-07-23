@@ -1,4 +1,5 @@
-from pyPgSQL.libpq import PgQuoteString as quote
+#from pyPgSQL.libpq import PgQuoteString as quote
+from useless.sqlgen.quote import quote
 from classes import handle_fieldlist
 
 cond_ops = ['=', '<', '>', '<=', '>=', '<>', 'like']

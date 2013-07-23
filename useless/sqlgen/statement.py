@@ -1,6 +1,6 @@
-from write import delete, update, insert
-from select import simple_select, complex_select
-from clause import SimpleClause, In, NotIn
+from useless.sqlgen.write import delete, update, insert
+from useless.sqlgen.select import simple_select, complex_select
+from useless.sqlgen.clause import SimpleClause, In, NotIn
 
 write_types = ['delete', 'update', 'insert']
 

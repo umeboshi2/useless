@@ -32,7 +32,7 @@ Package: python-useless-sqlgen
 Section: python
 Priority: optional
 Architecture: all
-Depends: python-useless-base, python-pgsql, ${python:Depends}
+Depends: python-useless-base, python-psycopg2, ${python:Depends}
 Provides: ${python:Provides}
 Description: sql statement helper
  This package is designed to make it easier to form sql statements by 
