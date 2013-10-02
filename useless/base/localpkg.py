@@ -34,7 +34,8 @@ def get_package_content(package, package_site):
 
 def get_package(package, checksum, package_site, package_directory,
                 hashtype=hashtype):
-    hasher = hashlib.new(hashtype)
+    #hasher = hashlib.new(hashtype)
+    hasher = hashtype()
     filename = os.path.join(package_directory, package)
     url = os.path.join(package_site, package)
     content = requests.get(url).content
@@ -52,6 +53,8 @@ def get_packages(package_site, package_directory, hashtype=hashtype):
         checksum = cmap[package]
         filename = os.path.join(package_directory, package)
         download = True
+        if not os.path.isdir(package_directory):
+            os.mkdir(package_directory)
         if os.path.isfile(filename):
             hasher = hashlib.new(hashtype)
             hasher.update(file(filename).read())
